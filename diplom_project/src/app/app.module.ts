@@ -8,7 +8,7 @@ import { ProductsPageComponent } from './pages/products-page/products-page.compo
 import { BasketPageComponent } from './pages/basket-page/basket-page.component';
 import { NewsPageComponent } from './pages/news-page/news-page.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
-
+import { CompanyPageComponent } from './pages/company-page/company-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,11 +16,13 @@ import { RegistrationPageComponent } from './pages/registration-page/registratio
     ProductsPageComponent,
     BasketPageComponent,
     NewsPageComponent,
-    RegistrationPageComponent
+    RegistrationPageComponent,
+    CompanyPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

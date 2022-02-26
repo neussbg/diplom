@@ -1,1 +1,31 @@
-<p>news-page works!</p>
+<div class="navigation">
+    <div class="navigation-img">
+        <img src="assets/img/logo.svg">
+    </div>
+    <div class="navigation-links">
+        <div class="nav-el"
+        (click)="openMain()">
+        <span>Главная</span>
+        </div>
+        <div class="nav-el"
+        (click)="openCompany()">
+        <span>О компании</span>
+    </div>
+    <div class="nav-el"
+    (click)="openProducts()">
+    <a class="nav-link nav-el" id="navbarDropdownMenuLink" 
+    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+       Услуги
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Конциционеры</a></li>
+        <li><a class="dropdown-item" href="#">Установка</a></li>
+        <li><a class="dropdown-item" href="#">Ремонт</a></li>
+      </ul>
+        </div>
+        <div class="nav-el"
+        (click)="openBasket()">
+        <span>Корзина</span>
+    </div>
+    </div>
+</div>

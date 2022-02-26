@@ -1,0 +1,32 @@
+
+.navigation {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.navigation-links {
+    display: flex;
+    font-size: 20px;
+    font-family: Roboto-medium;
+}
+
+.nav-el {
+    margin-right: 100px;
+    
+    &:last-child{
+        margin: 0;
+    }
+
+    &:hover{
+       color: #04109f;
+       cursor: pointer;
+    }
+}
+.nav-link{
+    color: black;
+    display: initial;
+    margin: 0 !important;
+}
+

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news-page',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
+  }
+
+
+
+  openBasket(){
+    this.route.navigateByUrl('/basket')
+  }
+
+
+  openProducts(){
+    this.route.navigateByUrl('/products')
+  }
+
+  openMain(){
+    this.route.navigateByUrl('/main')
+  }
+
+  openCompany(){
+    this.route.navigateByUrl('/company')
   }
 
 }

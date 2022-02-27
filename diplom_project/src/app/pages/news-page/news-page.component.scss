@@ -1,32 +1,74 @@
+@import '../../../styles/variables.scss';
 
 .navigation {
-    color: rgb(0, 0, 0);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+   padding: 18px 122px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+  align-items: center;
+  border-bottom: 1px solid rgb(151, 150, 150);
 }
 
 .navigation-links {
-    display: flex;
-    font-size: 20px;
-    font-family: Roboto-medium;
+  display: flex;
+  font-family: Roboto-medium;
 }
-
 .nav-el {
-    margin-right: 100px;
-    
-    &:last-child{
-        margin: 0;
-    }
+  margin-right: 24px;
+  cursor: pointer;
 
-    &:hover{
-       color: #04109f;
-       cursor: pointer;
-    }
-}
-.nav-link{
-    color: black;
-    display: initial;
-    margin: 0 !important;
+  &:last-child {
+    margin: 0;
+  }
+
+  &__text:hover{
+    cursor: pointer;
+    border-bottom: 2px solid #FF8A00;
+  }
 }
 
+.search {
+    width: 230px;
+}
+
+.-visible {
+    color: red;
+    display: none;
+}
+
+.search-box{
+    display: flex;
+        width: 100%;
+    height: 100%;
+}
+
+.search-input{
+    // width: 100%;
+    // height: 100%;
+    border: 0.5px solid;
+    border-radius: 16px;
+    margin-right: 4px;
+}
+
+.info-block{
+    display: flex;
+
+    &__el{
+        cursor: pointer;
+        margin-right: 20px;
+    }
+    &__el:last-child{
+        margin: 0 ;
+    }
+
+    &__el:hover{
+        color: $main-color;
+
+        // ::ng-deep .fill-color{
+        //     fill: #FF8A00;
+        //     color: #FF8A00;
+        // }
+    }
+}

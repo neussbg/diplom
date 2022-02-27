@@ -1,31 +1,51 @@
 <div class="navigation">
-    <div class="navigation-img">
-        <img src="assets/img/logo.svg">
+  <div class="navigation-logo" (click)="openMain()">
+    <img src="assets/img/logo.svg">
+  </div>
+  <div class="navigation-links">
+    <div class="nav-el" (click)="openCompany()">
+      <span class="nav-el__text">О компанни</span>
     </div>
-    <div class="navigation-links">
-        <div class="nav-el"
-        (click)="openMain()">
-        <span>Главная</span>
-        </div>
-        <div class="nav-el"
-        (click)="openCompany()">
-        <span>О компании</span>
+    <div class="nav-el">
+      <span class="nav-el__text">Услуги</span>
     </div>
-    <div class="nav-el"
-    (click)="openProducts()">
-    <a class="nav-link nav-el" id="navbarDropdownMenuLink" 
-    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-       Услуги
-      </a>
+    <div class="nav-el" (click)="openProducts()">
+      <span class="nav-el__text" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+        Каталог
+      </span>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Конциционеры</a></li>
-        <li><a class="dropdown-item" href="#">Установка</a></li>
-        <li><a class="dropdown-item" href="#">Ремонт</a></li>
+        <li><a class="dropdown-item">Конциционеры</a></li>
+        <li><a class="dropdown-item">Установка</a></li>
+        <li><a class="dropdown-item">Ремонт</a></li>
       </ul>
-        </div>
-        <div class="nav-el"
-        (click)="openBasket()">
-        <span>Корзина</span>
     </div>
+    <div class="nav-el">
+      <span class="nav-el__text">Контакты</span>
     </div>
 </div>
+    <div class="info-block">
+      <div class="info-block__el search">
+      <div class="search-box">
+        <input class="search-input" placeholder="Введите для поиска..." type="text" />
+        <div class="search-btn"
+        (click)="searchInfo($event)">
+          <img src="assets/img/search.svg">
+        </div>  
+      </div>
+      </div>
+      <div class="info-block__el" 
+       (click)="openBasket()">
+        <img src="assets/img/basket.svg">
+      </div>
+      <div class="info-block__el"
+      (click)="loginUser()">
+        <img src="assets/img/user.svg">
+   <span *ngTemplateOutlet="login">{{login}}</span>
+      </div>
+    </div>
+</div>
+
+<ng-template #login>
+    <div [ngClass]="isLogined ? 'Войти' : 'Выйти' ">
+    </div>
+</ng-template>

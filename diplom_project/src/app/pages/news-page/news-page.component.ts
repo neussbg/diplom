@@ -1,35 +1,58 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RoutingPath } from 'src/assets/enums/router.enum';
 
 @Component({
   selector: 'app-news-page',
   templateUrl: './news-page.component.html',
-  styleUrls: ['./news-page.component.scss']
+  styleUrls: ['./news-page.component.scss'],
 })
 export class NewsPageComponent implements OnInit {
 
-  constructor(private route: Router) { }
+    /** Флаг аунтификации акаунта */
+  isLogined: boolean = false;
 
-  ngOnInit(): void {
+    /** Флаг поисковой строки */
+  isSearchingInfo: boolean = false;
+
+  constructor(private route: Router) {}
+
+  ngOnInit(): void {}
+
+  /** Переходит на страницу корзины товаров */
+  openBasket() : void {
+    this.route.navigateByUrl(RoutingPath.basketPage);
+  }
+  /** Переходит на  страницу продуктов */
+  openProducts(): void {
+    this.route.navigateByUrl(RoutingPath.productsPage);
+  }
+
+  /** Переходит на главную страницу */
+  openMain(): void{
+    this.route.navigateByUrl(RoutingPath.mainPage);
+  }
+
+  /** Переходит на страницу о компании */
+  openCompany(): void {
+    this.route.navigateByUrl(RoutingPath.companyPage);
   }
 
 
+  /** Переходит на страницу профиля */
+    openProfile(): void {
+      this.route.navigateByUrl(RoutingPath.accoutPage);
+    }
 
-  openBasket(){
-    this.route.navigateByUrl('/basket')
+  /** Меняет флаг регистрации профиля */
+  loginUser(): void{
+    this.isLogined = !this.isLogined;
+    this.openProfile();
   }
 
-
-  openProducts(){
-    this.route.navigateByUrl('/products')
-  }
-
-  openMain(){
-    this.route.navigateByUrl('/main')
-  }
-
-  openCompany(){
-    this.route.navigateByUrl('/company')
+  /** Показывает поисковую строчку */
+  searchInfo(event: any): void {
+    this.isSearchingInfo = !this.isSearchingInfo;
   }
 
 }

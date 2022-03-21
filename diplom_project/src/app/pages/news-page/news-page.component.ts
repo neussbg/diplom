@@ -12,8 +12,12 @@ export class NewsPageComponent implements OnInit {
     /** Флаг аунтификации акаунта */
   isLogined: boolean = false;
 
+  isLogin2ed: boolean = false;
+
+  isSearchingInfo : boolean = false;
+
+
     /** Флаг поисковой строки */
-  isSearchingInfo: boolean = false;
 
   constructor(private route: Router) {}
 

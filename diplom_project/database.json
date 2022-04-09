@@ -1,0 +1,64 @@
+{
+    "commades": [
+      {
+        "id": 1,
+        "name": "Kiwi",
+        "price": 200,
+        "imgSrc": "http://localhost:3000/images/kiwi.png"
+      },
+      {
+        "id": 2,
+        "name": "Grapes",
+        "price": 120,
+        "imgSrc": "http://localhost:3000/images/grapes.png"
+      },
+      {
+        "id": 3,
+        "name": "Banana",
+        "price": 100,
+        "imgSrc": "http://localhost:3000/images/banana.png"
+      },
+      {
+        "id": 4,
+        "name": "Lemon",
+        "price": 90,
+        "imgSrc": "http://localhost:3000/images/lemon.png"
+      },
+      {
+        "id": 5,
+        "name": "Potato",
+        "price": 50,
+        "imgSrc": "http://localhost:3000/images/potato.png"
+      },
+      {
+        "id": 6,
+        "name": "Watermelon",
+        "price": 35,
+        "imgSrc": "http://localhost:3000/images/water.png"
+      },
+      {
+        "id": 7,
+        "name": "Avocado",
+        "price": 200,
+        "imgSrc": "http://localhost:3000/images/avocado.png"
+      },
+      {
+        "id": 8,
+        "name": "PineApple",
+        "price": 140,
+        "imgSrc": "http://localhost:3000/images/pineapple.png"
+      },
+      {
+        "id": 9,
+        "name": "Orange",
+        "price": 110,
+        "imgSrc": "http://localhost:3000/images/orange.png"
+      },
+      {
+        "name": "Ananas",
+        "price": "150",
+        "imgSrc": "",
+        "id": 10
+      }
+    ]
+  }

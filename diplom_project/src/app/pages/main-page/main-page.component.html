@@ -41,6 +41,52 @@
     </div>
 </ng-container>
 </div>
-<div class="test"></div>
+    <div class="block">
+       <div class="info-block-company">
+        <div class="info-block-company__title">
+            О компании
+        </div>
+        <div class="company-info">
+        <img class="company-info__img" src="assets/img/ingener.svg">
+        <div class="company-info__description">
+            Наш ассортимент - инженерные системы. Широкий выбор климатического оборудования, отопительных систем, оборудования для вентиляции и очистки воздуха, очистки воды и систем водоснабжения.
+            “АСМ Инжиниринг” предоставляет комплексные услуги,  от проектировки и подбора оборудования под индивидуальные задачи до поставки и монтажа техники.
+            Благодаря прямому сотрудничеству с ведущими мировыми и российскими поставщиками, ценообразование соответствует установленным ценам производителей.
+        </div>
+    </div>
+        <div class="company-info-buttons">
+            <button class="company-info-buttons__services">Услуги</button>
+            <button class="company-info-buttons__more">Подробнее</button>
+        </div>
+    </div>
+    
 </div>
+<div class="block-company-info"
+[ngStyle]="{'background' : 'url(assets/img/footer.svg)'}">
+
+    <div class="company">
+    <div class="block-title">
+        Почему нам доверяют ?
+    </div>
+    <div class="company-items">
+    <div [ngClass]="{active: item}" class="item-block" *ngFor="let item of items; let i = index ">
+            <div class="item-block__img">
+                <img src="{{item.img}}"/>
+            </div>
+            <div class="item-block__name">
+                {{item.name}} 
+            </div>
+            <div class="item-block__description">
+                {{item.description}}
+            </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<div class="block-products">
+    <div class="block-title">Актуальные товары</div>
+    <app-products-page></app-products-page>
+</div>
+
 

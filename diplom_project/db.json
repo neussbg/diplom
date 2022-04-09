@@ -1,0 +1,66 @@
+{
+  "conditioners": [
+    {
+      "commades": [
+        {
+          "id": 0,
+          "name": "Conditioner",
+          "newPrice": 20000,
+          "oldPrice": 30000,
+          "description" : "Сплит-система (инвертор) Haier HSU-12HTM103/R3(DB)",
+          "img": "assets/img/products/conditioner-little.svg"
+        },
+        {
+          "id": 1,
+          "name": "Conditioner",
+          "newPrice": 24000,
+          "oldPrice": 30000,
+          "description" : "Сплит-система (инвертор) Haier HSU-12HTM103/R3(DB)",
+          "img": "assets/img/products/conditioner-little.svg"
+        },
+        {
+          "id": 2,
+          "name": "Conditioner",
+          "newPrice": 26000,
+          "oldPrice": 30000,
+          "description" : "Сплит-система (инвертор) Haier HSU-12HTM103/R3(DB)",
+          "img": "assets/img/products/conditioner-little.svg"
+        },
+        {
+          "id": 3,
+          "name": "Conditioner",
+          "newPrice": 22000,
+          "oldPrice": 30000,
+          "description" : "Сплит-система (инвертор) Haier HSU-12HTM103/R3(DB)",
+          "img": "assets/img/products/conditioner-little.svg"
+        },
+        {
+          "id": 4,
+          "name": "Conditioner",
+          "newPrice": 20000,
+          "oldPrice": 30000,
+          "description" : "Сплит-система (инвертор) Haier HSU-12HTM103/R3(DB)",
+          "img": "assets/img/products/conditioner-little.svg"
+        },
+        {
+          "id": 5,
+          "name": "Conditioner",
+          "newPrice": 20000,
+          "oldPrice": 30000,
+          "description" : "Сплит-система (инвертор) Haier HSU-12HTM103/R3(DB)",
+          "img": "assets/img/products/conditioner-little.svg"
+        }
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

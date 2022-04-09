@@ -1,12 +1,16 @@
 {
   "name": "diplom-project",
   "version": "0.0.0",
+  "author": "Artem",
+  "license": "ISC",
+  
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "server": "json-server --watch db.json"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,12 @@
+.empty-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 372px;
+    &__title{
+        font-weight: 600;
+        font-size: 40px;
+        border-bottom: 1px solid rgb(196, 195, 195);
+
+    }
+}

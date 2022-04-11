@@ -7,10 +7,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:proxy": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "json-server --watch db.json"
+    "server": "json-server --watch database.json"
   },
   "private": true,
   "dependencies": {

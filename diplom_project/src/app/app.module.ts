@@ -1,3 +1,6 @@
+import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { TuiRootModule, TuiDialogModule, TuiNotificationsModule, TUI_SANITIZER, TuiSvgModule } from "@taiga-ui/core";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +16,9 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './components/footer/footer.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,16 +29,22 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationPageComponent,
     CompanyPageComponent,
     UserPageComponent,
-    EmptyPageComponent
+    EmptyPageComponent,
+    FooterComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-   
-  ],
-  providers: [],
+      TuiRootModule,
+      BrowserAnimationsModule,
+      TuiDialogModule,
+      TuiNotificationsModule,
+      TuiSvgModule
+],
+  providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

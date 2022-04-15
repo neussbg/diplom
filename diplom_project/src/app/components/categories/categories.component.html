@@ -1,0 +1,20 @@
+<div class="block-categories"
+[ngStyle]="{'background' : '#f0f4fa'}">
+<div class="categories">
+    <div class="categories-title">
+        Категории
+    </div>
+    <div class="categories-items">
+        <div
+            class="item-block"
+            *ngFor="let item of categoriesItems; let i = index ">
+            <div class="item-block__img">
+                <img src="{{item.img}}" />
+            </div>
+            <div class="item-block__name">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
+</div>
+</div>

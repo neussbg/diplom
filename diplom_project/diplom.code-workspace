@@ -1,0 +1,27 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+
+    "[html]": { "editor.defaultFormatter": "vscode.html-language-features" },
+    "html.format.wrapLineLength": 80,
+    "html.format.wrapAttributes": "preserve",
+
+    "eslint.validate": ["javascript", "typescript"],
+    "eslint.options": {
+      "extensions": [".js", ".ts", "html"]
+    },
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5"
+  }
+}

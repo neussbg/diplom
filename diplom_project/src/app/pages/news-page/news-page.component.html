@@ -10,7 +10,8 @@
       <span class="nav-el__text">Услуги</span>
     </div>
     <div class="nav-el" (click)="openProducts()">
-      <span class="nav-el__text" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+      <span class="nav-el__text" id="navbarDropdownMenuLink" role="button"
+        data-bs-toggle="dropdown">
         Каталог
       </span>
       <ul class="dropdown-menu">
@@ -22,30 +23,29 @@
     <div class="nav-el">
       <span class="nav-el__text">Контакты</span>
     </div>
-</div>
-    <div class="info-block">
-      <div class="info-block__el search">
+  </div>
+  <div class="info-block">
+    <div class="info-block__el search">
       <div class="search-box">
-        <!-- <input class="search-input" placeholder="Введите для поиска..." type="text" /> -->
         <div class="search-btn"
-        (click)="searchInfo($event)">
+          (click)="searchInfo($event)">
           <img src="assets/img/search.svg">
-        </div>  
-      </div>
-      </div>
-      <div class="info-block__el" 
-       (click)="openBasket()">
-        <img src="assets/img/basket.svg">
-      </div>
-      <div class="info-block__el"
-      (click)="loginUser()">
-        <img src="assets/img/user.svg">
-   <span *ngTemplateOutlet="login">{{login}}</span>
+        </div>
       </div>
     </div>
+    <div class="info-block__el"
+      (click)="openBasket()">
+      <img src="assets/img/basket.svg">
+    </div>
+    <div class="info-block__el"
+      (click)="loginUser()">
+      <img src="assets/img/user.svg">
+      <span *ngTemplateOutlet="login">{{login}}</span>
+    </div>
+  </div>
 </div>
 
 <ng-template #login>
-    <div [ngClass]="isLogined ? 'Войти' : 'Выйти' ">
-    </div>
+  <div [ngClass]="isLogined ? 'Войти' : 'Выйти' ">
+  </div>
 </ng-template>

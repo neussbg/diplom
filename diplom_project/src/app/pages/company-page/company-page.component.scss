@@ -1,0 +1,35 @@
+.block-company-info {
+  font-family: "Montserrat";
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.content-page {
+  color: white;
+  height: 100vh;
+  overflow: auto;
+}
+
+.company-block-text {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.categories-title {
+  color: white;
+}
+
+.company-advertising {
+  display: flex;
+}
+
+.company-advertising-items {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 78px;
+}

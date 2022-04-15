@@ -1,1 +1,44 @@
-<p>company-page works!</p>
+<div class="content-page">
+    <div class="block-company-info"
+        [ngStyle]="{'background' : 'url(assets/img/company/background.jpg)'}">
+        <div class="company-block">
+            <div class="categories-title">О компании</div>
+            <div class="company-block-text">
+                <span>«АСМ Инжиниринг» — российский интернет-магазин,
+                    специализирующийся на продаже сплит-систем отечественного и
+                    зарубежного производства. Основная задача «АСМ Инжиниринг» —
+                    сделать путь клиента от выбора товара до совершения покупки
+                    и получения заказа максимально простым и удобным.
+                    Наша компания официальный представитель всех торговых марок,
+                    представленных в каталоге, реализуемое оборудование
+                    находится на гарантийном обслуживании в официальных
+                    сервисных центах, расположенных по всей России.
+                    Благодаря прямому сотрудничеству с ведущими мировыми и
+                    российскими поставщиками, ценообразование соответствует
+                    установленным ценам производителей.
+                    Создать атмосферу комфорта в любое время года можно при
+                    помощи правильно подобранного оборудования. Мы будем рады
+                    помочь Вам в реализации объекта любой сложности - от
+                    квартиры или частного дома до коммерческих и промышленных
+                    помещений.
+                </span>
+            </div>
+            <div class="company-advertising">
+                <div class="company-advertising-items"
+                    *ngFor="let item of companyItems">
+                    <span
+                        class="company-advertising-items__title">{{item.title}}</span>
+                    <span
+                        class="company-advertising-items__value">{{item.value}}</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <app-categories></app-categories>
+    <app-footer></app-footer>
+</div>

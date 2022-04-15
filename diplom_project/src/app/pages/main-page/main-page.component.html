@@ -1,92 +1,138 @@
-    <div class="main-component">
+<div class="main-component">
     <div class="main-page"
-    [ngStyle]="{'background' : 'url(assets/img/background-main.svg)'}">
+        [ngStyle]="{'background' : 'url(assets/img/background-main.svg)'}">
         <div class="main-info-block">
-        <div class="info-block">
-            <div class="info-block__title">
-                Продажа и установка систем кондиционирования
+            <div class="info-block">
+                <div class="info-block__title">
+                    Продажа и установка систем кондиционирования
+                </div>
+                <div class="info-block__description">
+                    “АСМ Инжиниринг” поможет создать
+                    Вам комфортный микроклимат в помещении любого назначения в
+                    г.
+                    Ростове-на-Дону
+                </div>
+                <button class="info-block__application">Оставить заявку</button>
             </div>
-            <div class="info-block__description">
-                “АСМ Инжиниринг” поможет создать
-                 Вам комфортный микроклимат в помещении любого назначения в г. 
-                 Ростове-на-Дону 
-            </div>
-            <button class="info-block__application">Оставить заявку</button>
+            <img class="application-img" src="assets/img/conditioner.svg" />
         </div>
-            <img class="application-img" src="assets/img/conditioner.svg"/>
-    </div>
 
-<ng-container>
-    <div class="banner">
-        <div class="header">
-            <div class="header-price">
-                <span class="header-price__new">45 990 ₽</span>
-                <span class="header-price__old strikethrough">56 990 ₽</span>
+        <ng-container>
+            <div data-aos="fade-up" class="banner">
+                <div class="header">
+                    <div class="header-price">
+                        <span class="header-price__new">45 990 ₽</span>
+                        <span class="header-price__old strikethrough">56 990
+                            ₽</span>
+                    </div>
+                    <div class="header__bridge">
+                        Товар месяца
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="info__description">
+                        Кондиционер Kentatsu KSGB53HZAN1/KSRB53HZAN1
+                    </div>
+                    <div class="info__stars"></div>
+                    <div class="info__previus">5 отзывов</div>
+                </div>
+                <div class="footer">
+                    <button class="footer__basket">В корзину</button>
+                    <img class="footer__important"
+                        src="assets/img/important.svg">
+                </div>
             </div>
-            <div class="header__bridge">
-                Товар месяца
-            </div>
-        </div>
-        <div class="info">
-            <div class="info__description">
-                Кондиционер Kentatsu KSGB53HZAN1/KSRB53HZAN1
-            </div>
-            <div class="info__stars"></div>
-            <div class="info__previus">5 отзывов</div>
-        </div>
-        <div class="footer">
-            <button class="footer__basket">В корзину</button>
-            <img class="footer__important" src="assets/img/important.svg">
-        </div>
+        </ng-container>
     </div>
-</ng-container>
-</div>
     <div class="block">
-       <div class="info-block-company">
-        <div class="info-block-company__title">
-            О компании
-        </div>
-        <div class="company-info">
-        <img class="company-info__img" src="assets/img/ingener.svg">
-        <div class="company-info__description">
-            Наш ассортимент - инженерные системы. Широкий выбор климатического оборудования, отопительных систем, оборудования для вентиляции и очистки воздуха, очистки воды и систем водоснабжения.
-            “АСМ Инжиниринг” предоставляет комплексные услуги,  от проектировки и подбора оборудования под индивидуальные задачи до поставки и монтажа техники.
-            Благодаря прямому сотрудничеству с ведущими мировыми и российскими поставщиками, ценообразование соответствует установленным ценам производителей.
-        </div>
-    </div>
-        <div class="company-info-buttons">
-            <button class="company-info-buttons__services">Услуги</button>
-            <button class="company-info-buttons__more">Подробнее</button>
-        </div>
-    </div>
-    
-</div>
-<div class="block-company-info"
-[ngStyle]="{'background' : 'url(assets/img/footer.svg)'}">
-
-    <div class="company">
-    <div class="block-title">
-        Почему нам доверяют ?
-    </div>
-    <div class="company-items">
-    <div [ngClass]="{active: item}" class="item-block" *ngFor="let item of items; let i = index ">
-            <div class="item-block__img">
-                <img src="{{item.img}}"/>
+        <div class="info-block-company">
+            <div class="info-block-company__title">
+                О компании
             </div>
-            <div class="item-block__name">
-                {{item.name}} 
+            <div class="company-info">
+                <img class="company-info__img" src="assets/img/ingener.svg">
+                <div class="company-info__description">
+                    Наш ассортимент - инженерные системы. Широкий выбор
+                    климатического оборудования, отопительных систем,
+                    оборудования для вентиляции и очистки воздуха, очистки воды
+                    и систем водоснабжения.
+                    “АСМ Инжиниринг” предоставляет комплексные услуги, от
+                    проектировки и подбора оборудования под индивидуальные
+                    задачи до поставки и монтажа техники.
+                    Благодаря прямому сотрудничеству с ведущими мировыми и
+                    российскими поставщиками, ценообразование соответствует
+                    установленным ценам производителей.
+                </div>
             </div>
-            <div class="item-block__description">
-                {{item.description}}
+            <div class="company-info-buttons">
+                <button class="company-info-buttons__services">Услуги</button>
+                <button class="company-info-buttons__more">Подробнее</button>
             </div>
-    </div>
-    </div>
-</div>
-</div>
+        </div>
 
-<div class="block-products">
-    <div class="block-title">Актуальные товары</div>
-    <app-products-page></app-products-page>
-</div>
-</div>
+    </div>
+    <div class="block-company-info"
+        [ngStyle]="{'background' : 'url(assets/img/footer.svg)'}">
 
+        <div class="company">
+            <div class="block-title">
+                Почему нам доверяют ?
+            </div>
+            <div class="company-items">
+                <div [ngClass]="{active: item}" class="item-block"
+                    *ngFor="let item of items; let i = index ">
+                    <div class="item-block__img">
+                        <img src="{{item.img}}" />
+                    </div>
+                    <div class="item-block__name">
+                        {{item.name}}
+                    </div>
+                    <div class="item-block__description">
+                        {{item.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-stocks">
+        <div class="stocks-info">
+            <img class="stocks-info__img" src="assets/img/letter.svg" />
+            <div class="info-content">
+                <span class="info-content__title">Будьте в курсе всех
+                    акций!</span>
+                <span class="info-content__description">
+                    Оставьте адрес своей электронной почты и получайте
+                    информацию об актуальных акциях и промокодах</span>
+                <div
+                    class="input-group info-content__forum">
+                    <input type="text" class="form-control"
+                        placeholder="Введите эл.почту"
+                        aria-label="Введите эл.почту"
+                        aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary"
+                        type="button">Отправить</button>
+                </div>
+                <div class="form-checkbox">
+                    <input (click)="onClickStocks($event)"
+                        class="form-check-input"
+                        type="checkbox" value=""
+                        id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Я согласен с Политикой конфиденциальности
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="block-products">
+        <div class="block-title">Актуальные товары</div>
+        <app-products-page>
+        </app-products-page>
+    </div> -->
+    <app-categories></app-categories>
+    <div class="block-footer">
+        <app-footer></app-footer>
+    </div>
+</div>

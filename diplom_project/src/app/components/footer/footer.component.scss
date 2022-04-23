@@ -1,6 +1,5 @@
-.full {
+.footer-page {
   width: 100vw;
-  height: 36vh;
 }
 
 .footer-page {
@@ -10,14 +9,15 @@
   .list {
     display: flex;
     justify-content: space-evenly;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
     padding-bottom: 10px;
   }
 
   .list-advertising {
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    // padding-top: 20px;
+    margin: 14px 0;
     color: rgb(128, 128, 128);
   }
   .icons-block {

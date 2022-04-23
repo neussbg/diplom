@@ -1,5 +1,5 @@
 
-export interface mainItems {
+export interface mainItems  {
     id: number;
 
     img: string;

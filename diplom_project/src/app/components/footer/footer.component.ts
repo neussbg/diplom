@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/router';
-import { Loader } from '@googlemaps/js-api-loader';
+import { Router } from '@angular/router';
+import { RoutingPath } from 'src/assets/enums/router.enum';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +8,7 @@ import { Loader } from '@googlemaps/js-api-loader';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-  constructor() {}
+  constructor(private route: Router) {}
 
   isMap: boolean = false;
 
@@ -44,5 +44,10 @@ export class FooterComponent implements OnInit {
   showWhatsUpPage() {
     const href = 'https://vk.com/thebadplace';
     window.open(href, '_blank');
+  }
+
+  /** Переходит на  страницу продуктов */
+  openContacts(): void {
+    this.route.navigateByUrl(RoutingPath.contacts);
   }
 }

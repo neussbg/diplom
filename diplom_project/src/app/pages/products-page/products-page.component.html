@@ -1,18 +1,41 @@
 <div class="content-page">
-    <div class="content-block" *ngFor="let item of itemsArray">
+    <form>
+        <div class="block">
+            <input [formControl]="test" />
+            <button type="submit" (click)="tests()"></button>
+        </div>
+    </form>
+    <div class="content-block" *ngFor="let item of itemsArray ">
         <img class="content-block__img" src="{{item.img}}" />
         <div class="content-price">
-            <span class="content-price__Newprice">{{item.newPrice}}</span>
+            <span
+                class="content-price__Newprice">{{item.newPrice}}</span>
             <span
                 class="content-price__oldPrice strikethrough">{{item.oldPrice}}</span>
             <span class="content-price__status">Хит продаж</span>
         </div>
 
-        <div class="content-block__description">{{item.description}}</div>
+        <div class="content-block__description">{{item.description}}
+        </div>
         <div class="content-block__opinie">{{item.opinie}}</div>
         <div class="content-buttons">
             <div class="content-buttons__add">В корзину</div>
+            <button class="delete-button"
+                (click)="deleteItem(id)">delete</button>
             <img src="assets/img/products/heart.svg" />
         </div>
     </div>
+
+
+    <!-- <form [formGroup]="productForm">
+        <input formControlName="name" type="text" placeholder="name" />
+        <input type="number" formControlName="newPrice"
+            placeholder="newPrice" />
+        <input type="text" formControlName="description"
+            placeholder="description" />
+        <button (click)="addForm(ss)">add</button>
+    </form> -->
+
+
 </div>
+<app-footer></app-footer>

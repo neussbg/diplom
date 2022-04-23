@@ -1,14 +1,17 @@
- export enum RoutingPath {
+export enum RoutingPath {
+  mainPage = 'main',
 
-    mainPage = 'main',
+  newsPage = 'news',
 
-    newsPage = 'news',
+  productsPage = 'products',
 
-    productsPage = 'products',
+  basketPage = 'basket',
 
-    basketPage = 'basket',
+  companyPage = 'company',
 
-    companyPage =  'company',
+  attendance = 'attendance',
 
-    accoutPage =  'user'
- }
+  contacts = 'contacts',
+
+  accoutPage = 'user',
+}

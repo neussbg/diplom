@@ -1,0 +1,16 @@
+<div class="side-nav-bar">
+  <div class="nav-block">
+    <img src="assets/img/navigation/logo.svg">
+    <div class="nav-content"
+      *ngFor="let route of routes; let i = index"
+      (click)="redirectTo(route.path)">
+      <tui-svg
+        class="nav-content__img icon"
+        src="assets/img/navigation/{{route.icon}}">
+      </tui-svg>
+      <div class="nav-content__title title">
+        {{route.name}}
+      </div>
+    </div>
+  </div>
+</div>

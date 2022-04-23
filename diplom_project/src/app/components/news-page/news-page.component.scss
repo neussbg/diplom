@@ -1,0 +1,31 @@
+@import 'variables.scss';
+
+.side-nav-bar {
+  background: rgba(255, 255, 255, 0.79);
+
+  .nav-block {
+    height: 60px;
+    padding: 34px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .nav-content {
+      cursor: pointer;
+      display: flex;
+
+      .icon {
+        width: 68px;
+      }
+
+      &__title {
+        font-size: 18px;
+
+        &:hover {
+          padding-bottom: 4px;
+          border-bottom: 2px solid #ff8a00;
+        }
+      }
+    }
+  }
+}

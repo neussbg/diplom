@@ -7,8 +7,6 @@
 
 .content-page {
   color: white;
-  height: 100vh;
-  overflow: auto;
 }
 
 .company-block-text {
@@ -16,20 +14,94 @@
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
-  line-height: 30px;
+  margin-bottom: 122px;
+  width: 770px;
+  margin-left: 12%;
 }
-
-.categories-title {
-  color: white;
+.company-block-title {
+  padding-top: 34px;
+  .categories-title {
+    color: white;
+    margin-bottom: 60px !important;
+  }
 }
 
 .company-advertising {
   display: flex;
+  justify-content: space-between;
 }
 
 .company-advertising-items {
+  display: flex;
+  flex-direction: column;
   font-style: normal;
   font-weight: 500;
   font-size: 64px;
   line-height: 78px;
+
+  &__value {
+    display: flex;
+    font-size: 40px;
+    min-width: 400px;
+  }
+}
+
+.company-info-block {
+  padding: 90px 0px;
+  display: flex;
+  justify-content: space-between;
+  color: black;
+
+  .company-info {
+    width: 470px;
+    &__text {
+      font-family: "Roboto";
+      font-weight: 300;
+      font-size: 20px;
+    }
+  }
+}
+
+.services-block {
+  color: black;
+  padding: 100px 0 140px 0;
+
+  .services-info {
+    display: flex;
+    .company-services {
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+
+      &__icon {
+        border-radius: 5px 5px 0px 0px;
+        width: 370px;
+        height: 370px;
+      }
+
+      &__description {
+        background: #ff8a00;
+        border-radius: 0px 0px 5px 5px;
+        color: white;
+        font-size: 24px;
+        padding: 30px 50px;
+      }
+    }
+  }
+}
+
+.producenci-block {
+  display: flex;
+  flex-direction: column;
+  padding: 104px 0;
+
+  .categories-title {
+    margin-bottom: 64px;
+  }
+
+  .producenci-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

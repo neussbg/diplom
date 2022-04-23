@@ -1,9 +1,11 @@
 .content-page {
-  // height: 800px;
   display: flex;
   flex-wrap: wrap;
-  // align-items: center;
   justify-content: center;
+}
+
+.block {
+  display: flex;
 }
 
 .content-block {

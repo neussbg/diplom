@@ -1,44 +1,117 @@
 <div class="content-page">
     <div class="block-company-info"
         [ngStyle]="{'background' : 'url(assets/img/company/background.jpg)'}">
-        <div class="company-block">
-            <div class="categories-title">О компании</div>
-            <div class="company-block-text">
-                <span>«АСМ Инжиниринг» — российский интернет-магазин,
-                    специализирующийся на продаже сплит-систем отечественного и
-                    зарубежного производства. Основная задача «АСМ Инжиниринг» —
-                    сделать путь клиента от выбора товара до совершения покупки
-                    и получения заказа максимально простым и удобным.
-                    Наша компания официальный представитель всех торговых марок,
-                    представленных в каталоге, реализуемое оборудование
-                    находится на гарантийном обслуживании в официальных
-                    сервисных центах, расположенных по всей России.
-                    Благодаря прямому сотрудничеству с ведущими мировыми и
-                    российскими поставщиками, ценообразование соответствует
-                    установленным ценам производителей.
-                    Создать атмосферу комфорта в любое время года можно при
-                    помощи правильно подобранного оборудования. Мы будем рады
-                    помочь Вам в реализации объекта любой сложности - от
-                    квартиры или частного дома до коммерческих и промышленных
-                    помещений.
-                </span>
-            </div>
-            <div class="company-advertising">
-                <div class="company-advertising-items"
-                    *ngFor="let item of companyItems">
-                    <span
-                        class="company-advertising-items__title">{{item.title}}</span>
-                    <span
-                        class="company-advertising-items__value">{{item.value}}</span>
+        <div class="container">
+            <div class="company-block">
+                <div class="company-block-title">
+                    <div class="categories-title">О компании</div>
+                </div>
+                <div class="company-block-text">
+                    <span>
+                        <a>«АСМ Инжиниринг» — российский интернет-магазин,
+                            специализирующийся на продаже сплит-систем
+                            отечественного и
+                            зарубежного производства.<br> Основная задача
+                            «АСМ
+                            Инжиниринг» —
+                            сделать путь клиента от выбора товара до
+                            совершения
+                            покупки
+                            и получения заказа максимально простым и
+                            удобным.
+                        </a>
+                        <br>
+                        <a>Наша компания официальный представитель всех
+                            торговых
+                            марок,
+                            представленных в каталоге, реализуемое
+                            оборудование
+                            находится на гарантийном обслуживании в
+                            официальных
+                            сервисных центах, расположенных по всей
+                            России.</a>
+                        <br>
+                        <a>
+                            Благодаря прямому сотрудничеству с ведущими
+                            мировыми
+                            и
+                            российскими поставщиками, ценообразование
+                            соответствует
+                            установленным ценам производителей.</a>
+                        <br>
+                        <a>
+                            Создать атмосферу комфорта в любое время года
+                            можно
+                            при
+                            помощи правильно подобранного оборудования. Мы
+                            будем
+                            рады
+                            помочь Вам в реализации объекта любой сложности
+                            - от
+                            квартиры или частного дома до коммерческих и
+                            промышленных
+                            помещений.
+                        </a>
+                    </span>
+                </div>
+                <div class="company-advertising">
+                    <div class="company-advertising-items"
+                        *ngFor="let item of companyItems">
+                        <span
+                            class="company-advertising-items__title">{{item.title}}</span>
+                        <span
+                            class="company-advertising-items__value">{{item.value}}</span>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
 
+
+
+
+    <div class="container company-info-block">
+        <img src="assets/img/company/company-people.jpg" />
+        <div class="company-info">
+            <div class="block-title">
+                С нами надежно
+            </div>
+            <span class="company-info__text">На сегодняшний день нами продано
+                более 25 000+ товаров и этот
+                показатель постоянно увеличивается благодаря нашим клиентам,
+                которые ценят высокий уровень сервиса и оперативность выполнения
+                поставленных перед нами задач.<br>
+                Наша компания заботится о своей репутации, для нас крайне важно,
+                чтобы клиенты, обратившиеся к нам, были максимально довольны
+                нашей работой и надежностью оборудования. Только у нас вы
+                сможете купить кондиционер в Ростове-на-Дону недорого напрямую
+                от производителя. </span>
+        </div>
+    </div>
     <app-categories></app-categories>
+    <div class="container services-block">
+        <div class="block-title">Наши услуги</div>
+        <div class="services-info">
+            <div class="company-services #item" (mouseover)="showText()"
+                *ngFor="let cond of companyConditioners">
+                <img class="company-services__icon" src="{{cond.icon}}" />
+                <div class="company-services__description">{{cond.description}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block" [ngStyle]="{'background' : '#f0f4fa'}">
+        <div class="container producenci-block">
+            <div class="categories-title">Производители кондиционеров</div>
+            <div class="producenci-info">
+                <div class="producenci-info-item"
+                    *ngFor="let mark of conditionersMarks">
+                    <img src="{{mark.icon}}" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <app-footer></app-footer>
 </div>

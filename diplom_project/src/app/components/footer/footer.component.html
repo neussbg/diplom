@@ -1,5 +1,5 @@
 <div class="footer-page">
-    <div class="list">
+    <div class="list container">
         <ul class="list-group">
             <li class="list-group-item header">Меню</li>
             <li class="list-group-item">О компании</li>
@@ -32,7 +32,7 @@
         </ul>
         <ul class="list-group">
             <li class="list-group-item header">Контакты</li>
-            <li class="list-group-item">
+            <li class="list-group-item" (click)="openContacts()">
                 <tui-svg
                     class="list-group-item__icon"
                     src="assets/img/phone.svg">
@@ -46,7 +46,7 @@
                 </tui-svg>
                 <span>asmeng@mail.ru</span>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item" (click)="openContacts()">
                 <tui-svg (click)="showMap(isMap)"
                     class="list-group-item__icon"
                     src="assets/img/location.svg">

@@ -1,6 +1,6 @@
-<div class="main-component">
+<div class="content-page ">
     <div class="main-page"
-        [ngStyle]="{'background' : 'url(assets/img/background-main.svg)'}">
+        [ngStyle]="{'background' : 'url(assets/img/main/background-main.svg)'}">
         <div class="main-info-block">
             <div class="info-block">
                 <div class="info-block__title">
@@ -12,7 +12,19 @@
                     г.
                     Ростове-на-Дону
                 </div>
-                <button class="info-block__application">Оставить заявку</button>
+                <button class="info-block__application">Перейти в
+                    каталог</button>
+
+                <div data-aos="fade-up" class="feedback-block ">
+                    <div class="feedback-block__item">
+                        <tui-svg src="assets/img/main/support.svg"></tui-svg>
+                        <span class="text">Мы поможем вам с выбором</span>
+                    </div>
+                    <div class="feedback-block__item">
+                        <tui-svg src="assets/img/main/setting.svg"></tui-svg>
+                        <span class="text">Установим вашу сплит-систему</span>
+                    </div>
+                </div>
             </div>
             <img class="application-img" src="assets/img/conditioner.svg" />
         </div>
@@ -46,7 +58,7 @@
     </div>
     <div class="block">
         <div class="info-block-company">
-            <div class="info-block-company__title">
+            <div class="block-title">
                 О компании
             </div>
             <div class="company-info">
@@ -132,7 +144,5 @@
         </app-products-page>
     </div> -->
     <app-categories></app-categories>
-    <div class="block-footer">
-        <app-footer></app-footer>
-    </div>
+    <app-footer></app-footer>
 </div>

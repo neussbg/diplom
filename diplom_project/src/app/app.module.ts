@@ -26,6 +26,7 @@ import { ContactsPageComponent } from './pages/contacts-page/contacts-page.compo
 import { NewsPageComponent } from './components/news-page/news-page.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { SwiperModule } from 'swiper/angular';
+import { SwiperOptions } from 'swiper';
 
 @NgModule({
   declarations: [

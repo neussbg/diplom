@@ -1,5 +1,13 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import Swiper, { Navigation, Pagination } from 'swiper';
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+} from "swiper";
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Mousewheel, Keyboard]);
 
 export const SLIDER_VALUE = [
   {
@@ -34,36 +42,45 @@ export const SLIDER_VALUE = [
 })
 @Injectable()
 export class AttendancePageComponent implements OnInit {
+  
   constructor() {}
 
   sliderValues = SLIDER_VALUE;
 
   size: number = 3;
 
+  config:any;
+
   ngOnInit(): void {
-    // const swiper = new Swiper('.swiper', {
-    //   speed: 400,
-    //   spaceBetween: 100,
-
-    // });
-
-    const swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: true,
-
-      // // If we need pagination
-      // pagination: {
-      //   el: '.swiper-pagination',
-      // },
-
-      // Navigation arrows
+   this.config = {
+      pagination: { el: '.swiper-pagination', clickable: true },
+      autoHeight: true,
+      allowTouchMove: true,
+      autoplay: {
+        delay: 6000,
+        disableOnInteraction: true
+      },
+      breakpoints: {
+        1024: {
+          slidesPerView: 4
+        },
+        500: {
+          slidesPerView: 3
+        },
+        400: {
+          slidesPerView: 2
+        },
+        300: {
+          slidesPerView: 1
+        }
+      },
       navigation: {
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        prevEl: '.swiper-button-prev'
       },
-
-      modules: [Navigation, Pagination],
-    });
+      loop: true
+    };
   }
+
+  
 }

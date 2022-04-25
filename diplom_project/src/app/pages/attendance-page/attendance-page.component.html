@@ -1,4 +1,4 @@
-<div class="swiper">
+<!-- <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <div class=" slider-block container">
@@ -37,14 +37,62 @@
         <div class="swiper-slide">Slide 3</div>
         ...
     </div>
-    <!-- If we need pagination -->
     <div class="swiper-pagination"></div>
 
-    <!-- If we need navigation buttons -->
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
 
-    <!-- If we need scrollbar -->
     <div class="swiper-scrollbar"></div>
-</div>
+</div> -->
+<swiper
+    [cssMode]="true"
+    [navigation]="true"
+    [pagination]="true"
+    [mousewheel]="true"
+    [keyboard]="true"
+    class="mySwiper"
+  >
+    <ng-template swiperSlide> <div class=" slider-block container">
+        <div class="slider">
+            <div class="slider-content">
+                <div class="block-title">Сколько стоит</div>
+                <div class="slider-content__title">
+                    <span> Наименование услуг</span>
+                    <span>Стоимость</span>
+                </div>
+                <div class="slider-content__value"
+                    *ngFor="let item of sliderValues | slice: 0: size">
+                    <div>
+                        <span>{{item.name}}</span>
+                    </div>
+                    <div>
+                        <span>{{item.price}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-services">
+                <div class="slider-services__content">
+                    <tui-svg class="slider-services icon"
+                        src="assets/img/attendance/application.svg">
+                    </tui-svg>
+                    <span>Оформите заявку на сайте
+                        и мы свяжемся с вами</span>
+                </div>
+                <div class="slider-services__button">Заказть
+                    услугу</div>
+            </div>
+        </div>
+    </div>
+</ng-template
+    ><ng-template swiperSlide>Slide 2</ng-template
+    ><ng-template swiperSlide>Slide 3</ng-template
+    ><ng-template swiperSlide>Slide 4</ng-template
+    ><ng-template swiperSlide>Slide 5</ng-template
+    ><ng-template swiperSlide>Slide 6</ng-template
+    ><ng-template swiperSlide>Slide 7</ng-template
+    ><ng-template swiperSlide>Slide 8</ng-template
+    ><ng-template swiperSlide>Slide 9</ng-template>
+  </swiper>
+
+
 <app-footer></app-footer>

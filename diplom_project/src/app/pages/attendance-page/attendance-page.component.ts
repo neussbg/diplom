@@ -1,10 +1,12 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import SwiperCore, {
   Navigation,
   Pagination,
   Mousewheel,
   Keyboard,
-} from "swiper";
+  Swiper,
+} from 'swiper';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Mousewheel, Keyboard]);
@@ -42,45 +44,74 @@ export const SLIDER_VALUE = [
 })
 @Injectable()
 export class AttendancePageComponent implements OnInit {
-  
   constructor() {}
 
   sliderValues = SLIDER_VALUE;
 
   size: number = 3;
 
-  config:any;
+  slides: any[] = new Array(3).fill({ name: '', price: 0 });
+
+  config: any;
+
 
   ngOnInit(): void {
-   this.config = {
+
+    this.slides[0] = [
+      {
+        name: 'Чистка настенной сплит-системы 7-18, без разбора блоков',
+        price: 1500,
+      },
+      {
+        name: 'Чистка настенной сплит-системы 24-36 , без разбора блоков',
+        price: 1800,
+      },
+      {
+        name: 'Чистка полупромышленной сплит-системы (любой тип)',
+        price: 2000,
+      },
+    ];
+    this.slides[1] = [
+      {
+        name: 'Чистка настенной сплит-системы 7-18, без разбора блоков',
+        price: 4000,
+      },
+      {
+        name: 'Чистка настенной сплит-системы 24-36 , без разбора блоков',
+        price: 5000,
+      },
+      {
+        name: 'Чистка полупромышленной сплит-системы (любой тип)',
+        price: 6000,
+      },
+    ];
+    this.config = {
       pagination: { el: '.swiper-pagination', clickable: true },
       autoHeight: true,
       allowTouchMove: true,
       autoplay: {
         delay: 6000,
-        disableOnInteraction: true
+        disableOnInteraction: true,
       },
       breakpoints: {
         1024: {
-          slidesPerView: 4
+          slidesPerView: 4,
         },
         500: {
-          slidesPerView: 3
+          slidesPerView: 3,
         },
         400: {
-          slidesPerView: 2
+          slidesPerView: 2,
         },
         300: {
-          slidesPerView: 1
-        }
+          slidesPerView: 1,
+        },
       },
       navigation: {
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
+        prevEl: '.swiper-button-prev',
       },
-      loop: true
+      loop: true,
     };
   }
-
-  
 }

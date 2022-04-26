@@ -1,6 +1,7 @@
 <div class="side-nav-bar">
   <div class="nav-block">
-    <img src="assets/img/navigation/logo.svg">
+    <img style="cursor: pointer;" (click)="redirectTo('main')"
+      src="assets/img/navigation/logo.svg">
     <div class="nav-content"
       *ngFor="let route of routes; let i = index"
       (click)="redirectTo(route.path)">

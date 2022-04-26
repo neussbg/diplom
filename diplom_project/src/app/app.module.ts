@@ -26,7 +26,12 @@ import { ContactsPageComponent } from './pages/contacts-page/contacts-page.compo
 import { NewsPageComponent } from './components/news-page/news-page.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { SwiperModule } from 'swiper/angular';
-import { SwiperOptions } from 'swiper';
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+
+export const mapConfig: YaConfig = {
+  apikey: 'b1484602-759f-463f-9f27-0d8191d4c5cb',
+  lang: 'en_US',
+};
 
 @NgModule({
   declarations: [
@@ -55,7 +60,9 @@ import { SwiperOptions } from 'swiper';
     TuiNotificationsModule,
     TuiSvgModule,
     FilterPipeModule,
-    SwiperModule
+    SwiperModule,
+    AngularYandexMapsModule,
+    AngularYandexMapsModule.forRoot(mapConfig),
   ],
   providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
   bootstrap: [AppComponent],

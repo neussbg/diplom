@@ -1,16 +1,31 @@
-<div class="container">
-    <div class="contacts-block">
-        <div class="categories-title">Контакты</div>
+<div class="content-page">
+    <div class="container">
+        <div class="contacts-block" data-aos="zoom-out-right"
+            data-aos-duration="3000">
+            <div class="contacts-block-address">
+                <div class="categories-title">Контакты</div>
+                <div class="contacts-content"
+                    *ngFor="let item of addressValue">
+                    <span class="contacts-content__title">{{item.title}}:
+                    </span>
+                    <span class="contacts-content__value">{{item.value}}</span>
+                </div>
+            </div>
+        </div>
+        <tui-svg src="assets/img/contacts/personaly.svg">
+        </tui-svg>
     </div>
+    <div class="containers">
+        <ya-map [center]="[47.249715, 39.620330]" [zoom]="19">
+            <ya-placemark *ngFor="let placemark of placementMarks"
+                [geometry]="placemark.geometry"
+                [properties]="placemark.properties"
+                [options]="placemark.options">
+            </ya-placemark>
+        </ya-map>
+    </div>
+    <!-- <div id="map" class="map"></div> -->
+    <app-footer></app-footer>
 </div>
-<ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-</ul>
-<!-- <div id="map" class="map"></div> -->
-<app-footer></app-footer>
-<!-- <script
-    src="https://api-maps.yandex.ru/2.1/?apikey=f7d163f7-79f3-4d72-aa87-e1fc790fbdb9&lang=ru_RU&load=Map,Placemark"
-    type="text/javascript"></script> -->
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"
+    type="text/javascript"></script>

@@ -245,6 +245,11 @@
       font-size: 14px;
       display: none;
     }
+
+    &:hover {
+      transform: scale(1.2);
+      border: 1px solid red;
+    }
   }
 }
 

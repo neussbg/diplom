@@ -42,7 +42,10 @@
   &__value {
     display: flex;
     font-size: 40px;
-    min-width: 400px;
+  }
+
+  &:hover {
+    color: #ff8a00;
   }
 }
 

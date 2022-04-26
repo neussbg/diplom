@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 .side-nav-bar {
   background: rgba(255, 255, 255, 0.79);
@@ -16,6 +16,12 @@
 
       .icon {
         width: 68px;
+
+        &:hover {
+          ::ng-deep .fill-color {
+            fill: rgb(95, 82, 82) !important;
+          }
+        }
       }
 
       &__title {

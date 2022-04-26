@@ -94,7 +94,7 @@
                 <div [ngClass]="{active: item}" class="item-block"
                     *ngFor="let item of items; let i = index ">
                     <div class="item-block__img">
-                        <img src="{{item.img}}" />
+                        <img ngClass="{i : 'hov'}" src="{{item.img}}" />
                     </div>
                     <div class="item-block__name">
                         {{item.name}}

@@ -1,22 +1,112 @@
+.content-block {
+  display: grid;
+  grid-row-gap: calc(100vh - 80vh);
+}
+
+.background {
+  &__title {
+    display: flex;
+    justify-content: center;
+    background: none;
+    color: white;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 60px;
+    padding: 60px 0;
+    background: #3e3e3e !important;
+    opacity: 0.8;
+  }
+}
+
+.page-content {
+  height: 100vh;
+
+  .page-background {
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 0px;
+    min-height: 370px;
+    img {
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 0px;
+    }
+  }
+}
+
 .swiper {
   width: 1170px;
-  // height: 607px;
+}
+
+.mySwiper {
+  position: absolute;
+  top: 22%;
+  right: 20%;
 }
 
 .slider {
   background: #ffffff;
   box-shadow: 0px 0px 15px rgba(146, 158, 175, 0.76);
   border-radius: 10px 10px 0px 0px;
-  padding: 50px 70px;
+  padding: 20px 0px;
+
+  &__title {
+    margin-left: 68px;
+  }
 }
 
-.slider-block {
-  // background: #ffffff;
-  // box-shadow: 0px 0px 15px rgba(146, 158, 175, 0.76);
-  // border-radius: 10px 10px 0px 0px;
-  // padding: 50px 70px;
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
 
-  .slider-content {
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+::ng-deep .swiper-button-next {
+  height: 60px !important;
+  width: 60px !important;
+  border-radius: 38px;
+  color: #ff8a00 !important;
+  border: 1px solid #ff8a00;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 15px rgba(255, 138, 0, 0.5);
+}
+
+::ng-deep .swiper-button-prev {
+  height: 60px !important;
+  width: 60px !important;
+  border-radius: 38px;
+  color: linear-gradient(91.79deg, #0d0dff 0.44%, #003f86 94.6%) !important;
+  border: 1px solid rgba(44, 44, 194, 0.678) !important;
+  box-shadow: 0px 0px 15px rgba(8, 64, 185, 0.5);
+  box-sizing: border-box;
+}
+
+.slider-content {
+  display: flex;
+  justify-content: space-around;
+
+  .slider-content-prices {
     &__title {
       display: flex;
       justify-content: space-between;
@@ -37,52 +127,65 @@
       font-family: "Roboto";
       font-weight: 300;
       font-size: 20px;
-      padding: 10px 40px 6px 16px;
+      padding: 20px;
+
+      &:hover {
+        background: rgb(221, 221, 221);
+      }
     }
   }
+}
 
-  .slider {
+.slider-services {
+  height: 312px;
+  width: 270px;
+  box-sizing: border-box;
+  border-radius: 5px 5px 0px 0px !important;
+
+  &__content {
     display: flex;
-    justify-content: space-around;
-  }
+    flex-direction: column;
+    align-items: center;
+    padding: 38px 20px 26px 20px;
+    background: #e4e8ee;
+    border: 1px solid rgba(146, 158, 175, 0.46);
 
-  .slider-services {
-    height: 312px;
-    width: 270px;
-    box-sizing: border-box;
-    border-radius: 5px 5px 0px 0px !important;
-
-    &__content {
-      display: flex;
-      flex-direction: column;
-      padding: 38px 20px 26px 20px;
-      background: #e4e8ee;
-      border: 1px solid rgba(146, 158, 175, 0.46);
-
-      .icon {
-        height: 94px;
-        width: 114px;
-      }
-
-      span {
-        font-family: "Montserrat";
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        color: #929eaf;
-      }
+    .icon {
+      height: 94px;
+      width: 114px;
+      margin-bottom: 30px;
     }
 
-    &__button {
-      display: flex;
-      justify-content: center;
-      padding: 15px 50px 20px 50px;
-      border: none;
-      background: linear-gradient(91.79deg, #0d0dff 0.44%, #003f86 94.6%);
+    span {
       font-family: "Montserrat";
-      font-weight: 600;
-      font-size: 20px;
-      color: #ffffff;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      color: #929eaf;
     }
   }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    padding: 15px 50px 20px 50px;
+    border: none;
+    background: linear-gradient(91.79deg, #0d0dff 0.44%, #003f86 94.6%);
+    font-family: "Montserrat";
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+
+    &:hover {
+      cursor: pointer;
+      background: linear-gradient(91.3deg, #2a2a79 21.07%, #141461 102.35%);
+    }
+  }
+}
+::ng-deep .aos-animate {
+  transition-delay: 0.7 !important;
+}
+
+::ng-deep .footer-page {
+  height: calc(100vh - 470px) !important;
 }

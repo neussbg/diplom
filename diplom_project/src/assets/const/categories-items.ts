@@ -1,5 +1,6 @@
 import { categoriesItems } from '../interfaces/main/categories-items';
 
+/** Мок данных для категорий кондиционеров */
 export const CATEGORIES_ITEMS: Array<categoriesItems> = [
   {
     img: 'assets/img/categories/kassetnaya.svg',
@@ -25,7 +26,3 @@ export const CATEGORIES_ITEMS: Array<categoriesItems> = [
     name: 'Настенные сплит-системы',
   },
 ];
-
-export interface dsddsd {
-  name: string;
-}

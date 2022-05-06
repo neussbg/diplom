@@ -18,7 +18,7 @@
                 <div data-aos="fade-up" class="feedback-block ">
                     <div class="feedback-block__item">
                         <tui-svg src="assets/img/main/support.svg"></tui-svg>
-                        <a href="main/#trust" class="text">Мы поможем вам с
+                        <a (click)="route()" class="text">Мы поможем вам с
                             выбором</a>
                     </div>
                     <div class="feedback-block__item">
@@ -128,7 +128,7 @@
                         type="button">Отправить</button>
                 </div>
                 <div class="form-checkbox">
-                    <input (click)="onClickStocks($event)"
+                    <input
                         class="form-check-input"
                         type="checkbox" value=""
                         id="flexCheckDefault">

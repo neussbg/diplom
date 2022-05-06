@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductsService } from 'src/app/pages/services/products-service';
 import { Routes } from 'src/assets/const/route.data';
-import { Product } from 'src/assets/interfaces/products/product-item';
+import { ProductCard } from 'src/assets/interfaces/products/product-card';
 import { NavigationService } from '../../pages/services/navigation.service';
 
 @Component({
@@ -10,23 +10,16 @@ import { NavigationService } from '../../pages/services/navigation.service';
   styleUrls: ['./news-page.component.scss'],
 })
 export class NewsPageComponent implements OnInit {
-  // isSearchingInfo: boolean = false;
-
-  constructor(
-    private navigate: NavigationService,
-    private productService: ProductsService
-  ) {}
+  constructor(private navigate: NavigationService) {}
 
   /** Маршруты */
   routes? = Routes;
 
-  test!: Product;
-
-  ds?: boolean;
-
+  /** Флаг переключения темы */
   @Input() changerTheme: boolean = false;
 
-  @Output() toggle = new EventEmitter();
+  /** Флаг изменения события переключения темы   */
+  @Output() eventChangeThemeToggle = new EventEmitter<boolean>();
 
   ngOnInit(): void {}
 
@@ -35,17 +28,9 @@ export class NewsPageComponent implements OnInit {
     this.navigate.navigateTo(route as string);
   }
 
-  testMethod() {
-    this.productService.addToCart(this.test);
-  }
-
+  /** Пеерключает тему приложения */
   onChangeTheme() {
     this.changerTheme = !this.changerTheme;
-    this.toggle.emit(this.changerTheme);
+    this.eventChangeThemeToggle.emit(this.changerTheme);
   }
-
-  // /** Показывает поисковую строчку */
-  // searchInfo(event: any): void {
-  //   this.isSearchingInfo = !this.isSearchingInfo;
-  // }
 }

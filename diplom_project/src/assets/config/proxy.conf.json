@@ -1,4 +1,5 @@
 {
+  "*** Url бэкенда ***": "",
   "/api": {
     "target": "http://localhost:7000",
     "secure": false,

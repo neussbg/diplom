@@ -4,15 +4,13 @@ import { CATEGORIES_ITEMS } from 'src/assets/const/categories-items';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
+  /** Мок для категорий кондиционеров */
   categoriesItems = CATEGORIES_ITEMS;
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

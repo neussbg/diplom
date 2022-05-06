@@ -2,65 +2,25 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TUI_NUMBER_FORMAT, NumberFormatSettings } from '@taiga-ui/core';
 import { Subject, takeUntil } from 'rxjs';
-import { PRODUCT_ITEMS } from 'src/assets/const/product-items';
-import { Product } from 'src/assets/interfaces/products/product-item';
+import { ProductCard } from 'src/assets/interfaces/products/product-card';
 import { ProductsService } from '../services/products-service';
 import { environment } from 'src/environments/environment.production';
+import { brandsConditioners as brandsConditioners } from 'src/assets/const/products/brands';
+import { typeConditioners } from 'src/assets/const/products/types-conditioners';
 
-export const typeConditioners = [
-  'Кассетные сплит-системы',
-  'Канальные сплит-системы',
-  'Колонные сплит-системы',
-  'Напольно-потолочные сплит-системы',
-  'Настенные сплит-системы',
-];
-
-export enum dsds {}
-
-export const brands = [
-  {
-    brand: 'Bosch',
-    isChecked: false,
-  },
-  {
-    brand: 'Haier',
-    isChecked: false,
-  },
-  {
-    brand: 'Jax',
-    isChecked: true,
-  },
-  {
-    brand: 'Rovex',
-    isChecked: false,
-  },
-  {
-    brand: 'Tosot',
-    isChecked: false,
-  },
-  {
-    brand: 'Centek',
-    isChecked: false,
-  },
-  {
-    brand: 'Kentatsu',
-    isChecked: true,
-  },
-  {
-    brand: 'Samsung',
-    isChecked: false,
-  },
-];
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
   styleUrls: ['./products-page.component.scss'],
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
+  /** Мок для типа кондиционеров */
   type = typeConditioners;
 
-  brands = brands;
+  /** Мок для бренда кондиционеров */
+  brands = brandsConditioners;
 
+  /** Мок серии */
   series = [7, 9, 12, 18, 24, 30, 36];
 
   readonly min = 5;
@@ -68,15 +28,17 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   readonly sliderStep = 1;
   readonly steps = (this.max - this.min) / this.sliderStep;
   readonly quantum = 0.00001;
-  productItems = PRODUCT_ITEMS;
   readonly control = new FormControl([this.min, this.max / 2]);
 
+  /** Subject для отслеживания уничтожения компоненты */
   destroy$ = new Subject<void>();
 
-  itemsArray: Product[] = [];
+  /** Список карточек товара */
+  ProductsCardArray: ProductCard[] = [];
 
-  ss: any;
-
+  /**
+   * @todo - допилить crud запросы с флагами
+   */
   flag?: boolean;
 
   id?: number;
@@ -121,7 +83,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   tests() {
     // this.itemsArray = this.productsApi.getProducts()
-    this.itemsArray = this.itemsArray.filter((s) => {
+    this.ProductsCardArray = this.ProductsCardArray.filter((s) => {
       s.description.toLowerCase().startsWith(this.test.value);
     });
   }
@@ -130,7 +92,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   search() {
     this.itemDescription != ''
-      ? (this.itemsArray = this.itemsArray.filter((filter) => {
+      ? (this.ProductsCardArray = this.ProductsCardArray.filter((filter) => {
           console.log('test');
           return filter.description
             .toLocaleLowerCase()
@@ -139,27 +101,23 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
       : this.ngOnInit();
   }
 
-  // test(data: any) {
-  //   this.productsApi.addHero(data).subscribe((s) => s);
-  // }
-
   private viewProducts(): void {
     this.productsApi
       .getProducts()
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-        this.itemsArray = data;
+        this.ProductsCardArray = data;
         data.forEach((s) => {
           this.productId = s.id;
         });
       });
   }
 
-  addForm(name: Product): void {
-    this.productsApi.addHero(name).subscribe((hero) => {
-      this.itemsArray.push(hero);
-    });
-  }
+  // addForm(name: ProductCard): void {
+  //   this.productsApi.addHero(name).subscribe((hero) => {
+  //     this.itemsArray.push(hero);
+  //   });
+  // }
 
   deleteItem(id?: number): void {
     this.productsApi.deleteProducts(id);

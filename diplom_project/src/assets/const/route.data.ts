@@ -1,4 +1,4 @@
-import { RoutingPath } from '../enums/router.enum';
+import { RouterEnum } from '../enums/router.enum';
 import { RouteData } from '../interfaces/navigate/route-data.interface';
 
 /** Данные маршрутов для навигационного сервиса */
@@ -6,37 +6,36 @@ export const Routes: Array<RouteData> = [
   {
     name: '',
     title: 'Главная страница',
-    icon: 'logoCond.svg',
-    path: RoutingPath.mainPage,
+    path: RouterEnum.mainPage,
   },
   {
     name: 'О компании',
     title: 'О компании',
-    path: RoutingPath.companyPage,
+    path: RouterEnum.companyPage,
   },
   {
     name: 'Услуги',
     title: 'Услуги',
-    path: RoutingPath.attendance,
+    path: RouterEnum.attendance,
   },
   {
     name: 'Каталог',
     title: 'Каталог',
-    path: RoutingPath.productsPage,
+    path: RouterEnum.productsPage,
   },
   {
     name: 'Контакты',
     title: 'Контакты',
-    path: RoutingPath.contacts,
+    path: RouterEnum.contacts,
   },
   {
     name: '',
-    icon: 'basket.svg',
-    path: RoutingPath.basketPage,
+    icon: 'basket',
+    path: RouterEnum.basketPage,
   },
   {
     name: '',
-    icon: 'user.svg',
-    path: RoutingPath.accoutPage,
+    icon: 'user',
+    path: RouterEnum.accoutPage,
   },
 ];

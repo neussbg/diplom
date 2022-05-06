@@ -8,41 +8,42 @@ import { MainPageComponent } from 'src/app/pages/main-page/main-page.component';
 import { NewsPageComponent } from 'src/app/components/news-page/news-page.component';
 import { ProductsPageComponent } from 'src/app/pages/products-page/products-page.component';
 import { UserPageComponent } from 'src/app/pages/user-page/user-page.component';
-import { RoutingPath } from '../enums/router.enum';
+import { RouterEnum } from '../enums/router.enum';
 import { AuthorizationComponent } from 'src/app/authorization/authorization.component';
 
+/** Маршрутизация */
 export const routes: Routes = [
   {
-    path: RoutingPath.mainPage,
-    component: AuthorizationComponent,
+    path: RouterEnum.mainPage,
+    component: MainPageComponent,
   },
   {
-    path: RoutingPath.newsPage,
+    path: RouterEnum.newsPage,
     component: NewsPageComponent,
   },
   {
-    path: RoutingPath.productsPage,
+    path: RouterEnum.productsPage,
     component: ProductsPageComponent,
   },
   {
-    path: RoutingPath.basketPage,
+    path: RouterEnum.basketPage,
     component: BasketPageComponent,
   },
   {
-    path: RoutingPath.companyPage,
+    path: RouterEnum.companyPage,
     component: CompanyPageComponent,
   },
   {
-    path: RoutingPath.accoutPage,
+    path: RouterEnum.accoutPage,
     component: UserPageComponent,
   },
 
   {
-    path: RoutingPath.contacts,
+    path: RouterEnum.contacts,
     component: ContactsPageComponent,
   },
   {
-    path: RoutingPath.attendance,
+    path: RouterEnum.attendance,
     component: AttendancePageComponent,
   },
   {

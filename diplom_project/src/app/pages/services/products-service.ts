@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs';
-import { Product } from 'src/assets/interfaces/products/product-item';
+import { ProductCard } from 'src/assets/interfaces/products/product-card';
 import { environment } from 'src/environments/environment.production';
 
 const httpOptions = {
@@ -14,32 +14,38 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class ProductsService {
+  /** Мок данных товара */
   private controller = 'http://localhost:3000/conditioners';
 
-  // private $destroy = new Subject<void>();
-  conrollerSS = 'http://localhost:7000';
+  /** Контроллер для подключения бека */
+  private backController = 'http://localhost:7000';
 
-  states$: Observable<Product[]>;
-  item: Product[] = [];
+  states$: Observable<ProductCard[]>;
+  item: ProductCard[] = [];
 
   log: any;
 
   constructor(private http: HttpClient) {
-    this.states$ = http.get<Product[]>(this.controller);
-    this.http.get(this.conrollerSS);
+    this.states$ = this.getProducts();
+    this.http.get(this.backController);
   }
 
+  /** Видимость товаров */
   getProducts() {
-    return this.http.get<Product[]>(this.controller);
+    return this.http.get<ProductCard[]>(this.controller);
   }
 
-  addProducts(item: Product) {
-    return this.http.post<Product>(this.controller, item, httpOptions);
+  /**
+   *  Добавление товара
+   * @param item - товар
+   */
+  addProducts(item: ProductCard) {
+    return this.http.post<ProductCard>(this.controller, item, httpOptions);
   }
 
-  addHero(item: Product): Observable<Product> {
+  addHero(item: ProductCard): Observable<ProductCard> {
     return this.http
-      .post<Product>(this.controller, item, httpOptions)
+      .post<ProductCard>(this.controller, item, httpOptions)
       .pipe(tap(() => this.log(`pudated her id=${item.id}`)));
   }
 
@@ -48,11 +54,11 @@ export class ProductsService {
     return this.http.delete(url, httpOptions);
   }
 
-  updateProduct(item: Product): Observable<Product> {
-    return this.http.put<Product>(this.controller, item, httpOptions);
+  updateProduct(item: ProductCard): Observable<ProductCard> {
+    return this.http.put<ProductCard>(this.controller, item, httpOptions);
   }
 
-  addToCart(product: Product) {
+  addToCart(product: ProductCard) {
     this.item.push(product);
   }
 

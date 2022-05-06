@@ -49,7 +49,7 @@
     <div class="test">
         <div class="sort">
         </div>
-        <div class="content-block" *ngFor="let item of itemsArray ">
+        <div class="content-block" *ngFor="let item of ProductsCardArray ">
             <img class="content-block__img" src="{{item.img}}" />
             <div class="content-price">
                 <span
@@ -63,7 +63,8 @@
             </div>
             <div class="content-block__opinie">{{item.opinie}}</div>
             <div class="content-buttons">
-                <div class="content-buttons__add" (click)="test123()">В корзину</div>
+                <div class="content-buttons__add" (click)="test123()">В корзину
+                </div>
                 <button class="delete-button"
                     (click)="deleteItem(id)">delete</button>
                 <tui-svg class="import-button"

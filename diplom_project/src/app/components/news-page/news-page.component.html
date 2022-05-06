@@ -3,11 +3,11 @@
     <img style="cursor: pointer;" (click)="redirectTo('main')"
       src="assets/img/navigation/logo.svg">
     <div class="nav-content"
-      *ngFor="let route of routes; let i = index"
+      *ngFor="let route of routes;"
       (click)="redirectTo(route.path)">
-      <tui-svg
+      <tui-svg *ngIf="route?.icon"
         class="nav-content__img icon"
-        src="assets/img/navigation/{{route.icon}}">
+        src="assets/img/navigation/{{route?.icon}}.svg">
       </tui-svg>
       <div class="nav-content__title title">
         {{route.name}}

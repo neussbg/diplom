@@ -13,7 +13,8 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <div class="product">
         <app-news-page [changerTheme]="isChangeOnDarkTheme"
-            (toggle)="isChangeOnDarkTheme=$event"></app-news-page>
+            (eventChangeThemeToggle)="isChangeOnDarkTheme=$event">
+        </app-news-page>
     </div>
     <div class="content">
         <router-outlet></router-outlet>

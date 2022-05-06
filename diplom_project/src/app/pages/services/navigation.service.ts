@@ -18,14 +18,9 @@ export class NavigationService implements OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   /** Список маршрутов */
-  // routeList: Array<RouteData> = Routes;
-  constructor(private router: Router) {}
+  routeList: Array<RouteData> = Routes;
 
-  /** Возвращает заголовок текущей страницы */
-  // getPageTitle(): string {
-  //   const activeRoute = this.routeList[this.activeRouteSub.value];
-  //   return activeRoute.title || activeRoute.name;
-  // }
+  constructor(private router: Router) {}
 
   /** Переход по url */
   navigateTo(routeUrl: string): void {

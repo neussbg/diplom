@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoutingPath } from 'src/assets/enums/router.enum';
+import { RouterEnum } from 'src/assets/enums/router.enum';
 
 @Component({
   selector: 'app-footer',
@@ -10,26 +10,7 @@ import { RoutingPath } from 'src/assets/enums/router.enum';
 export class FooterComponent implements OnInit {
   constructor(private route: Router) {}
 
-  isMap: boolean = false;
-
-  ngOnInit(): void {
-    // let loader = new Loader({
-    //   apiKey: 'AIzaSyA3iVyrOgNzMZiZaczeXDvypqyM4qjx9WQ',
-    // });
-    // loader.load().then(() => {
-    //   const ID = document.getElementById('map') as HTMLElement;
-    //   new google.maps.Map(ID, {
-    //     center: { lat: 51.233334, lng: 6.78333 },
-    //     zoom: 6,
-    //   });
-    // });
-  }
-
-  showMap(flag: boolean) {
-    flag = true;
-    this.isMap = !this.isMap;
-    console.log(this.isMap);
-  }
+  ngOnInit(): void {}
 
   showVkPage() {
     const href = 'https://vk.com/public212664335';
@@ -48,6 +29,6 @@ export class FooterComponent implements OnInit {
 
   /** Переходит на  страницу продуктов */
   openContacts(): void {
-    this.route.navigateByUrl(RoutingPath.contacts);
+    this.route.navigateByUrl(RouterEnum.contacts);
   }
 }

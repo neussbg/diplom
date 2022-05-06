@@ -4,7 +4,7 @@ import { TUI_NUMBER_FORMAT, NumberFormatSettings } from '@taiga-ui/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ProductCard } from 'src/assets/interfaces/products/product-card';
 import { ProductsService } from '../services/products-service';
-import { environment } from 'src/environments/environment.production';
+import { environment } from 'src/environments/environment.prod';
 import { brandsConditioners as brandsConditioners } from 'src/assets/const/products/brands';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
 

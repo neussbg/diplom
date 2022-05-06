@@ -48,53 +48,51 @@
 
 <button
     tuiButton
-    type="button"
-    size="m">
+    size="m"
+    class="tui-space_right-2 tui-space_bottom-2"
+    (click)="onClick(content, header, 'm')">
     Show
 </button>
-
 <button
-    i18n
     tuiButton
-    type="button"
     size="m"
-    class="tui-space_right-3 tui-space_bottom-2"
-    (click)="showDialog(long, button)">
-    Show long mobile dialog with filters
+    (click)="onClick(content, header, 'fullscreen')">
+    Show fullscreen
 </button>
 
-<ng-template #button>
-    <button
-        *ngIf="!filters"
-        i18n
-        tuiButton
-        type="button"
-        tuiPreventDefault="touchmove"
-        class="portal"
-        (click)="onFilterClick()">
-        Filters
-    </button>
+<ng-template
+    #content
+    let-observer>
+    <div class="auth-container">
+        <!-- <div class="img-container"> -->
+        <!-- <tui-svg src="assets/img/autorization/security.svg"></tui-svg> -->
+        <!-- </div>? -->
+        <form [formGroup]="autorizationForm">
+
+            <div class="auth-container-data"> <input formControlName="email"
+                    type="email"
+                    placeholder="Электронная почта">
+                <input formControlName="password" type="password"
+                    placeholder="Пароль">
+                <button
+                    tuiButton
+                    type="submit"
+                    (click)="observer.complete()">
+                    Войти
+                </button>
+            </div>
+            <div class="auth-helper">
+                <button>Регистрация</button>
+                <button>Не помню пароль</button>
+            </div>
+        </form>
+    </div>
 </ng-template>
 
-<ng-template #long>
-    <div class="background"></div>
-    <header
-        class="header"
-        [style.transform]="transform"
-        [style.width]="width"
-        (tuiElasticSticky)="onElastic($event)">
-        <section class="logo">
-            <label class="date">8 March, 23:51</label>
-            <!-- <tui-marker-icon
-                src="tuiIconChevronDownLarge"
-                class="icon"
-            ></tui-marker-icon> -->
-        </section>
-        <div class="wrapper">
-            <p class="description">Card payment</p>
-            <h3 class="title">Sushi</h3>
-        </div>
-    </header>
-    <blockquote i18n>
-    </blockquote>
+<ng-template #header>
+    <div class="header">
+        <img
+            src="assets/img/autorization/security.svg"
+            alt="Cool" />
+    </div>
 </ng-template>

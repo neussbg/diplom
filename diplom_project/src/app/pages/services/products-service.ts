@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { ProductCard } from 'src/assets/interfaces/products/product-card';
-import { environment } from 'src/environments/environment.production';
+import { environment } from 'src/environments/environment.prod';
 
 const httpOptions = {
   headers: new HttpHeaders({

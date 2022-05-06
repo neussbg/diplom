@@ -76,6 +76,10 @@
 }
 
 ::ng-deep tui-dialog {
+  .t-header {
+    display: block !important;
+  }
+
   .t-content {
     // width: 370px;
     background: #ffffff !important;
@@ -128,4 +132,16 @@
     font-family: "Montserrat";
     font-style: normal;
   }
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-top: 0 !important;
+  background: white !important;
+}
+
+img {
+  height: 158px;
+  width: 62px;
 }

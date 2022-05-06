@@ -7,7 +7,11 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { clamp, TuiPortalService } from '@taiga-ui/cdk';
-import { TuiDialogContext, TuiDialogService } from '@taiga-ui/core';
+import {
+  TuiDialogContext,
+  TuiDialogService,
+  TuiDialogSize,
+} from '@taiga-ui/core';
 import { TaskService } from '../pages/services/task.service';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 
@@ -18,13 +22,13 @@ import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorizationComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void {}
   value = '';
   open = false;
 
   filters = false;
+
+  isLogginIn: boolean = false;
 
   scale = 1;
 
@@ -70,16 +74,30 @@ export class AuthorizationComponent implements OnInit {
   //   this.open = true;
   // }
 
-  showDialog(
-    content: PolymorpheusContent<TuiDialogContext>,
-    button: TemplateRef<Record<string, unknown>>
-  ): void {
-    const templateRef = this.portalService.addTemplate(button);
+  // showDialog(
+  //   content: PolymorpheusContent<TuiDialogContext>,
+  //   button: TemplateRef<Record<string, unknown>>
+  // ): void {
+  //   const templateRef = this.portalService.addTemplate(button);
 
-    this.dialogService.open(content).subscribe({
-      complete: () => {
-        this.portalService.removeTemplate(templateRef);
-      },
-    });
+  //   this.dialogService.open(content).subscribe({
+  //     complete: () => {
+  //       this.portalService.removeTemplate(templateRef);
+  //     },
+  //   });
+  // }
+
+  onClick(
+    content: PolymorpheusContent<TuiDialogContext>,
+    header: PolymorpheusContent,
+    size: TuiDialogSize
+  ): void {
+    this.dialogService
+      .open(content, {
+        label: this.isLogginIn ? 'Зарегистрироваться' : 'Вход на сайт',
+        header,
+        size: 's',
+      })
+      .subscribe();
   }
 }

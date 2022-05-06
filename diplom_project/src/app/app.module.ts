@@ -37,7 +37,7 @@ import {
   TuiInputRangeModule,
 } from '@taiga-ui/kit';
 import { AuthorizationComponent } from './authorization/authorization.component';
-import { environment } from 'src/environments/environment.production';
+import { environment } from 'src/environments/environment.prod';
 import { ENVIRONMENT, TaskService } from './pages/services/task.service';
 
 export const mapConfig: YaConfig = {

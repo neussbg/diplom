@@ -35,7 +35,7 @@ export const routes: Routes = [
   },
   {
     path: RouterEnum.accoutPage,
-    component: UserPageComponent,
+    component: AuthorizationComponent,
   },
 
   {

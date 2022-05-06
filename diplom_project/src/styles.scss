@@ -3,6 +3,7 @@
 html,
 body {
   overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
@@ -14,9 +15,6 @@ body {
   height: calc(100vh - 50px);
 }
 
-.product {
-  padding: 0 122px;
-}
 
 .block-title {
   border-left: #0d0dff 3px solid;

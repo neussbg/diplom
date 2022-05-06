@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { Product } from 'src/assets/interfaces/products/product-item';
+import { environment } from 'src/environments/environment.production';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,6 +17,7 @@ export class ProductsService {
   private controller = 'http://localhost:3000/conditioners';
 
   // private $destroy = new Subject<void>();
+  conrollerSS = 'http://localhost:7000';
 
   states$: Observable<Product[]>;
   item: Product[] = [];
@@ -24,6 +26,7 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {
     this.states$ = http.get<Product[]>(this.controller);
+    this.http.get(this.conrollerSS);
   }
 
   getProducts() {
@@ -49,6 +52,10 @@ export class ProductsService {
     return this.http.put<Product>(this.controller, item, httpOptions);
   }
 
+  addToCart(product: Product) {
+    this.item.push(product);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -62,7 +69,7 @@ export class ProductsService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      // this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

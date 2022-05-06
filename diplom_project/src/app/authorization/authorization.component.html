@@ -1,0 +1,126 @@
+<!-- <button
+    tuiButton
+    type="button"
+    size="m"
+    (click)="showDialog()">
+    Show
+</button>
+
+
+<ng-template
+    let-observer
+    [(tuiDialog)]="open">
+
+    <div class="auth-container">
+        <div class="img-container">
+            <tui-svg src="assets/img/autorization/security.svg"></tui-svg>
+        </div>
+
+        <span>Вход на сайт</span>
+        <form [formGroup]="autorizationForm">
+            <p>This abstracts away service and subscription</p>
+    
+            <div class="auth-container-data"> <input formControlName="email"
+                    type="email"
+                    placeholder="Электронная почта">
+                <input formControlName="password" type="password"
+                    placeholder="Пароль">
+                <button
+                    tuiButton
+                    type="submit"
+                    (click)="observer.complete()">
+                    Войти
+                </button>
+            </div>
+            <div class="auth-helper">
+                <button>Регистрация</button>
+                <button>Не помню пароль</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #label>
+    <div>
+        <tui-svg src="assets/img/autorization/security.svg"></tui-svg>
+    </div>
+</ng-template> -->
+
+<button
+    tuiButton
+    type="button"
+    size="m">
+    Show
+</button>
+
+<button
+    i18n
+    tuiButton
+    type="button"
+    size="m"
+    class="tui-space_right-3 tui-space_bottom-2"
+    (click)="showDialog(long, button)">
+    Show long mobile dialog with filters
+</button>
+
+<ng-template #button>
+    <button
+        *ngIf="!filters"
+        i18n
+        tuiButton
+        type="button"
+        tuiPreventDefault="touchmove"
+        class="portal"
+        (click)="onFilterClick()">
+        Filters
+    </button>
+</ng-template>
+
+<ng-template #long>
+    <div class="background"></div>
+    <header
+        class="header"
+        [style.transform]="transform"
+        [style.width]="width"
+        (tuiElasticSticky)="onElastic($event)">
+        <section class="logo">
+            <label class="date">8 March, 23:51</label>
+            <!-- <tui-marker-icon
+                src="tuiIconChevronDownLarge"
+                class="icon"
+            ></tui-marker-icon> -->
+        </section>
+        <div class="wrapper">
+            <p class="description">Card payment</p>
+            <h3 class="title">Sushi</h3>
+        </div>
+    </header>
+    <blockquote i18n>
+        <h1>Additional information</h1>
+        <p>
+            In user interface design for computer applications, a modal window
+            is a graphical control element subordinate to an application's main
+            window. A modal window creates a mode that disables the main window
+            but keeps it visible, with the modal window as a child window in
+            front of it. Users must interact with the modal window before they
+            can return to the parent application. This avoids interrupting the
+            workflow on the main window. Modal windows are sometimes called
+            heavy windows or modal dialogs because they often display a dialog
+            box.
+        </p>
+    </blockquote>
+    <blockquote i18n>
+        <h1>Additional information</h1>
+        <p>
+            In user interface design for computer applications, a modal window
+            is a graphical control element subordinate to an application's main
+            window. A modal window creates a mode that disables the main window
+            but keeps it visible, with the modal window as a child window in
+            front of it. Users must interact with the modal window before they
+            can return to the parent application. This avoids interrupting the
+            workflow on the main window. Modal windows are sometimes called
+            heavy windows or modal dialogs because they often display a dialog
+            box.
+        </p>
+    </blockquote>
+</ng-template>

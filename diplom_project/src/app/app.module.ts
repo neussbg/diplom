@@ -6,8 +6,12 @@ import {
   TuiNotificationsModule,
   TUI_SANITIZER,
   TuiSvgModule,
+  TuiThemeNightModule,
+  TuiModeModule,
+  TuiLabelModule,
+  TuiDataListModule,
 } from '@taiga-ui/core';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,11 +31,23 @@ import { NewsPageComponent } from './components/news-page/news-page.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { SwiperModule } from 'swiper/angular';
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import {
+  TuiCheckboxModule,
+  TuiDataListWrapperModule,
+  TuiInputRangeModule,
+} from '@taiga-ui/kit';
+import { AuthorizationComponent } from './authorization/authorization.component';
+import { environment } from 'src/environments/environment.production';
+import { ENVIRONMENT, TaskService } from './pages/services/task.service';
 
 export const mapConfig: YaConfig = {
   apikey: 'b1484602-759f-463f-9f27-0d8191d4c5cb',
   lang: 'en_US',
 };
+
+export function initApp(configurationService: TaskService) {
+  return () => configurationService.load().toPromise();
+}
 
 @NgModule({
   declarations: [
@@ -47,6 +63,7 @@ export const mapConfig: YaConfig = {
     AttendancePageComponent,
     NewsPageComponent,
     ContactsPageComponent,
+    AuthorizationComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,17 +71,34 @@ export const mapConfig: YaConfig = {
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    TuiInputRangeModule,
     TuiRootModule,
+    TuiDialogModule,
     BrowserAnimationsModule,
     TuiDialogModule,
+    TuiDataListModule,
+    TuiDataListWrapperModule,
     TuiNotificationsModule,
     TuiSvgModule,
+    TuiCheckboxModule,
+    TuiLabelModule,
     FilterPipeModule,
+    TuiThemeNightModule,
+    TuiModeModule,
     SwiperModule,
     AngularYandexMapsModule,
     AngularYandexMapsModule.forRoot(mapConfig),
   ],
-  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      multi: true,
+      deps: [TaskService],
+    },
+    { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+    { provide: ENVIRONMENT, useValue: environment },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

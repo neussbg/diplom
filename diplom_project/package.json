@@ -14,6 +14,7 @@
   },
   "private": true,
   "dependencies": {
+    "'": "file:angular/localize/init'",
     "@angular/animations": "~13.2.0",
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
@@ -35,6 +36,7 @@
     "aos": "^2.3.4",
     "bootstrap": "^5.1.3",
     "dompurify": "2.2.9",
+    "express": "^4.18.1",
     "jquery": "^3.6.0",
     "ngx-filter-pipe": "^2.1.2",
     "react-yandex-maps": "^4.6.0",
@@ -60,6 +62,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "nodemon": "^2.0.16",
     "typescript": "~4.5.2"
   }
 }

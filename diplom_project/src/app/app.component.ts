@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import * as AOS from 'aos';
 
@@ -12,10 +18,13 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
   loader: any;
 
+  isChangeOnDarkTheme: boolean = false;
+
   protected onDestroy$ = new Subject<void>();
 
   ngAfterViewInit(): void {
     AOS.init();
+    console.log(this.isChangeOnDarkTheme);
   }
 
   ngOnDestroy(): void {

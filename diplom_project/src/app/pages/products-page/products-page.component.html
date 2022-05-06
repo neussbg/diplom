@@ -1,41 +1,75 @@
-<div class="content-page">
-    <form>
-        <div class="block">
-            <input [formControl]="test" />
-            <button type="submit" (click)="tests()"></button>
+<div class="content-page container">
+    <form [formGroup]="selectConditoners">
+        <div class="charactects-conditioners-block">
+            <div class="type-block">
+                <label>Тип сплит систем</label>
+                <div class="type-conditioners" *ngFor="let item of type">
+                    <button class="type-conditioners__item">{{item}}</button>
+                </div>
+            </div>
+            <div class="inventors-conditioners">
+                <label>Инвентор</label>
+                <div class="inventorts-conditioners__items">
+                    <button>Есть</button>
+                    <button>Нет</button>
+                </div>
+            </div>
+            <div class="series-block">
+                <label>Серия</label>
+                <div class="series-conditioners">
+                    <div class="series-conditioners__items"
+                        *ngFor="let item of series">
+                        <button>{{item}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="brands-conditioners">
+                <label>Бренд</label>
+                <div class="brands-block"
+                    *ngFor="let item of brands,let i = index">
+                    <span>{{item.brand}}</span>
+                    <tui-checkbox formControlName="brand"
+                        class="tui-space_bottom-3">
+                    </tui-checkbox>
+                </div>
+            </div>
+            <div>
+                <label>Обслуживаемая
+                    площадь, кв.м</label>
+                <tui-input-range new
+                    [min]="min"
+                    [max]="max"
+                    [quantum]="quantum"
+                    [steps]="steps"
+                    [formControl]="control">
+                </tui-input-range>
+            </div>
         </div>
     </form>
-    <div class="content-block" *ngFor="let item of itemsArray ">
-        <img class="content-block__img" src="{{item.img}}" />
-        <div class="content-price">
-            <span
-                class="content-price__Newprice">{{item.newPrice}}</span>
-            <span
-                class="content-price__oldPrice strikethrough">{{item.oldPrice}}</span>
-            <span class="content-price__status">Хит продаж</span>
+    <div class="test">
+        <div class="sort">
         </div>
+        <div class="content-block" *ngFor="let item of itemsArray ">
+            <img class="content-block__img" src="{{item.img}}" />
+            <div class="content-price">
+                <span
+                    class="content-price__Newprice">{{item.newPrice}}</span>
+                <span
+                    class="content-price__oldPrice strikethrough">{{item.oldPrice}}</span>
+                <span class="content-price__status">Хит продаж</span>
+            </div>
 
-        <div class="content-block__description">{{item.description}}
-        </div>
-        <div class="content-block__opinie">{{item.opinie}}</div>
-        <div class="content-buttons">
-            <div class="content-buttons__add">В корзину</div>
-            <button class="delete-button"
-                (click)="deleteItem(id)">delete</button>
-            <img src="assets/img/products/heart.svg" />
+            <div class="content-block__description">{{item.description}}
+            </div>
+            <div class="content-block__opinie">{{item.opinie}}</div>
+            <div class="content-buttons">
+                <div class="content-buttons__add" (click)="test123()">В корзину</div>
+                <button class="delete-button"
+                    (click)="deleteItem(id)">delete</button>
+                <tui-svg class="import-button"
+                    src="assets/img/products/heart.svg"></tui-svg>
+            </div>
         </div>
     </div>
-
-
-    <!-- <form [formGroup]="productForm">
-        <input formControlName="name" type="text" placeholder="name" />
-        <input type="number" formControlName="newPrice"
-            placeholder="newPrice" />
-        <input type="text" formControlName="description"
-            placeholder="description" />
-        <button (click)="addForm(ss)">add</button>
-    </form> -->
-
-
 </div>
 <app-footer></app-footer>

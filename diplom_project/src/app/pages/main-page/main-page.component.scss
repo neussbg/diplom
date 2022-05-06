@@ -3,6 +3,11 @@
   position: relative;
   height: 100%;
   width: 100%;
+
+}
+
+a{
+  text-decoration: none;
 }
 
 .main-info-block {
@@ -248,7 +253,6 @@
 
     &:hover {
       transform: scale(1.2);
-      border: 1px solid red;
     }
   }
 }

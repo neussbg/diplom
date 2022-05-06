@@ -1,4 +1,7 @@
-.product {
-  // padding: 20px 122px;
-  border-bottom: 1px solid #929eaf;
+.dark {
+  background: rgba(11, 12, 37, 0.79) !important;
+  color: rgb(167, 164, 164);
+  ::ng-deep .fill-color {
+    fill: white !important;
+  }
 }

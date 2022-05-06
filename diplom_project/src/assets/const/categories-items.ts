@@ -25,3 +25,7 @@ export const CATEGORIES_ITEMS: Array<categoriesItems> = [
     name: 'Настенные сплит-системы',
   },
 ];
+
+export interface dsddsd {
+  name: string;
+}

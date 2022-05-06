@@ -1,9 +1,74 @@
 .content-page {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  padding-top: 100px;
 }
 
+.test {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.charactects-conditioners-block {
+  ::ng-deep tui-svg {
+    background: #ff8a00;
+    // border: 1px solid #ffd600;
+    // box-sizing: border-box;
+  }
+  button {
+    color: #929eaf;
+    border: 0;
+    background: none;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    font-family: "Montserrat";
+    font-style: normal;
+  }
+
+  label {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    margin-bottom: 22px;
+  }
+  .type-conditioners {
+    &__item {
+      padding: 6px 12px;
+      margin-bottom: 22px;
+
+      &:hover {
+        background: linear-gradient(91.6deg, #ff8a00 17.78%, #ffd600 98.26%);
+        border-radius: 5px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .brands-block,
+  .series-conditioners {
+    display: flex;
+    justify-content: space-between;
+
+    button:hover {
+      color: #ff8a00;
+    }
+  }
+
+  .inventors-conditioners {
+    button:hover {
+      color: #ff8a00;
+    }
+  }
+
+  ::ng-deep tui-wrapper {
+    .t-input {
+      color: black !important;
+    }
+  }
+}
 .block {
   display: flex;
 }
@@ -18,7 +83,7 @@
   margin: 0 0 20px 20px;
 
   &:hover {
-    background-color: rgb(232, 234, 237);
+    border: 1px solid rgba(231, 160, 27, 0.849);
   }
 
   .content-price {
@@ -72,5 +137,12 @@
         background: #191988;
       }
     }
+  }
+}
+
+.import-button {
+  ::ng-deep .stroke-color:hover {
+    fill: red !important;
+    stroke: red !important;
   }
 }

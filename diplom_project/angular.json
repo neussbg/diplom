@@ -63,10 +63,18 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.production.ts"
                 }
               ],
               "outputHashing": "all"
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "/src/environments/environment.ts",
+                  "with": "/src/environments/environment.staging.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -85,6 +93,9 @@
             "production": {
               "browserTarget": "diplom_project:build:production"
             },
+            "staging": {
+              "browserTarget": "diplom_project:build:staging"
+            },
             "development": {
               "browserTarget": "diplom_project:build:development"
             }
@@ -95,6 +106,16 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "diplom_project:build"
+          }
+        },
+        "e2e": {
+          "configurations": {
+            "production": {
+              "browserTarget": "diplom_project:serve:production"
+            },
+            "staging": {
+              "browserTarget": "diplom_project:serve:staging"
+            }
           }
         },
         "test": {

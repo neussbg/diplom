@@ -41,7 +41,7 @@ export class ContactsPageComponent implements OnInit {
         // The geometry description.
         geometry: {
           type: 'Point',
-          coordinates: [47.249715, 39.620330],
+          coordinates: [47.249715, 39.62033],
         },
         // Properties.
         properties: {
@@ -63,7 +63,7 @@ export class ContactsPageComponent implements OnInit {
 
     this.placementMarks = [
       {
-        geometry: [47.249715, 39.620330],
+        geometry: [47.249715, 39.62033],
         properties: {
           balloonContent:
             '<div class="description-cotext">Компания по продажи кондиционеров</div>',

@@ -18,6 +18,9 @@ export class MainPageComponent implements OnInit {
   tesst: any;
 
   constructor() {
+  }
+
+  ngOnInit(): void {
     window.addEventListener('load', () => {
       AOS.init({
         duration: 1000,
@@ -27,10 +30,13 @@ export class MainPageComponent implements OnInit {
       });
     });
   }
-
-  ngOnInit(): void {}
   test(): void {
     this.isHovered = !this.isHovered;
+  }
+  route(){
+    // const id = document.getElementById('trust')
+    document.location.href = '#trust'
+
   }
 
   onClickStocks(elem: any): void {}

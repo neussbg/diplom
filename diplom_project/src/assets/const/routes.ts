@@ -9,11 +9,12 @@ import { NewsPageComponent } from 'src/app/components/news-page/news-page.compon
 import { ProductsPageComponent } from 'src/app/pages/products-page/products-page.component';
 import { UserPageComponent } from 'src/app/pages/user-page/user-page.component';
 import { RoutingPath } from '../enums/router.enum';
+import { AuthorizationComponent } from 'src/app/authorization/authorization.component';
 
 export const routes: Routes = [
   {
     path: RoutingPath.mainPage,
-    component: MainPageComponent,
+    component: AuthorizationComponent,
   },
   {
     path: RoutingPath.newsPage,

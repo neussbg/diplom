@@ -7,6 +7,7 @@ import { ProductsService } from '../services/products-service';
 import { environment } from 'src/environments/environment.prod';
 import { brandsConditioners as brandsConditioners } from 'src/assets/const/products/brands';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-products-page',
@@ -52,6 +53,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private productsApi: ProductsService,
+    private task: TaskService,
     @Inject(TUI_NUMBER_FORMAT)
     readonly numberFormatSettings: NumberFormatSettings
   ) {
@@ -61,6 +63,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.brands.forEach((s) => (this.flag = s.isChecked));
     this.viewProducts();
+    this.task.get();
   }
 
   productId: number = 0;

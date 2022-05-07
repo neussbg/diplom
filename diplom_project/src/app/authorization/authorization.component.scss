@@ -79,11 +79,13 @@
   .t-header {
     display: block !important;
   }
+  .t-heading {
+    margin-bottom: 32px !important;
+  }
 
   .t-content {
     // width: 370px;
     background: #ffffff !important;
-    border: 1px solid rgba(146, 158, 175, 0.46);
     box-sizing: border-box;
     border-radius: 5px;
   }
@@ -115,6 +117,20 @@
     font-style: normal;
     background: linear-gradient(272.71deg, #ffd600 17.73%, #ff8a00 91.54%);
     border-radius: 5px;
+  }
+
+  .isLogginContext {
+    background: white;
+    color: #ff8a00;
+  }
+
+  .confirm {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #929eaf;
+    margin-bottom: 20px;
   }
 }
 .auth-helper {

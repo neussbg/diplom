@@ -18,7 +18,7 @@ export class TaskService {
     @Optional() @Inject(ENVIRONMENT) environment: any,
     private http: HttpClient
   ) {
-    this.ROOT_URL = 'http/localhost:7000';
+    this.ROOT_URL = 'http/localhost:7000/api';
   }
 
   load(): Observable<void> {

@@ -14,12 +14,13 @@ import {
 } from '@taiga-ui/core';
 import { TaskService } from '../pages/services/task.service';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
+import { logginLabels } from 'src/assets/enums/logginLabels.enum';
 
 @Component({
   selector: 'app-authorization',
   templateUrl: './authorization.component.html',
   styleUrls: ['./authorization.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorizationComponent implements OnInit {
   ngOnInit(): void {}
@@ -28,7 +29,7 @@ export class AuthorizationComponent implements OnInit {
 
   filters = false;
 
-  isLogginIn: boolean = false;
+  isLoggedIn: boolean = false;
 
   scale = 1;
 
@@ -66,6 +67,7 @@ export class AuthorizationComponent implements OnInit {
     this.dialogService.open('Dialog with filters').subscribe({
       complete: () => {
         this.filters = false;
+        this.isLoggedIn = true;
       },
     });
   }
@@ -87,6 +89,8 @@ export class AuthorizationComponent implements OnInit {
   //   });
   // }
 
+  logginLabels?: logginLabels;
+
   onClick(
     content: PolymorpheusContent<TuiDialogContext>,
     header: PolymorpheusContent,
@@ -94,7 +98,7 @@ export class AuthorizationComponent implements OnInit {
   ): void {
     this.dialogService
       .open(content, {
-        label: this.isLogginIn ? 'Зарегистрироваться' : 'Вход на сайт',
+        label: this.isLoggedIn ? logginLabels.registration : logginLabels.login,
         header,
         size: 's',
       })

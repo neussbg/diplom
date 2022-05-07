@@ -53,12 +53,12 @@
     (click)="onClick(content, header, 'm')">
     Show
 </button>
-<button
+<!-- <button
     tuiButton
     size="m"
     (click)="onClick(content, header, 'fullscreen')">
     Show fullscreen
-</button>
+</button> -->
 
 <ng-template
     #content
@@ -69,30 +69,47 @@
         <!-- </div>? -->
         <form [formGroup]="autorizationForm">
 
-            <div class="auth-container-data"> <input formControlName="email"
+            <div class="auth-container-data">
+                <input formControlName="email"
                     type="email"
                     placeholder="Электронная почта">
                 <input formControlName="password" type="password"
                     placeholder="Пароль">
-                <button
+                <input *ngIf="isLoggedIn" formControlName="password"
+                    type="password"
+                    placeholder="Пароль еще раз">
+                <span *ngIf="isLoggedIn === true" class="confirm">Регистрируясь
+                    вы
+                    соглашаетесь
+                    с <a href="company"
+                        style="color:#ff8a00; cursor: pointer;">Политикой
+                        конфиденциальности</a>
+                </span>
+                <button style="margin-bottom: 20px;" *ngIf="isLoggedIn"
+                    tuiButton
+                    type="submit"
+                    (click)="observer.complete()">
+                    Зарегестрироваться
+                </button>
+                <button [ngClass]="isLoggedIn ? 'isLogginContext' : '' "
                     tuiButton
                     type="submit"
                     (click)="observer.complete()">
                     Войти
                 </button>
             </div>
-            <div class="auth-helper">
-                <button>Регистрация</button>
+            <div *ngIf="!isLoggedIn" class="auth-helper">
+                <button (click)="isLoggedIn = !isLoggedIn">Регистрация</button>
                 <button>Не помню пароль</button>
             </div>
         </form>
     </div>
 </ng-template>
 
-<ng-template #header>
+<ng-template #header let-observer>
     <div class="header">
         <img
-            src="assets/img/autorization/security.svg"
+            [src]="isLoggedIn ? 'assets/img/autorization/User.svg' : 'assets/img/autorization/security.svg' "
             alt="Cool" />
     </div>
 </ng-template>

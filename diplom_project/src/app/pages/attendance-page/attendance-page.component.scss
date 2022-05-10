@@ -1,6 +1,6 @@
 .content-block {
-  display: grid;
-  grid-row-gap: calc(100vh - 80vh);
+  // display: grid;
+  // grid-row-gap: calc(100vh - 80vh);
 }
 
 .background {
@@ -39,9 +39,10 @@
 }
 
 .mySwiper {
-  position: absolute;
-  top: 22%;
-  right: 20%;
+  // position: absolute;
+  // top: 22%;
+  // right: 20%;
+  z-index: 100;
 }
 
 .slider {

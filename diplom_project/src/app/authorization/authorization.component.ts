@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { clamp, TuiPortalService } from '@taiga-ui/cdk';
 import {
@@ -15,14 +9,15 @@ import {
 import { TaskService } from '../pages/services/task.service';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { logginLabels } from 'src/assets/enums/logginLabels.enum';
+import { AuthService } from '../pages/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-authorization',
   templateUrl: './authorization.component.html',
   styleUrls: ['./authorization.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthorizationComponent implements OnInit {
+export class AuthorizationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
   value = '';
   open = false;
@@ -30,6 +25,8 @@ export class AuthorizationComponent implements OnInit {
   filters = false;
 
   isLoggedIn: boolean = false;
+
+  aSub!: Subscription;
 
   scale = 1;
 
@@ -41,6 +38,7 @@ export class AuthorizationComponent implements OnInit {
     ]),
   });
   constructor(
+    private auth: AuthService,
     private apiBack: TaskService,
     @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
     @Inject(TuiPortalService)
@@ -70,6 +68,22 @@ export class AuthorizationComponent implements OnInit {
         this.isLoggedIn = true;
       },
     });
+  }
+  ngOnDestroy(): void {
+    if(this.aSub){
+      this.aSub.unsubscribe();
+    }
+  }
+
+  onSubmit() {
+    this.autorizationForm.disable();
+    (this.aSub = this.auth.login(this.autorizationForm.value).subscribe(() => {
+      console.log('success');
+    })),
+      () => {
+        console.warn('warn error');
+        this.autorizationForm.enable();
+      };
   }
 
   // showDialog() {

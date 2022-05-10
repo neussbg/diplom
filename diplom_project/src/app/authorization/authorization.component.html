@@ -94,6 +94,7 @@
                 <button [ngClass]="isLoggedIn ? 'isLogginContext' : '' "
                     tuiButton
                     type="submit"
+                    [disabled]="this.autorizationForm.invalid || this.autorizationForm.disabled"
                     (click)="observer.complete()">
                     Войти
                 </button>

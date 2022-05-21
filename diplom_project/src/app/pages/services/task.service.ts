@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { Observable, tap, mapTo } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 export const ENVIRONMENT = new InjectionToken<{ [key: string]: any }>(
   'environment'
 );
@@ -18,7 +19,8 @@ export class TaskService {
     @Optional() @Inject(ENVIRONMENT) environment: any,
     private http: HttpClient
   ) {
-    this.ROOT_URL = 'http/localhost:7000/api';
+    const root = environment.apiUrl;
+    this.ROOT_URL = `${root}/device`;
   }
 
   load(): Observable<void> {

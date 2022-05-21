@@ -1,26 +1,18 @@
-<div class="content-block">
+<div class="content-pages">
     <div class="background"
-        [ngStyle]="{'background': 'url(assets/img/attendance/slider-background_1.svg), #C4C4C4'}">
+        [ngStyle]="{'background': 'url(assets/img/attendance/slider-background_2.svg), #C4C4C4'}">
         <span class="background__title">
-            Чистка сплит систем
-        </span>
+            Сколько стоит</span>
     </div>
-    <div class="page-background">
-
-        <swiper
-            [cssMode]="true"
-            [autoplay]="true"
-            [navigation]="true"
-            [pagination]="true"
-            [mousewheel]="true"
-            [keyboard]="true"
+    <div class=" page-background">
+        <swiper data-aos="zoom-in"
+            [config]="config"
             class="mySwiper">
-            <ng-template swiperSlide
-                *ngFor="let item of sliderValues;let i = index">
+            <ng-template swiperSlide>
                 <div data-aos="zoom-in" class=" slider-block container">
                     <div class="slider">
                         <div class="slider__title block-title">
-                            Cколько стоит
+                            {{tee[0]}}
                         </div>
                         <div class="slider-content">
                             <div class="slider-content-prices">
@@ -29,7 +21,83 @@
                                     <span>Стоимость</span>
                                 </div>
                                 <div class="slider-content-prices__value"
-                                    *ngFor="let item of sliderValues | slice: 0: size">
+                                    *ngFor="let item of sliderValues">
+                                    <div>
+                                        <span>{{item.name}}</span>
+                                    </div>
+                                    <div>
+                                        <span
+                                            style="padding-left: 20px;">{{item.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-services">
+                                <div class="slider-services__content">
+                                    <tui-svg class="slider-services icon"
+                                        src="assets/img/attendance/application.svg">
+                                    </tui-svg>
+                                    <span>Оформите заявку на сайте
+                                        и мы свяжемся с вами</span>
+                                </div>
+                                <div class="slider-services__button">Заказть
+                                    услугу</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class=" slider-block container">
+                    <div class="slider">
+                        <div class="slider__title block-title">
+                            {{tee[1]}}
+                        </div>
+                        <div class="slider-content">
+                            <div class="slider-content-prices">
+                                <div class="slider-content-prices__title">
+                                    <span> Наименование услуг</span>
+                                    <span>Стоимость</span>
+                                </div>
+                                <div class="slider-content-prices__value"
+                                    *ngFor="let item of sliderValues2">
+                                    <div>
+                                        <span>{{item.name}}</span>
+                                    </div>
+                                    <div>
+                                        <span
+                                            style="padding-left: 20px;">{{item.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-services">
+                                <div class="slider-services__content">
+                                    <tui-svg class="slider-services icon"
+                                        src="assets/img/attendance/application.svg">
+                                    </tui-svg>
+                                    <span>Оформите заявку на сайте
+                                        и мы свяжемся с вами</span>
+                                </div>
+                                <div class="slider-services__button">Заказть
+                                    услугу</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class=" slider-block container">
+                    <div class="slider">
+                        <div class="slider__title block-title">
+                            {{tee[2]}}
+                        </div>
+                        <div class="slider-content">
+                            <div class="slider-content-prices">
+                                <div class="slider-content-prices__title">
+                                    <span> Наименование услуг</span>
+                                    <span>Стоимость</span>
+                                </div>
+                                <div class="slider-content-prices__value"
+                                    *ngFor="let item of sliderValues3">
                                     <div>
                                         <span>{{item.name}}</span>
                                     </div>
@@ -58,3 +126,7 @@
     </div>
     <app-footer></app-footer>
 </div>
+
+<ng-template #titles>
+    <!-- <div class="slider-values" *ngFor="let item of slider"></div> -->
+</ng-template>

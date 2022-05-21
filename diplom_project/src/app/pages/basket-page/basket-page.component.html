@@ -1,2 +1,82 @@
-<p>basket-page works!</p>
-<app-footer></app-footer>
+<div class="content-page">
+    <ng-container *ngIf="this.itemsArray.length !== 0">
+        <div class="container basket-items-block">
+            <div class="categories-title">Корзина</div>
+            <div class="cart-table">
+                <div class="cart-product">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Изображение</th>
+                                <th>Наименование</th>
+                                <th>Цена</th>
+                                <th>Кол-во</th>
+                                <th>Итого</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr data-aos="fade-right"
+                                *ngFor="let item of itemsArray;let i = index">
+                                <td>{{i+1}}</td>
+                                <td>
+                                    <img style="width: 100px;"
+                                        class="content-block__img"
+                                        src="http://localhost:7000/{{item.img}}" />
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.price}}</td>
+                                <td>
+                                    <div class="items-number">
+                                        <button>-</button>
+                                        {{i}}
+                                        <button>+</button>
+                                    </div>
+                                </td>
+                                <td>{{item.price}}</td>
+                                <td>
+                                    <img style="cursor:pointer;"
+                                        (click)="removeItem(i)"
+                                        src="assets/img/basket/basket.svg" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="total-items-block">
+                    <div class="items-promo">
+                        <span class="text">Есть промокод ? Введите!</span>
+                        <div>
+                            <input placeholder="Введите промокод"
+                                class="items-promo__input" type="text" />
+                            <button
+                                class="items-promo__price">Применить</button>
+                        </div>
+                    </div>
+                    <div class="items-order">
+                        <span class="items-order__price">Итого:
+                            {{grandTotal}}₽</span>
+                        <button class="items-order__buy">
+                            Оформить заказ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="this.itemsArray.length == 0">
+
+        <div class="empty-basket-block container">
+            <tui-svg
+                style="height: 200px; width:500px; margin: 30px 0px 30px 0px;"
+                src="assets/img/basket/empty-basket.svg"></tui-svg>
+            <h2>Ваша корзина пуста</h2>
+            <span>На нашем сайте представлено более 200 товаров,отправляйтесь
+                в каталог, выберите интересующий товар и нажмите кнопку
+                «В корзину»</span>
+            <button class="empty-basket-block__add" routerLink="/products">В
+                каталог</button>
+        </div>
+    </ng-container>
+    <app-footer></app-footer>
+</div>

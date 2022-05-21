@@ -9,11 +9,6 @@ import { RouteData } from 'src/assets/interfaces/navigate/route-data.interface';
   providedIn: 'root',
 })
 export class NavigationService implements OnDestroy {
-  /** Subject для отслеживания изменения маршрута */
-  private activeRouteSub: BehaviorSubject<number> = new BehaviorSubject<number>(
-    0
-  );
-
   /** Subject для очистки при уничтожения сервиса */
   private readonly destroy$ = new Subject<void>();
 
@@ -32,9 +27,9 @@ export class NavigationService implements OnDestroy {
   //  * @param route - маршрут
   //  * @param data - данные
   //  */
-  // navigate(route: string, data: any): void {
-  //   this.router.navigate([route, data]);
-  // }
+  navigate(route: string, data: any): void {
+    this.router.navigate([route, data]);
+  }
 
   /** Освобождение ресурсов */
   ngOnDestroy(): void {

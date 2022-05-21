@@ -1,13 +1,25 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TUI_NUMBER_FORMAT, NumberFormatSettings } from '@taiga-ui/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ProductCard } from 'src/assets/interfaces/products/product-card';
-import { ProductsService } from '../services/products-service';
+import { ProductsService } from '../services/products.service';
 import { environment } from 'src/environments/environment.prod';
 import { brandsConditioners as brandsConditioners } from 'src/assets/const/products/brands';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
 import { TaskService } from '../services/task.service';
+import { Product } from '../services/products.service';
+import { ChangeDetectionStrategy } from '@angular/compiler';
+import { NavigationService } from '../services/navigation.service';
+import { Router } from '@angular/router';
+import { RouterEnum } from 'src/assets/enums/router.enum';
+import { CardService } from '../services/card.service';
 
 @Component({
   selector: 'app-products-page',
@@ -24,6 +36,16 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   /** Мок серии */
   series = [7, 9, 12, 18, 24, 30, 36];
 
+  length = 10;
+
+  index = 0;
+
+  goToPage(index: number): void {
+    this.index = index;
+
+    console.info('New page:', index);
+  }
+
   readonly min = 5;
   readonly max = 150;
   readonly sliderStep = 1;
@@ -35,14 +57,24 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
 
   /** Список карточек товара */
-  ProductsCardArray: ProductCard[] = [];
+  ProductsCardArray: any[] = [];
+
+  devicesArray: Product[] = [];
+
+  addDeviceForm: FormGroup = new FormGroup({
+    name: new FormControl(null, Validators.required),
+    price: new FormControl(null, Validators.required),
+    brandId: new FormControl(null, Validators.required),
+    typeId: new FormControl(null, Validators.required),
+    info: new FormControl(null, Validators.required),
+  });
 
   /**
    * @todo - допилить crud запросы с флагами
    */
   flag?: boolean;
 
-  id?: number;
+  id!: number;
 
   selectConditoners: FormGroup = new FormGroup({
     type: new FormControl(null, Validators.required),
@@ -53,76 +85,89 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private productsApi: ProductsService,
-    private task: TaskService,
+    private navagationApi: NavigationService,
+    private cardService: CardService,
+    private router: Router,
     @Inject(TUI_NUMBER_FORMAT)
     readonly numberFormatSettings: NumberFormatSettings
-  ) {
-    console.log(environment.apiUrl);
-  }
+  ) {}
+  productId!: number;
 
   ngOnInit(): void {
-    this.brands.forEach((s) => (this.flag = s.isChecked));
-    this.viewProducts();
-    this.task.get();
+    this.productsApi.getDevices().subscribe((data) => {
+      this.devicesArray = data.rows;
+      this.devicesArray.forEach((element) => {
+        Object.assign(element, { quantity: 1, total: element.price });
+      });
+    });
   }
 
-  productId: number = 0;
-  itemDescription: string = '';
-
-  // productForm = new FormGroup({
-  //   name: new FormControl(),
-  //   newPrice: new FormControl(),
-  //   description: this.test,
-  // });
+  addToCard(item: any) {
+    this.cardService.addToCart(item);
+    // localStorage.setItem('items', item)
+  }
 
   ngOnDestroy(): any {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  test123() {
-    localStorage.setItem(this.productId.toString(), 'value');
+  test!: Product;
+
+  addDevice(device: Product) {
+    this.productsApi.addDevice(device as Product).subscribe((item) => {
+      item.rows.map((item) => {
+        this.devicesArray.push(item);
+      });
+    });
+    console.log('click');
   }
 
-  tests() {
-    // this.itemsArray = this.productsApi.getProducts()
-    this.ProductsCardArray = this.ProductsCardArray.filter((s) => {
-      s.description.toLowerCase().startsWith(this.test.value);
+  deleteDevice(id: number) {
+    this.productsApi.deleteDevice(id).subscribe((data) => {
+      return data.rows.map((s) => {
+        id = s.id;
+      });
     });
   }
 
-  test = new FormControl();
-
-  search() {
-    this.itemDescription != ''
-      ? (this.ProductsCardArray = this.ProductsCardArray.filter((filter) => {
-          console.log('test');
-          return filter.description
-            .toLocaleLowerCase()
-            .match(this.itemDescription.toLocaleLowerCase() as string);
-        }))
-      : this.ngOnInit();
+  data!: Product;
+  test1(id: number) {
+    // if (id) {
+    //   this.devicesArray.map((s) => {
+    //     this.data = s;
+    //     this.getDevicesById(id);
+    //     this.navagationApi.navigate('products/', this.data);
+    //   });
+    //   console.log(this.data);
+    // }
   }
 
-  private viewProducts(): void {
-    this.productsApi
-      .getProducts()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        this.ProductsCardArray = data;
-        data.forEach((s) => {
-          this.productId = s.id;
-        });
+  openProductCard(id: any): void {
+    this.getDevicesById(id);
+    this.router.navigate([
+      `${RouterEnum.productsPage}/
+      ${id}`,
+    ]);
+    console.log(event);
+  }
+
+  getDevicesById(id: number) {
+    setTimeout(() => {
+      this.devicesArray.forEach((s) => {
+        console.log(s.id);
       });
+
+      this.productsApi
+        .getDevicesById(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data) => {
+          data.rows.map((item) => {
+            id == item.id;
+          });
+        });
+    }, 0);
   }
 
-  // addForm(name: ProductCard): void {
-  //   this.productsApi.addHero(name).subscribe((hero) => {
-  //     this.itemsArray.push(hero);
-  //   });
-  // }
-
-  deleteItem(id?: number): void {
-    this.productsApi.deleteProducts(id);
-  }
+  deleteItem(id?: number): void {}
 }

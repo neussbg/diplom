@@ -10,6 +10,7 @@ import {
   TuiModeModule,
   TuiLabelModule,
   TuiDataListModule,
+  TuiButtonModule,
 } from '@taiga-ui/core';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -35,10 +36,12 @@ import {
   TuiCheckboxModule,
   TuiDataListWrapperModule,
   TuiInputRangeModule,
+  TuiPaginationModule,
 } from '@taiga-ui/kit';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { environment } from 'src/environments/environment.prod';
 import { ENVIRONMENT, TaskService } from './pages/services/task.service';
+import { ProductCardComponent } from './pages/product-card/product-card.component';
 
 export const mapConfig: YaConfig = {
   apikey: 'b1484602-759f-463f-9f27-0d8191d4c5cb',
@@ -64,6 +67,7 @@ export function initApp(configurationService: TaskService) {
     NewsPageComponent,
     ContactsPageComponent,
     AuthorizationComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,8 +75,10 @@ export function initApp(configurationService: TaskService) {
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    TuiButtonModule,
     TuiInputRangeModule,
     TuiRootModule,
+    TuiPaginationModule,
     TuiDialogModule,
     BrowserAnimationsModule,
     TuiDialogModule,

@@ -3,10 +3,9 @@
   position: relative;
   height: 100%;
   width: 100%;
-
 }
 
-a{
+a {
   text-decoration: none;
 }
 
@@ -323,13 +322,17 @@ a{
       font-size: 18px;
 
       &:hover {
-        background: linear-gradient(91.61deg, #c58c4b 3.93%, #caae20 88.05%);
+        background: linear-gradient(91.61deg, #ff8a00 3.93%, #2b94a7 88.05%);
       }
     }
   }
 }
 .form-checkbox {
   cursor: pointer;
+  // position: absolute;
+  // left: 52%;
+  // top: 43%;
+
   margin-top: 34px;
   .form-check-input:focus {
     color: orange;
@@ -342,6 +345,10 @@ a{
     font-size: 16px;
     color: #ffffff;
     border-bottom: 0.5px solid;
+
+    &.-active-color {
+      color: #ff8a00;
+    }
   }
 }
 
@@ -368,7 +375,7 @@ a{
 
     &:hover {
       cursor: pointer;
-      background: #f0dbdb;
+      background: #dfdfdf;
     }
   }
 
@@ -381,5 +388,36 @@ a{
     padding-left: 20px;
     font-size: 20px;
     width: 200px;
+  }
+}
+
+.submit-form {
+  ::ng-deep button {
+    tui-wrapper {
+      background: none;
+
+      &:hover {
+        background: none;
+      }
+    }
+  }
+}
+
+::ng-deep tui-dialog {
+  header {
+  }
+  .t-header {
+    background: white;
+    display: block !important;
+    padding: 20px 0px 0px 0px;
+  }
+  .t-heading {
+    margin-bottom: 6px !important;
+  }
+
+  .t-content {
+    background: #ffffff !important;
+    box-sizing: border-box;
+    border-radius: 5px;
   }
 }

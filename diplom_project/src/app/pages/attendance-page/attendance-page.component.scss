@@ -1,14 +1,11 @@
-.content-block {
-  // display: grid;
-  // grid-row-gap: calc(100vh - 80vh);
-}
-
 .background {
   &__title {
     display: flex;
     justify-content: center;
+    align-items: center;
     background: none;
     color: white;
+    height: calc(100vh - 819px);
     font-family: "Montserrat";
     font-style: normal;
     font-weight: 500;
@@ -20,17 +17,13 @@
   }
 }
 
-.page-content {
-  height: 100vh;
-
-  .page-background {
+.page-background {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 0px;
+  // min-height: 370px;
+  img {
     background: rgba(0, 0, 0, 0.45);
     border-radius: 0px;
-    min-height: 370px;
-    img {
-      background: rgba(0, 0, 0, 0.45);
-      border-radius: 0px;
-    }
   }
 }
 
@@ -39,15 +32,12 @@
 }
 
 .mySwiper {
-  // position: absolute;
-  // top: 22%;
-  // right: 20%;
-  z-index: 100;
+  background: white;
 }
 
 .slider {
-  background: #ffffff;
-  box-shadow: 0px 0px 15px rgba(146, 158, 175, 0.76);
+  // background: #ffffff;
+  // box-shadow: 0px 0px 15px rgba(146, 158, 175, 0.76);
   border-radius: 10px 10px 0px 0px;
   padding: 20px 0px;
 
@@ -108,6 +98,8 @@
   justify-content: space-around;
 
   .slider-content-prices {
+    min-width: 629px;
+
     &__title {
       display: flex;
       justify-content: space-between;
@@ -138,7 +130,7 @@
 }
 
 .slider-services {
-  height: 312px;
+  // height: 312px;
   width: 270px;
   box-sizing: border-box;
   border-radius: 5px 5px 0px 0px !important;

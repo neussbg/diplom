@@ -1,11 +1,18 @@
 .content-page {
-  display: flex;
   padding-top: 100px;
+  // height: 100vh !important;
 }
 
-.test {
+.products {
   display: flex;
-  flex-wrap: wrap;
+}
+
+.product-block {
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .charactects-conditioners-block {
@@ -31,11 +38,9 @@
     font-size: 24px;
     line-height: 29px;
     color: #000000;
-    margin-bottom: 22px;
   }
   .type-conditioners {
     &__item {
-      padding: 6px 12px;
       margin-bottom: 22px;
 
       &:hover {
@@ -57,6 +62,8 @@
   }
 
   .inventors-conditioners {
+    margin-bottom: 22px;
+
     button:hover {
       color: #ff8a00;
     }
@@ -73,13 +80,23 @@
 }
 
 .content-block {
-  height: 280px;
+  max-height: 338px;
   width: 270px;
   padding: 20px;
   border: 1px solid #929eaf;
   box-sizing: border-box;
   border-radius: 4px;
   margin: 0 0 20px 20px;
+
+  &__img {
+    width: 212px;
+    height: 180px;
+
+    &:hover {
+      transition: 0.3s ease-in-out;
+      transform: scale(1.1);
+    }
+  }
 
   &:hover {
     border: 1px solid rgba(231, 160, 27, 0.849);
@@ -143,5 +160,18 @@
   ::ng-deep .stroke-color:hover {
     fill: red !important;
     stroke: red !important;
+  }
+}
+
+::ng-deep tui-pagination {
+  .dots {
+    color: black !important;
+  }
+  button {
+    tui-wrapper {
+      .t-content {
+        color: black;
+      }
+    }
   }
 }

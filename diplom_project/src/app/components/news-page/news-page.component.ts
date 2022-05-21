@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductsService } from 'src/app/pages/services/products-service';
+import { CardService } from 'src/app/pages/services/card.service';
+import {
+  Product,
+  ProductsService,
+} from 'src/app/pages/services/products.service';
 import { Routes } from 'src/assets/const/route.data';
 import { ProductCard } from 'src/assets/interfaces/products/product-card';
 import { NavigationService } from '../../pages/services/navigation.service';
@@ -10,10 +14,15 @@ import { NavigationService } from '../../pages/services/navigation.service';
   styleUrls: ['./news-page.component.scss'],
 })
 export class NewsPageComponent implements OnInit {
-  constructor(private navigate: NavigationService) {}
+  constructor(
+    private navigate: NavigationService,
+    private cardApi: CardService
+  ) {}
 
   /** Маршруты */
   routes? = Routes;
+
+  totalItems: number = 0;
 
   /** Флаг переключения темы */
   @Input() changerTheme: boolean = false;
@@ -21,7 +30,14 @@ export class NewsPageComponent implements OnInit {
   /** Флаг изменения события переключения темы   */
   @Output() eventChangeThemeToggle = new EventEmitter<boolean>();
 
-  ngOnInit(): void {}
+  item: any;
+  ngOnInit(): void {
+    this.cardApi.getProducts().subscribe(() => {
+      this.item = JSON.parse(localStorage.getItem('items') as string) || null;
+      this.totalItems = this.item.length;
+      // this.totalItems = this.cardApi.cartItemsList.length;
+    });
+  }
 
   /** Перенаправляет на страницу */
   redirectTo(route?: string): void {

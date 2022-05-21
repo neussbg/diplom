@@ -1,0 +1,99 @@
+.product-block {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0px 20px 0px;
+}
+
+.product-block-content {
+  display: flex;
+  flex-direction: column;
+  width: 498px;
+
+  &__title {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 20px;
+  }
+
+  &__status {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: #48b86e;
+    margin-bottom: 20px;
+  }
+
+  .prices-block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 26px;
+    border-bottom: 1px solid #929eaf;
+
+    &__oldPrice {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 300;
+      font-size: 30px;
+      color: #929eaf;
+      margin-right: 36px;
+    }
+
+    &__newPrice {
+      font-family: "Montserrat";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 40px;
+      color: #000000;
+    }
+  }
+
+  .products-button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+
+    &__edit {
+      padding: 6px 20px;
+      border: none;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      color: #ffffff;
+      background: #48b86e;
+      border-radius: 3px;
+      margin-right: 30px;
+    }
+    &__delete {
+      border: none;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      color: #ffffff;
+      background: rgba(146, 158, 175, 0.59);
+      border-radius: 3px;
+    }
+  }
+}
+.content-buttons {
+  display: flex;
+  &__description {
+    padding: 8px;
+    border: 1px solid #ff8a00 !important;
+    color: #ff8a00 !important;
+    background: white;
+  }
+
+  &__characters {
+    padding: 8px;
+    background: #ff8a00;
+    border: 1px solid #ff8a00;
+    border-radius: 0px 3px 0px 0px;
+    color: white;
+  }
+}

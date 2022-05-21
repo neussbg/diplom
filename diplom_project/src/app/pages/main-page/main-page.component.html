@@ -18,7 +18,7 @@
                 <div data-aos="fade-up" class="feedback-block ">
                     <div class="feedback-block__item">
                         <tui-svg src="assets/img/main/support.svg"></tui-svg>
-                        <a (click)="route()" class="text">Мы поможем вам с
+                        <a href="company" class="text">Мы поможем вам с
                             выбором</a>
                     </div>
                     <div class="feedback-block__item">
@@ -51,7 +51,8 @@
                     <div class="info__previus">5 отзывов</div>
                 </div>
                 <div class="footer">
-                    <button class="footer__basket">В корзину</button>
+                    <button (click)="route('products')" class="footer__basket">В
+                        корзину</button>
                     <img class="footer__important"
                         src="assets/img/important.svg">
                 </div>
@@ -79,8 +80,11 @@
                 </div>
             </div>
             <div class="company-info-buttons">
-                <button class="company-info-buttons__services">Услуги</button>
-                <button class="company-info-buttons__more">Подробнее</button>
+                <button href="products"
+                    class="company-info-buttons__services"
+                    (click)="route('attendance')">Услуги</button>
+                <button class="company-info-buttons__more"
+                    (click)="route('company')">Подробнее</button>
             </div>
         </div>
 
@@ -118,33 +122,68 @@
                 <span class="info-content__description">
                     Оставьте адрес своей электронной почты и получайте
                     информацию об актуальных акциях и промокодах</span>
-                <div
-                    class="input-group info-content__forum">
-                    <input type="text" class="form-control"
-                        placeholder="Введите эл.почту"
-                        aria-label="Введите эл.почту"
-                        aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary"
-                        type="button">Отправить</button>
-                </div>
-                <div class="form-checkbox">
-                    <input
-                        class="form-check-input"
-                        type="checkbox" value=""
-                        id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Я согласен с Политикой конфиденциальности
-                    </label>
+                <div>
+                    <form
+                        style="height: 131px;" class="submit-form"
+                        [formGroup]="submitForm">
+                        <div style="display: flex;">
+                            <input type="email" class="form-control"
+                                formControlName="inputValue"
+                                name="email"
+                                placeholder="Введите эл.почту"
+                                aria-describedby="button-addon2" required />
+                            <button ngDefaultControl tuiButton
+                                [disabled]="submitForm.controls['inputValue'].invalid || submitForm.controls['checkbox'].value === false"
+                                class="btn btn-outline-secondary"
+                                type="submit"
+                                (click)="onClick(content, header, 'm')">Отправить
+                            </button>
+                        </div>
+                        <div style="color: rgb(141, 12, 12);"
+                            *ngIf="submitForm.controls['inputValue'].invalid && (submitForm.controls['inputValue'].dirty  || submitForm.controls['inputValue'].touched)">
+                            <div
+                                *ngIf="submitForm.controls['inputValue'].errors?.['required']">
+                                Поле невалидно
+                            </div>
+                            <div
+                                *ngIf="submitForm.controls['inputValue'].errors?.['minlength']">
+                                Наименование почты должно быть минимум 8
+                                символов
+                            </div>
+                        </div>
+                        <div *ngIf="submitForm.controls['inputValue'].valid"
+                            class="form-checkbox">
+                            <input
+                                formControlName="checkbox"
+                                class="form-check-input"
+                                type="checkbox">
+                            <span class="form-check-label"
+                                [ngClass]="{'-active-color ': isActive}">
+                                Я согласен с Политикой
+                                конфиденциальности
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <ng-template
+        #content
+        let-observer>
+        <div class="auth-container" style="padding: 20px;">
+            <span>Мы очень рады, что вы доверятее нашей компании. Теперь вы
+                точно не пропустите ни одну акцию!</span>
+        </div>
+    </ng-template>
 
-    <!-- <div class="block-products">
-        <div class="block-title">Актуальные товары</div>
-        <app-products-page>
-        </app-products-page>
-    </div> -->
+    <ng-template #header let-observer>
+        <div class="header">
+            <img
+                [src]="'assets/img/main/action-submit.svg' "
+                alt="Cool" />
+        </div>
+    </ng-template>
     <app-categories></app-categories>
     <app-footer></app-footer>
 </div>

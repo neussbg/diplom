@@ -1,10 +1,6 @@
 {
   "*** Url бэкенда ***": "",
   "/api": {
-    "target": "http://localhost:7000",
-    "secure": false,
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "target": "http://localhost:7000/api"
   }
 }

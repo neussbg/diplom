@@ -10,6 +10,7 @@ import { ProductsPageComponent } from 'src/app/pages/products-page/products-page
 import { UserPageComponent } from 'src/app/pages/user-page/user-page.component';
 import { RouterEnum } from '../enums/router.enum';
 import { AuthorizationComponent } from 'src/app/authorization/authorization.component';
+import { ProductCardComponent } from 'src/app/pages/product-card/product-card.component';
 
 /** Маршрутизация */
 export const routes: Routes = [
@@ -24,6 +25,17 @@ export const routes: Routes = [
   {
     path: RouterEnum.productsPage,
     component: ProductsPageComponent,
+    children: [
+      {
+        path: 'products/id',
+        component: ProductCardComponent,
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: 'products/:id',
+    component: ProductCardComponent,
   },
   {
     path: RouterEnum.basketPage,

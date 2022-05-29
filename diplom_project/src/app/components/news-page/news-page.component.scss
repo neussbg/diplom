@@ -1,7 +1,11 @@
 @import "variables.scss";
 
+.night-color {
+  background: black !important;
+  color: white;
+}
 .side-nav-bar {
-  background: rgba(255, 255, 255, 0.79);
+  // background: rgba(255, 255, 255, 0.79);
   border-bottom: 1px solid #929eaf;
 
   padding: 0 122px;

@@ -1,7 +1,21 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  of,
+  Subject,
+  takeUntil,
+  tap,
+  throwError,
+} from 'rxjs';
 import { ProductCard } from 'src/assets/interfaces/products/product-card';
 import { environment } from 'src/environments/environment.prod';
 import { BaseApiService } from './base-api.service';
@@ -12,14 +26,13 @@ export interface Product {
   price: number;
   brandId: number;
   typeId: number;
-  info: string;
-  rating: number;
-  img: string;
+  rating?: number;
+  img?: string;
 }
 
-export interface Response<T> {
+export interface ItemsCount<T> {
   count: number;
-  rows: T;
+  rows: T[];
 }
 
 const httpOptions = {
@@ -36,57 +49,68 @@ export class ProductsService extends BaseApiService {
   private formUrl = 'https://formspree.io/f/mnqwwand';
   private headers = new HttpHeaders({ 'content-type': 'application/json' });
 
-  /** Мок данных товара */
-  // private controller = 'http://localhost:3000/conditioners';
-
   private deviceController = this.backEndDeviceController;
 
-  // states$: Observable<ProductCard[]>;
+  private _refreshNeeds$ = new Subject<void>();
 
-  devices$: Observable<Response<Product[]>>;
-
-  id!: number;
+  get refreshNeeds() {
+    return this._refreshNeeds$;
+  }
 
   constructor(private http: HttpClient) {
     super();
-    // this.states$ = this.getProducts();
-    this.devices$ = this.getDevices();
-    this.http.get(this.deviceController);
   }
 
-  getDevices(): Observable<any> {
-    return this.http.get<Response<Product[]>>(this.deviceController);
+  getDevices(): Observable<ItemsCount<Product>> {
+    return this.http.get(this.deviceController) as Observable<
+      ItemsCount<Product>
+    >;
   }
 
   getDevicesById(id: number) {
-    return this.http.get<Response<Product[]>>(`${this.deviceController}/${id}`);
+    return this.http.get<ItemsCount<Product[]>>(
+      `${this.deviceController}/${id}`
+    );
   }
 
-  // getDevicesById(id: number) {
-  //   return this.http.get<Product>(`${this.deviceController}/${id}`);
-  // }
+  getAvailableDevice(id: any): Observable<any> {
+    return this.http.get<any>(`${this.deviceController}/${id}`);
+    // return this.http
+    //   .get<ItemsCount<Product>>(this.deviceController, id)
+    //   .pipe(catchError((resp) => this.logErrors(resp)));
+  }
 
-  // /**
-  //  *  Добавление товара
-  //  * @param item - товар
-  //  */
-  // addProducts(item: ProductCard) {
-  //   return this.http.post<ProductCard>(this.controller, item, httpOptions);
-  // }
+  /**
+   * Логирует и возвращает ошибку с api
+   * @param resp - ответ сервера
+   */
+  protected logErrors(resp: HttpErrorResponse): Observable<never> {
+    console.error(resp.message);
+    return throwError(resp);
+  }
 
-  // addHero(item: ProductCard): Observable<ProductCard> {
-  //   return this.http
-  //     .post<ProductCard>(this.controller, item, httpOptions)
-  //     .pipe(tap(() => this.log(`pudated her id=${item.id}`)));
-  // }
   deleteDevice(id: number) {
     const url = this.deviceController;
-    return this.http.delete<Response<Product[]>>(`${url}/${id}`);
+    return this.http.delete<ItemsCount<Product[]>>(`${url}/${id}`);
   }
 
-  addDevice(device: Product) {
+  addDevice(device: Product): Observable<ItemsCount<Product>> {
     const url = this.deviceController;
-    return this.http.post<Response<Product[]>>(url, device, httpOptions);
+    return this.http.post<ItemsCount<Product>>(url, device, httpOptions);
+  }
+
+  createDevice(device: Product): Observable<ItemsCount<Product>> {
+    const url = this.deviceController;
+    return this.http.post<ItemsCount<Product>>(url, device, httpOptions).pipe(
+      tap(() => {
+        this._refreshNeeds$.next();
+      })
+    );
+  }
+
+  updateDevice(item: number) {
+    const url = this.deviceController;
+    return this.http.put(url, item);
   }
 
   sendEmail(contact: any): Observable<any> {
@@ -119,13 +143,7 @@ export class ProductsService extends BaseApiService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
+      console.error(error);
       return of(result as T);
     };
   }

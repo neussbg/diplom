@@ -1,105 +1,21 @@
 <div class="content-page">
     <div class="products container">
-        <form [formGroup]=" selectConditoners">
-            <div data-aos-easing="linear"
-                data-aos-duration="500" data-aos="fade-right"
-                class="charactects-conditioners-block">
-                <div class="type-block">
-                    <label>Тип сплит систем</label>
-                    <div class="type-conditioners" *ngFor="let item of type">
-                        <button
-                            class="type-conditioners__item">{{item}}</button>
-                    </div>
-                </div>
-                <div class="inventors-conditioners">
-                    <label>Инвентор</label>
-                    <div class="inventorts-conditioners__items">
-                        <button>Есть</button>
-                        <button>Нет</button>
-                    </div>
-                </div>
-                <div style="margin-bottom:22px" class="series-block">
-                    <label>Мощность</label>
-                    <div class="series-conditioners">
-                        <div class="series-conditioners__items"
-                            *ngFor="let item of series">
-                            <button>{{item}}</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="brands-conditioners">
-                    <label>Бренд</label>
-                    <div class="brands-block"
-                        *ngFor="let item of brands,let i = index">
-                        <span>{{item.brand}}</span>
-                        <tui-checkbox formControlName="brand"
-                            class="tui-space_bottom-3">
-                        </tui-checkbox>
-                    </div>
-                </div>
-                <div>
-                    <label>Обслуживаемая
-                        площадь, кв.м</label>
-                    <tui-input-range new
-                        [min]="min"
-                        [max]="max"
-                        [quantum]="quantum"
-                        [steps]="steps"
-                        [formControl]="control">
-                    </tui-input-range>
-                </div>
-            </div>
-        </form>
-        <div
-            class="product-block">
-            <div class="product-block__items">
-                <div class="sort">
-                </div>
-                <div class="content-block" *ngFor="let item of devicesArray ">
-                    <img class="content-block__img"
-                        src="http://localhost:7000/{{item.img}}" />
-                    <div class="content-price">
-                        <a (click)="openProductCard(14)"
-                            class="content-price__Newprice">{{item.price}} id:
-                            {{item.id}}</a>
-                        <span
-                            class="content-price__oldPrice strikethrough"></span>
-                        <span class="content-price__status">Хит продаж</span>
-                    </div>
-
-                    <div class="content-block__description">{{item.name}}
-                    </div>
-                    <div class="content-block__opinie">{{item.rating}}</div>
-                    <div class="content-buttons">
-                        <div class="content-buttons__add"
-                            (click)="addToCard(item)">
-                            В
-                            корзину
-                        </div>
-                        <button class="delete-button"
-                            (click)="deleteDevice(productId)">delete</button>
-                        <tui-svg class="import-button"
-                            src="assets/img/products/heart.svg"></tui-svg>
-                    </div>
-                </div>
-            </div>
-            <tui-pagination
-                [length]="length"
-                [index]="index"
-                (indexChange)="goToPage($event)">
-            </tui-pagination>
-        </div>
+        <app-category-settings [brandId]="brandIdToProducts"
+            [isAdmin]="isAdminUser"></app-category-settings>
+        <app-items [isAdmin]="isAdminUser"></app-items>
     </div>
 
-    <div style=" width: 204px; display:flex; flex-direction:column"
+    <button (click)="testAdmin()">isAdmin</button>
+
+    <!-- <div style=" width: 204px; display:flex; flex-direction:column"
         [formGroup]="addDeviceForm">
-        <input placeholder="brandId" type="number" formControlName="brandId">
-        <input placeholder="typeId" type="number" formControlName="typeId">
+        <input placeholder="brandId 1-9 (5)" type="number"
+            formControlName="brandId">
+        <input placeholder="typeId 9-12" type="number" formControlName="typeId">
         <input placeholder="name" type="text" formControlName="name">
         <input placeholder="price" type="number" formControlName="price">
-        <input placeholder="info" accept=".gif,.jpg,.jpeg,.png,.doc,.docx"
-            alt="img" type="file" formControlName="info">
-        <button (click)="addDevice(test)">Add</button>
-    </div>
+        <input placeholder="img" formControlName="img">
+        <button type="submit" (click)="create(test)">Add</button>
+    </div> -->
     <app-footer></app-footer>
 </div>

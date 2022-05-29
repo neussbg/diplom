@@ -1,6 +1,6 @@
 <div class="content-page">
-    <ng-container *ngIf="this.itemsArray.length !== 0">
-        <div class="container basket-items-block">
+    <ng-container *ngIf="totalCount > 0">
+        <div class=" container basket-items-block">
             <div class="categories-title">Корзина</div>
             <div class="cart-table">
                 <div class="cart-product">
@@ -16,27 +16,48 @@
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                            <tr data-aos="fade-right"
-                                *ngFor="let item of itemsArray;let i = index">
-                                <td>{{i+1}}</td>
+                            <tr class="table-line" data-aos="fade-right"
+                                *ngFor="let item of items;let i = index">
+                                <td>
+                                    <div class="item">{{i + 1}}</div>
+                                </td>
                                 <td>
                                     <img style="width: 100px;"
                                         class="content-block__img"
                                         src="http://localhost:7000/{{item.img}}" />
                                 </td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.price}}</td>
                                 <td>
-                                    <div class="items-number">
-                                        <button>-</button>
-                                        {{i}}
-                                        <button>+</button>
+                                    <div class="item">
+                                        {{ item.name }}
                                     </div>
                                 </td>
-                                <td>{{item.price}}</td>
+                                <td>
+                                    <div class="item">
+                                        {{ item.price }} ₽
+                                    </div>
+                                </td>
+
+                                <td>
+
+                                    <input
+                                        class="item"
+                                        [(ngModel)]="item.rating"
+                                        [ngModelOptions]="{ standalone: true }"
+                                        min="1"
+                                        type="number"
+                                        value="{{ item.rating }}"
+                                        name=""
+                                        (change)="totalPriceElement(item, i)" />
+                                </td>
+
+                                <td>
+                                    <div #totalElementCount class="item">{{
+                                        item.price }}
+                                    </div>
+                                </td>
                                 <td>
                                     <img style="cursor:pointer;"
-                                        (click)="removeItem(i)"
+                                        (click)="removeFromCart(item)"
                                         src="assets/img/basket/basket.svg" />
                                 </td>
                             </tr>
@@ -49,13 +70,16 @@
                         <div>
                             <input placeholder="Введите промокод"
                                 class="items-promo__input" type="text" />
-                            <button
+                            <button (click)="isActive = !isActive"
                                 class="items-promo__price">Применить</button>
                         </div>
+                        <span style="color: rgb(194, 13, 13)"
+                            *ngIf="isActive">Данный промокод не
+                            найден!</span>
                     </div>
                     <div class="items-order">
                         <span class="items-order__price">Итого:
-                            {{grandTotal}}₽</span>
+                            {{total}} ₽</span>
                         <button class="items-order__buy">
                             Оформить заказ
                         </button>
@@ -64,14 +88,16 @@
             </div>
         </div>
     </ng-container>
-    <ng-container *ngIf="this.itemsArray.length == 0">
+
+    <ng-container *ngIf="totalCount === 0">
 
         <div class="empty-basket-block container">
             <tui-svg
                 style="height: 200px; width:500px; margin: 30px 0px 30px 0px;"
                 src="assets/img/basket/empty-basket.svg"></tui-svg>
             <h2>Ваша корзина пуста</h2>
-            <span>На нашем сайте представлено более 200 товаров,отправляйтесь
+            <span>На нашем сайте представлено более 200
+                товаров,отправляйтесь
                 в каталог, выберите интересующий товар и нажмите кнопку
                 «В корзину»</span>
             <button class="empty-basket-block__add" routerLink="/products">В

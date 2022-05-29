@@ -1,5 +1,6 @@
-<div class="side-nav-bar">
-  <div class=" nav-block">
+<div [ngClass]="changerTheme === true ?  'night-color' : ''"
+  class="side-nav-bar">
+  <div class="nav-block">
     <img style="cursor: pointer;" (click)="redirectTo('main')"
       src="assets/img/navigation/logo.svg">
     <div class="nav-content"
@@ -11,12 +12,12 @@
     </div>
     <div class="basket">
       <tui-svg style="cursor: pointer"
-        routerLink="basket"
+        (click)="redirectTo('basket')"
         class="nav-content__img icon"
         src="assets/img/navigation/basket.svg">
       </tui-svg>
-      <div class="basket__items" *ngIf="totalItems > 0">
-        {{totalItems}}
+      <div class="basket__items" *ngIf="totalCount > 0">
+        {{totalCount}}
       </div>
     </div>
     <tui-svg
@@ -27,6 +28,8 @@
     <div class="form-check form-switch">
       <input (click)="onChangeTheme()" class="form-check-input" type="checkbox"
         role="switch" id="flexSwitchCheckDefault">
+      <span [ngClass]="changerTheme === true ?  'night-color' : ''">Ночной
+        режим</span>
       <label class="form-check-label" for="flexSwitchCheckDefault"></label>
     </div>
   </div>

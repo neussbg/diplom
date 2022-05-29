@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Product } from './products.service';
 
 @Injectable({
@@ -10,13 +10,37 @@ export class CardService {
   public productList = new BehaviorSubject<any>([]);
   constructor() {}
 
+  private storageSub = new Subject();
+
   getProducts() {
     return this.productList.asObservable();
+  }
+
+  itemInCart(item: any): boolean {
+    return this.cartItemsList.findIndex((o) => o.id === item.id) > -1;
+  }
+
+
+  getItems() {
+    return this.cartItemsList;
   }
 
   setProduct(product: any) {
     this.cartItemsList.push(...product);
     this.productList.next(product);
+  }
+
+  add(addItem: any) {
+    this.cartItemsList.push(addItem);
+
+    let existingItems = [];
+    if (localStorage.getItem('items')) {
+      existingItems = JSON.parse(localStorage.getItem('items') as string);
+      existingItems = [addItem, ...existingItems];
+    } else {
+      console.log('no items');
+      existingItems = [addItem];
+    }
   }
 
   addToCart(product: any) {
@@ -48,5 +72,18 @@ export class CardService {
   removeAllCartItems() {
     this.cartItemsList = [];
     this.productList.next(this.cartItemsList);
+  }
+
+  saveCart(): void {
+    localStorage.setItem('items', JSON.stringify(this.cartItemsList));
+  }
+
+  removeItem(item: any) {
+    const index = this.cartItemsList.findIndex((i) => i.id === item.id);
+
+    if (index > -1) {
+      this.cartItemsList.splice(index, 1);
+      this.saveCart();
+    }
   }
 }

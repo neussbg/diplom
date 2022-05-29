@@ -1,0 +1,210 @@
+.product-block {
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: center;
+  }
+
+  .sort {
+    display: flex;
+    justify-content: flex-end;
+
+    .add-product {
+      background: linear-gradient(91.3deg, #0d0dff 21.07%, #2222b1 102.35%);
+      border-radius: 2px;
+      color: white;
+      border: none;
+      font-size: 19px;
+      width: 28px;
+    }
+  }
+}
+
+.content-block {
+  max-height: 338px;
+  width: 270px;
+  padding: 20px;
+  border: 1px solid #929eaf;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 0 0 20px 20px;
+
+  &:hover {
+    border-style: solid;
+    border-image: linear-gradient(to right bottom, #260b3c, #252fc2);
+    border-image-slice: 1;
+  }
+
+  &__img {
+    width: 212px;
+    height: 158px;
+
+    &:hover {
+      transition: 0.3s ease-in-out;
+      transform: scale(1.1);
+    }
+  }
+  .rating-stars {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .content-price {
+    display: flex;
+    padding-top: 7px;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+
+    &__newPrice {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 23px;
+      color: #000000;
+    }
+
+    &__oldPrice {
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 16px;
+      color: #929eaf;
+    }
+
+    &__status {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 14px;
+      color: #ff8a00;
+    }
+  }
+
+  &__description {
+    font-size: 14px;
+  }
+
+  .content-buttons {
+    border-top: 1px solid #929eaf;
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &__add {
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(91.3deg, #0d0dff 21.07%, #2222b1 102.35%);
+      border-radius: 3.63636px;
+      font-size: 14px;
+      height: 32px;
+      width: 170px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background: #191988;
+      }
+    }
+  }
+}
+
+.import-button {
+  ::ng-deep .stroke-color:hover {
+    fill: red !important;
+    stroke: red !important;
+  }
+}
+
+.-heartActive {
+  ::ng-deep .stroke-color {
+    fill: red !important;
+    stroke: red !important;
+  }
+}
+
+::ng-deep tui-pagination {
+  .dots {
+    color: black !important;
+  }
+  button {
+    tui-wrapper {
+      .t-content {
+        color: black;
+      }
+    }
+  }
+}
+
+span {
+  font-weight: 400;
+  font-size: 20px;
+  color: #000000;
+}
+
+::ng-deep tui-dialog {
+  .t-content {
+    background: white !important;
+  }
+  .t-heading {
+    display: flex;
+    justify-content: center;
+  }
+  section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.table-data {
+  ::ng-deep tui-wrapper {
+    color: black !important;
+    min-width: 200px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 2px;
+  }
+  .first {
+    display: flex;
+    justify-content: space-around;
+  }
+  .device-block {
+    max-width: 290px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      margin-bottom: 14px;
+    }
+    input {
+      border: 1px solid black;
+      padding: 8px;
+      border-radius: 6px;
+    }
+  }
+}
+.submit-form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+
+  ::ng-deep button {
+    tui-wrapper {
+      .t-content {
+        background: none !important;
+      }
+    }
+  }
+
+  .secondary-button {
+    background: #bfc6d0;
+    border-radius: 12px;
+    color: white;
+    border: none;
+    margin-left: 30px;
+  }
+}

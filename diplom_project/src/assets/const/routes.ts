@@ -24,11 +24,15 @@ export const routes: Routes = [
   },
   {
     path: RouterEnum.productsPage,
-    component: ProductsPageComponent,
     children: [
       {
-        path: 'products/id',
+        path: 'card',
         component: ProductCardComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        component: ProductsPageComponent,
         pathMatch: 'full',
       },
     ],

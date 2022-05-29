@@ -1,0 +1,60 @@
+.charactects-conditioners-block {
+  ::ng-deep tui-svg {
+    background: #ff8a00;
+  }
+
+  button {
+    color: #929eaf;
+    border: 0;
+    background: none;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    font-family: "Montserrat";
+    font-style: normal;
+  }
+
+  label {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+  }
+  .type-conditioners {
+    &__item {
+      margin-bottom: 22px;
+
+      &:hover {
+        background: linear-gradient(91.6deg, #ff8a00 17.78%, #ffd600 98.26%);
+        border-radius: 5px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .brands-block,
+  .series-conditioners {
+    display: flex;
+    justify-content: space-between;
+
+    button:hover {
+      color: #ff8a00;
+    }
+  }
+
+  .inventors-conditioners {
+    margin-bottom: 22px;
+
+    button:hover {
+      color: #ff8a00;
+    }
+  }
+
+  ::ng-deep tui-wrapper {
+    .t-input {
+      color: black !important;
+    }
+  }
+}

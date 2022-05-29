@@ -1,8 +1,33 @@
 .product-block {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin: 20px 0px 20px 0px;
+
+  &__img {
+    display: flex;
+
+    .product-block-otherImg {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-right: 30px;
+
+      .little-img {
+        width: 100px;
+        height: 100px;
+
+        &:hover {
+          border: 1px solid #ff8a00;
+        }
+      }
+    }
+    .main-img {
+      border: 1px solid #ff8a00;
+      height: 460px;
+      width: 420px;
+    }
+  }
 }
 
 .product-block-content {
@@ -80,20 +105,72 @@
     }
   }
 }
-.content-buttons {
-  display: flex;
-  &__description {
-    padding: 8px;
-    border: 1px solid #ff8a00 !important;
-    color: #ff8a00 !important;
-    background: white;
+
+.content-block {
+  margin-bottom: 20px;
+
+  .content-buttons {
+    margin-bottom: 24px;
+    border-bottom: 1px solid #ff8a00;
+    display: flex;
+
+    &__description {
+      width: 300px;
+      padding: 8px;
+      border: 1px solid #ff8a00 !important;
+      color: #ff8a00;
+      background: white;
+      margin-right: 20px;
+
+      // &:hover {
+      //   background: #ff8a00;
+      //   color: white !important;
+      // }
+    }
+    .-activeButton {
+      background: #ff8a00;
+      color: white !important;
+    }
+
+    .-defaultButton {
+      color: #ff8a00;
+      background: white;
+    }
+
+    &__characters {
+      width: 300px;
+      padding: 8px;
+      // background: #ff8a00;
+      border: 1px solid #ff8a00;
+      border-radius: 0px 3px 0px 0px;
+      // color: white;
+    }
   }
 
-  &__characters {
-    padding: 8px;
-    background: #ff8a00;
-    border: 1px solid #ff8a00;
-    border-radius: 0px 3px 0px 0px;
-    color: white;
+  .content-block-items {
+    display: flex;
+    justify-content: space-between;
+
+    .content-items {
+      margin-bottom: 20px;
+      label {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 10px 0 10px 0;
+      }
+
+      &__value {
+        display: flex;
+        justify-content: space-between;
+
+        .text {
+          font-family: "Roboto";
+          font-style: normal;
+          font-weight: 300;
+          color: #78797a;
+          margin: 0 20px 10px 0;
+        }
+      }
+    }
   }
 }

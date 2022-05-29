@@ -42,14 +42,20 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     private apiBack: TaskService,
     @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
     @Inject(TuiPortalService)
-    private readonly portalService: TuiPortalService
-  ) {
-    const ss = this.apiBack.get();
-    console.log(ss);
-  }
+    private readonly portalService: TuiPortalService,
+    private backApi: AuthService
+  ) {}
+
+  registrationUser: any = {};
+
+  loginUser: any = {};
 
   get transform(): string {
     return `scale(${this.scale})`;
+  }
+
+  onRegistrationUser() {
+    console.log(this.registrationUser);
   }
 
   get width(): string {
@@ -70,7 +76,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    if(this.aSub){
+    if (this.aSub) {
       this.aSub.unsubscribe();
     }
   }
@@ -84,6 +90,23 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
         console.warn('warn error');
         this.autorizationForm.enable();
       };
+  }
+
+  onRegistration() {
+    this.backApi.registration(this.registrationUser).subscribe(
+      (res) => {
+        console.log(res);
+        localStorage.setItem('token', res.token);
+      },
+      (err) => console.log(err)
+    );
+  }
+
+  onLogin() {
+    this.backApi.login(this.loginUser).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
   }
 
   // showDialog() {

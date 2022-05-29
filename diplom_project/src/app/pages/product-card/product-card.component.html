@@ -2,16 +2,20 @@
     <div class="container">
         <div class="product-block">
             <div class="product-block__img">
-                <img style="border: 1px solid #929eaf" height="460px"
-                    width="420px"
-                    src="assets/img/categories/colon.svg"
+                <div class="product-block-otherImg">
+                    <img #image (click)="changeImg(img.src)"
+                        class="little-img"
+                        *ngFor="let img of imgList;let i = index"
+                        src="assets/img/product/{{img.src}}.svg">
+                </div>
+                <img class="main-img"
+                    *ngIf=" data.img"
+                    [src]="isActiveImg == true ? imgSrc : currentImg"
                     alt="conditioner" />
             </div>
             <div class="product-block-content">
-                <span class="product-block-content__title">Сплит-система
-                    (инвертор)
-                    Haier HSU-12HTM103/R3(DB)</span>
-                <span style="margin-bottom:20px;">Артикул: 1234567890</span>
+                <span class="product-block-content__title">{{data.name}}</span>
+                <span style="margin-bottom:20px;">Артикул: {{data.id}}</span>
                 <span class="product-block-content__status">В наличии</span>
                 <span style="margin-bottom: 20px;"
                     class="product-block-content__descrption">Данна модель
@@ -21,8 +25,10 @@
                     входят антиаллергенный, антибактериальный и угольный
                     фильтры.</span>
                 <div class="prices-block">
-                    <div class="prices-block__oldPrice">56 990 ₽</div>
-                    <div class="prices-block__newPrice">45 990₽</div>
+                    <div class="prices-block__oldPrice strikethrough">
+                        {{+data.price + 6000}} ₽
+                    </div>
+                    <div class="prices-block__newPrice">{{+data.price}} ₽</div>
                 </div>
                 <div class="products-button">
                     <button class="products-button__edit">Редактировать</button>
@@ -32,10 +38,68 @@
         </div>
         <div class="content-block">
             <div class="content-buttons">
-                <button class="content-buttons__description">Описание</button>
-
+                <button class="content-buttons__description"
+                    [ngClass]="!isActiveButton ? '-defaultButton' : '-activeButton' "
+                    (click)="showCharacters()">Описание</button>
                 <button
-                    class="content-buttons__characters">Характеристики</button>
+                    class="content-buttons__characters"
+                    [ngClass]="!isActiveButton ? '-activeButton' : '-defaultButton' "
+                    (click)="showDescription() ">Характеристики</button>
+            </div>
+            <div [ngSwitch]="isCharacters && isDescription">
+                <div *ngSwitchDefault
+                    class=" content-block-items">
+                    <div class="content-block-items__left">
+                        <div class="content-items">
+                            <label>Заводские данные</label>
+                            <div class="content-items__value"
+                                *ngFor="let item of factoryDataList">
+                                <span class="text">{{item.name}}</span>
+                                <span>{{item.value}}</span>
+                            </div>
+                        </div>
+
+                        <div class="content-items">
+                            <label>Внутренний блок</label>
+                            <div class="content-items__value"
+                                *ngFor="let item of IndoorUnitDataList">
+                                <span class="text">{{item.name}}</span>
+                                <span>{{item.value}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-block-items__right">
+                        <div class="content-items">
+                            <label>Внешний блок</label>
+                            <div class="content-items__value"
+                                *ngFor="let item of OutdoorUnitList">
+                                <span class="text">{{item.name}}</span>
+                                <span>{{item.value}}</span>
+                            </div>
+                        </div>
+
+                        <div class="content-items">
+                            <label>Производительность</label>
+                            <div class="content-items__value"
+                                *ngFor="let item of PerformanceList">
+                                <span class="text">{{item.name}}</span>
+                                <span>{{item.value}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 40px 0 40px 0;"
+                    *ngSwitchCase="isDescription === true"
+                    class="content-block-description">
+                    <span style="font-size: 21px;"
+                        class="product-block-content__descrption">Данна модель
+                        обеспечивает приятный микроклимат в помещении
+                        площадью до 70 кв. м., оборудована системой, в состав
+                        которой
+                        входят антиаллергенный, антибактериальный и угольный
+                        фильтры.</span>
+                </div>
             </div>
         </div>
     </div>

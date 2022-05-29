@@ -9,7 +9,7 @@
     #content
     let-observer>
     <div class="auth-container">
-        <form [formGroup]="autorizationForm">
+        <!-- <form [formGroup]="autorizationForm">
 
             <div class="auth-container-data">
                 <input formControlName="email"
@@ -43,6 +43,36 @@
                 <button (click)="isLoggedIn = !isLoggedIn">Регистрация</button>
                 <button>Не помню пароль</button>
             </div>
+        </form> -->
+
+        <form>
+
+            <div class="auth-container-data">
+                <input
+                    type="email"
+                    [(ngModel)]="registrationUser.email"
+                    name="email "
+                    placeholder="Электронная почта">
+                <input [(ngModel)]="registrationUser.password" name="password"
+                    type="password"
+                    placeholder="Пароль">
+                <!-- <span class="confirm">Регистрируясь
+                    вы
+                    соглашаетесь
+                    с <a href="company"
+                        style="color:#ff8a00; cursor: pointer;">Политикой
+                        конфиденциальности</a>
+                </span> -->
+                <button style="margin-bottom: 20px;"
+                    type="button"
+                    (click)="onRegistrationUser()">
+                    Зарегистрироваться
+                </button>
+            </div>
+            <!-- <div *ngIf="!isLoggedIn" class="auth-helper">
+                <button (click)="isLoggedIn = !isLoggedIn">Регистрация</button>
+                <button>Не помню пароль</button>
+            </div> -->
         </form>
     </div>
 </ng-template>

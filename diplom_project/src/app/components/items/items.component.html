@@ -1,0 +1,188 @@
+<div
+    class="product-block">
+    <div class="sort">
+        <button class="add-product" *ngIf="isAdmin"
+            (click)="onClick(content,  'l')">+</button>
+    </div>
+    <div class="product-block__items">
+        <div class="content-block"
+            *ngFor="let item of devicesArray; let i = index">
+            <img (click)="openProductCard(item.id)" class="content-block__img"
+                src="http://localhost:7000/{{item.img}}" />
+            <div class="content-price">
+                <span
+                    class="content-price__newPrice">{{item.price}}</span>
+                <span
+                    class="content-price__oldPrice strikethrough">
+                    {{item.price + 6000 }}
+                </span>
+                <span class="content-price__status">
+                    Хит продаж
+                </span>
+            </div>
+            <div class="content-block__description">
+                {{item.name}}
+            </div>
+            <div class="rating-stars">
+                <tui-rating
+                    class="rating"
+                    [disabled]="!isAdmin"
+                    [(ngModel)]="item.rating"></tui-rating>
+                <!-- <ng-container *ngTemplateOutlet="star"></ng-container> -->
+                <!-- </div> -->
+                <div style="font-size: 12px">Отзывов : {{item.rating}}</div>
+            </div>
+            <div class="content-buttons">
+                <div *ngIf="!isAdmin" class="content-buttons__add"
+                    (click)="addToCart(item)">
+                    В
+                    корзину
+                </div>
+                <!-- <button *ngIf="!isAdmin" type="button" tuiButton
+                    type="button"
+                    size="m"
+                    class="tui-space_right-3" (click)="addToCart(item)"
+                    [disabled]="itemExist === true"> В
+                    корзину</button> -->
+
+
+                <button
+                    style="border: none; background: #48B86E; width: 170px;color: #FFFFFF;"
+                    *ngIf="isAdmin"
+                    class="update-item"
+                    (click)='updateDevice(item.id)'>
+                    Редактировать
+                </button>
+                <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                    src="assets/img/products/deleteBasket.svg"
+                    (click)="deleteDevice(item.id)"></tui-svg>
+                <!-- <button class="delete-button"
+                    (click)="deleteDevice(item.id)">delete</button> -->
+                <div (click)="ratingStars(item.id)">
+                    <tui-svg *ngIf="!isAdmin"
+                        [ngClass]="isHeartActive[item.id] === true ?  '-heartActive' : 'import-button'"
+                        src="assets/img/products/heart.svg"></tui-svg>
+                </div>
+            </div>
+
+        </div>
+        <!-- <ng-container *ngIf="isCreateActive">
+            <div *ngIf='isAdmin'
+                style=" width: 204px; display:flex; flex-direction:column"
+                [formGroup]="deviceForm">
+                <input placeholder="brandId 1-9 (5)" type="number"
+                    formControlName="brandId">
+                <input placeholder="typeId 9-12" type="number"
+                    formControlName="typeId">
+                <input placeholder="name" type="text" formControlName="name">
+                <input placeholder="price" type="number"
+                    formControlName="price">
+                <input type="file" accept="image/png, image/jpeg"
+                    formControlName="img">
+                <input type="number" placeholder="rating"
+                    formControlName="rating">
+                <button type="submit"
+                    (click)="createNewDevice(itemValue)">ADD</button>
+            </div>
+        </ng-container> -->
+
+    </div>
+    <tui-pagination
+        [length]="length"
+        [index]="index"
+        (indexChange)="goToPage($event)">
+    </tui-pagination>
+
+</div>
+
+<ng-template #star>
+    <tui-svg src="assets/img/products/star.svg"></tui-svg>
+</ng-template>
+
+<ng-template
+    #content
+    let-observer>
+    <h3 style="    margin: 20px 0px 20px 0px;">Основная информация</h3>
+    <div class="table-data"
+        style="border: 1px solid black;  display:flex; flex-direction:column"
+        [formGroup]="deviceForm">
+        <div class="first">
+            <div class="device-block">
+                <span>Наименование</span>
+                <input class="device-item"
+                    placeholder="Введите наименование товара"
+                    type="text" formControlName="name">
+            </div>
+            <div class="device-block">
+                <span>Тип бренда</span>
+                <tui-select
+                    [valueContent]="stringify(brandsNameDictionary)"
+                    placeholder="Выберите услугу"
+                    tuiTextfieldSize="s"
+                    formControlName="brandId">
+                    <tui-data-list *tuiDataList>
+                        <button
+                            *ngFor="let item of brandsNameDictionary | keyvalue"
+                            [title]="item.value"
+                            tuiOption
+                            [value]="item.key">
+                            {{item.value}}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+            </div>
+        </div>
+        <div class="first">
+            <div class="device-block">
+                <span>Стоимость</span>
+                <input style="width: 170px" placeholder="Введите цену"
+                    type="number"
+                    formControlName="price" />
+            </div>
+            <div class="device-block">
+                <span>Тип сплит системы</span>
+                <tui-select
+                    [valueContent]="stringify(typesNames)"
+                    placeholder="Выберите услугу"
+                    tuiTextfieldSize="s"
+                    formControlName="typeId">
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let item of typesNames | keyvalue"
+                            [title]="item.value"
+                            tuiOption
+                            [value]="item.key">
+                            {{item.value}}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+            </div>
+        </div>
+
+        <div class="first">
+            <div class="device-block">
+                <span>Рейтинг</span>
+                <input style="width: 170px" min="0" max="5"
+                    placeholder="Введите Рейтинг"
+                    type="number"
+                    formControlName="rating" />
+            </div>
+            <div class="device-block">
+                <span>Изображение</span>
+                <input type="file" placeholder="Изображение"
+                    formControlName="img">
+            </div>
+        </div>
+    </div>
+    <div class="submit-form">
+
+        <button type="submit" tuiButton
+            type="button"
+            size="m"
+            class="tui-space_right-3" [disabled]="deviceForm.invalid"
+            (click)="createNewDevice(itemValue, 'Ваш товар был успешно добавлен')">Добавить</button>
+        <button tuiButton appearance="secondary" (click)="observer.complete()"
+            type="button"
+            size="m"
+            class="secondary-button">Отмена</button>
+    </div>
+</ng-template>

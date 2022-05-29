@@ -13,6 +13,11 @@
   }
 }
 
+// .table-line {
+//   display: flex;
+//   align-items: center;
+// }
+
 .total-items-block {
   display: flex;
   align-items: center;
@@ -20,6 +25,7 @@
   margin-bottom: 36px;
 
   .items-promo {
+    height: 106px;
     display: flex;
     flex-direction: column;
 

@@ -25,7 +25,7 @@ SwiperCore.use([Autoplay, Navigation, Pagination, Mousewheel, Keyboard]);
 //   price: number;
 // }
 
-export interface IDictionary<T> {
+export interface Dictionary<T> {
   [Key: string]: T;
 }
 
@@ -34,7 +34,7 @@ export enum SliderIndex {
   mounting,
   refueling,
 }
-export const DictionarySliderValues: IDictionary<string> = {
+export const DictionarySliderValues: Dictionary<string> = {
   [SliderIndex.clear]: 'Чиста сплит систем',
   [SliderIndex.mounting]: 'Монтаж сплит систем',
   [SliderIndex.refueling]: 'Заправка сплит систем',

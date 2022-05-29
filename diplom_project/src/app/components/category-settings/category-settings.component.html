@@ -1,0 +1,61 @@
+<form [formGroup]="selectConditonersForm">
+    <div data-aos-easing="linear"
+        data-aos-duration="500" data-aos="fade-right"
+        class="charactects-conditioners-block">
+        <div class="type-block">
+            <label>Тип сплит систем</label>
+            <div class="type-conditioners" *ngFor="let item of types">
+                <button
+                    class="type-conditioners__item">{{item.name}}</button>
+            </div>
+            <button style="background: green" *ngIf="isAdmin">Добавить
+                тип сплит системы</button>
+        </div>
+        <div class="inventors-conditioners">
+            <label>Инвентор</label>
+            <div class="inventorts-conditioners__items">
+                <button>Есть</button>
+                <button>Нет</button>
+            </div>
+        </div>
+        <div style="margin-bottom:22px" class="series-block">
+            <label>Мощность</label>
+            <div class="series-conditioners">
+                <div class="series-conditioners__items"
+                    *ngFor="let item of series">
+                    <button>{{item}}</button>
+                </div>
+            </div>
+            <button style="background: green" *ngIf="isAdmin">Добавить
+                мощность</button>
+        </div>
+        <div class="brands-conditioners" [formGroup]="addBrandForm">
+            <label>Бренд</label>
+            <div class="brands-block"
+                *ngFor="let item of brands,let i = index">
+                <span>{{item.name}}</span>
+                <input formControlName="brandCheckbox" type="checkbox" />
+            </div>
+            <div *ngIf="isAdmin" style="background: green">
+                <div
+                    (click)="isBrandActive = !isBrandActive">Добавить
+                    бренд</div>
+                <div [formGroup]="addBrandForm" *ngIf="isBrandActive">
+                    <input formControlName="brandName" type="text" />
+                    <button (click)="addBrand(itemValue)">Add</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>Обслуживаемая
+                площадь, кв.м</label>
+            <tui-input-range new
+                [min]="min"
+                [max]="max"
+                [quantum]="quantum"
+                [steps]="steps"
+                [formControl]="control">
+            </tui-input-range>
+        </div>
+    </div>
+</form>

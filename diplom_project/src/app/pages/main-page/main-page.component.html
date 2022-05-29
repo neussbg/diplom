@@ -1,65 +1,7 @@
-<div class="content-page ">
-    <div class="main-page"
-        [ngStyle]="{'background' : 'url(assets/img/main/background-main.svg)'}">
-        <div class="main-info-block">
-            <div class="info-block">
-                <div class="info-block__title">
-                    Продажа и установка систем кондиционирования
-                </div>
-                <div class="info-block__description">
-                    “АСМ Инжиниринг” поможет создать
-                    Вам комфортный микроклимат в помещении любого назначения в
-                    г.
-                    Ростове-на-Дону
-                </div>
-                <button class="info-block__application">Перейти в
-                    каталог</button>
+<div class="content-page  ">
+    <app-banner></app-banner>
 
-                <div data-aos="fade-up" class="feedback-block ">
-                    <div class="feedback-block__item">
-                        <tui-svg src="assets/img/main/support.svg"></tui-svg>
-                        <a href="company" class="text">Мы поможем вам с
-                            выбором</a>
-                    </div>
-                    <div class="feedback-block__item">
-                        <tui-svg src="assets/img/main/setting.svg"></tui-svg>
-                        <a href="attendance" class="text">Установим вашу
-                            сплит-систему</a>
-                    </div>
-                </div>
-            </div>
-            <img class="application-img" src="assets/img/conditioner.svg" />
-        </div>
-
-        <ng-container>
-            <div data-aos="fade-up" class="banner">
-                <div class="header">
-                    <div class="header-price">
-                        <span class="header-price__new">45 990 ₽</span>
-                        <span class="header-price__old strikethrough">56 990
-                            ₽</span>
-                    </div>
-                    <div class="header__bridge">
-                        Товар месяца
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="info__description">
-                        Кондиционер Kentatsu KSGB53HZAN1/KSRB53HZAN1
-                    </div>
-                    <div class="info__stars"></div>
-                    <div class="info__previus">5 отзывов</div>
-                </div>
-                <div class="footer">
-                    <button (click)="route('products')" class="footer__basket">В
-                        корзину</button>
-                    <img class="footer__important"
-                        src="assets/img/important.svg">
-                </div>
-            </div>
-        </ng-container>
-    </div>
-    <div class="block">
+    <div class="block-about container">
         <div class="info-block-company">
             <div class="block-title">
                 О компании
@@ -77,22 +19,21 @@
                     Благодаря прямому сотрудничеству с ведущими мировыми и
                     российскими поставщиками, ценообразование соответствует
                     установленным ценам производителей.
+                    <div class="company-info-buttons">
+                        <button href="products"
+                            class="company-info-buttons__services"
+                            (click)="route('attendance')">Услуги</button>
+                        <button class="company-info-buttons__more"
+                            (click)="route('company')">Подробнее</button>
+                    </div>
                 </div>
-            </div>
-            <div class="company-info-buttons">
-                <button href="products"
-                    class="company-info-buttons__services"
-                    (click)="route('attendance')">Услуги</button>
-                <button class="company-info-buttons__more"
-                    (click)="route('company')">Подробнее</button>
             </div>
         </div>
 
     </div>
-    <div id="trust" class="block-company-info"
+    <div class="block-company-info"
         [ngStyle]="{'background' : 'url(assets/img/footer.svg)'}">
-
-        <div class="company">
+        <div class="company container">
             <div class="block-title">
                 Почему нам доверяют ?
             </div>

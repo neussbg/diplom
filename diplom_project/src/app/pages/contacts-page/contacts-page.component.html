@@ -1,5 +1,5 @@
-<div class="content-page">
-    <div class="container">
+<div style="position: relative" class="content-page">
+    <div style="min-height:418px; position: relative;" class="container">
         <div class="contacts-block" data-aos="zoom-out-right"
             data-aos-duration="1500">
             <div class="contacts-block-address">
@@ -12,8 +12,15 @@
                 </div>
             </div>
         </div>
-        <tui-svg src="assets/img/contacts/personaly.svg">
-        </tui-svg>
+        <img class="img-person" src="assets/img/contacts/personaly.svg">
+        <!-- <tui-svg class="contacts-person"
+            src="assets/img/contacts/personaly.svg">
+        </tui-svg> -->
+    </div>
+    <div class="img-collection">
+        <tui-svg class="img-collection__icon" (click)="redirect(item.url)"
+            *ngFor="let item of imgCollection"
+            [src]="item.src"></tui-svg>
     </div>
     <div class="containers">
         <ya-map [center]="[47.249715, 39.620330]" [zoom]="19">

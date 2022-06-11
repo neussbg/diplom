@@ -12,7 +12,7 @@ import {
   TuiDataListModule,
   TuiButtonModule,
 } from '@taiga-ui/core';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,6 +52,7 @@ import { ItemsComponent } from './components/items/items.component';
 import { CategorySettingsComponent } from './components/category-settings/category-settings.component';
 import { AuthService } from './pages/services/auth.service';
 import { BannerComponent } from './components/banner/banner.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export const mapConfig: YaConfig = {
   apikey: 'b1484602-759f-463f-9f27-0d8191d4c5cb',
@@ -97,6 +98,7 @@ export function initApp(configurationService: TaskService) {
     TuiDialogModule,
     BrowserAnimationsModule,
     TuiDataListModule,
+    NgxPaginationModule,
     TuiDataListWrapperModule,
     TuiNotificationsModule,
     TuiSvgModule,

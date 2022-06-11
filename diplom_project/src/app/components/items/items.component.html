@@ -6,7 +6,7 @@
     </div>
     <div class="product-block__items">
         <div class="content-block"
-            *ngFor="let item of devicesArray; let i = index">
+            *ngFor="let item of devicesArray | paginate : { itemsPerPage: pageCount, currentPage: currentPage, totalItems: deviceCount}; let i = index">
             <img (click)="openProductCard(item.id)" class="content-block__img"
                 src="http://localhost:7000/{{item.img}}" />
             <div class="content-price">
@@ -14,83 +14,36 @@
                     class="content-price__newPrice">{{item.price}}</span>
                 <span
                     class="content-price__oldPrice strikethrough">
-                    {{item.price + 6000 }}
+                    {{item.oldprice }}
                 </span>
-                <span class="content-price__status">
+                <span *ngIf="item.oldprice" class="content-price__status">
                     Хит продаж
                 </span>
             </div>
             <div class="content-block__description">
                 {{item.name}}
             </div>
-            <div class="rating-stars">
-                <tui-rating
-                    class="rating"
-                    [disabled]="!isAdmin"
-                    [(ngModel)]="item.rating"></tui-rating>
-                <!-- <ng-container *ngTemplateOutlet="star"></ng-container> -->
-                <!-- </div> -->
-                <div style="font-size: 12px">Отзывов : {{item.rating}}</div>
+
+            <div *ngIf="!isAdmin" class="content-buttons__add"
+                (click)="addToCart(item)">
+                В
+                корзину
             </div>
-            <div class="content-buttons">
-                <div *ngIf="!isAdmin" class="content-buttons__add"
-                    (click)="addToCart(item)">
-                    В
-                    корзину
-                </div>
-                <!-- <button *ngIf="!isAdmin" type="button" tuiButton
-                    type="button"
-                    size="m"
-                    class="tui-space_right-3" (click)="addToCart(item)"
-                    [disabled]="itemExist === true"> В
-                    корзину</button> -->
+            <div *ngIf="isAdmin" class="content-buttons">
+                <button (click)='getOneItem(item, isEdit)' type="button"
+                    class="content-buttons__edit">Редактирова</button>
 
-
-                <button
-                    style="border: none; background: #48B86E; width: 170px;color: #FFFFFF;"
-                    *ngIf="isAdmin"
-                    class="update-item"
-                    (click)='updateDevice(item.id)'>
-                    Редактировать
-                </button>
-                <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
-                    src="assets/img/products/deleteBasket.svg"
-                    (click)="deleteDevice(item.id)"></tui-svg>
-                <!-- <button class="delete-button"
-                    (click)="deleteDevice(item.id)">delete</button> -->
-                <div (click)="ratingStars(item.id)">
-                    <tui-svg *ngIf="!isAdmin"
-                        [ngClass]="isHeartActive[item.id] === true ?  '-heartActive' : 'import-button'"
-                        src="assets/img/products/heart.svg"></tui-svg>
-                </div>
+                <tui-svg style="cursor:pointer"
+                    (click)='getOneItemToDelete(item)'
+                    src="assets/img/products/deleteBasket.svg">
+                </tui-svg>
             </div>
-
         </div>
-        <!-- <ng-container *ngIf="isCreateActive">
-            <div *ngIf='isAdmin'
-                style=" width: 204px; display:flex; flex-direction:column"
-                [formGroup]="deviceForm">
-                <input placeholder="brandId 1-9 (5)" type="number"
-                    formControlName="brandId">
-                <input placeholder="typeId 9-12" type="number"
-                    formControlName="typeId">
-                <input placeholder="name" type="text" formControlName="name">
-                <input placeholder="price" type="number"
-                    formControlName="price">
-                <input type="file" accept="image/png, image/jpeg"
-                    formControlName="img">
-                <input type="number" placeholder="rating"
-                    formControlName="rating">
-                <button type="submit"
-                    (click)="createNewDevice(itemValue)">ADD</button>
-            </div>
-        </ng-container> -->
 
     </div>
     <tui-pagination
-        [length]="length"
-        [index]="index"
-        (indexChange)="goToPage($event)">
+        [length]="ultraTotal"
+        (indexChange)="showNextPage($event)">
     </tui-pagination>
 
 </div>
@@ -98,14 +51,19 @@
 <ng-template #star>
     <tui-svg src="assets/img/products/star.svg"></tui-svg>
 </ng-template>
+<ng-template>
 
+
+</ng-template>
 <ng-template
     #content
     let-observer>
-    <h3 style="    margin: 20px 0px 20px 0px;">Основная информация</h3>
-    <div class="table-data"
+    <h3 style="margin: 20px 0px 20px 0px;">Основная информация</h3>
+    <form class="table-data" name="fileinfo"
         style="border: 1px solid black;  display:flex; flex-direction:column"
-        [formGroup]="deviceForm">
+        [formGroup]="deviceForm"
+        (ngSubmit)="onSubmit(this.deviceForm.value, isEdit)">
+        <button type="button" (click)="isEdit = !isEdit">Edit</button>
         <div class="first">
             <div class="device-block">
                 <span>Наименование</span>
@@ -138,6 +96,10 @@
                 <input style="width: 170px" placeholder="Введите цену"
                     type="number"
                     formControlName="price" />
+                <input style="width: 170px" placeholder="Введите старую цену"
+                    type="number"
+                    name="oldprice"
+                    formControlName="oldprice" />
             </div>
             <div class="device-block">
                 <span>Тип сплит системы</span>
@@ -160,29 +122,55 @@
 
         <div class="first">
             <div class="device-block">
-                <span>Рейтинг</span>
-                <input style="width: 170px" min="0" max="5"
-                    placeholder="Введите Рейтинг"
-                    type="number"
-                    formControlName="rating" />
-            </div>
-            <div class="device-block">
                 <span>Изображение</span>
-                <input type="file" placeholder="Изображение"
+                <input #fileInput
+                    multiple accept='image/*'
+                    type="file"
+                    style="display: none;"
+                    required
+                    name="file"
+                    placeholder="Изображение"
+                    (change)="uploadFile($event)"
                     formControlName="img">
+                <button type="button" (click)="fileInput.click()">Загрузить
+                    новое изображение</button>
+                <img
+                    src="http://localhost:7000/{{deviceForm.get('img')?.value}}" />
             </div>
         </div>
-    </div>
-    <div class="submit-form">
+        <div class="submit-form">
+            <button type="submit" tuiButton
+                size="m"
+                class="tui-space_right-3"
+                [disabled]="deviceForm.invalid">{{isEdit
+                ? 'Сохранить изменения' : 'Добавить'}}</button>
+            <button tuiButton appearance="secondary"
+                (click)="cancel(observer.complete())"
+                type="button"
+                size="m"
+                class="secondary-button">Отмена</button>
+        </div>
+    </form>
+</ng-template>
 
-        <button type="submit" tuiButton
-            type="button"
-            size="m"
-            class="tui-space_right-3" [disabled]="deviceForm.invalid"
-            (click)="createNewDevice(itemValue, 'Ваш товар был успешно добавлен')">Добавить</button>
-        <button tuiButton appearance="secondary" (click)="observer.complete()"
-            type="button"
-            size="m"
-            class="secondary-button">Отмена</button>
+<ng-template
+    #contentDelete
+    let-observer>
+    <div style="display:flex;margin-bottom: 20px" class="header">
+        <h3>Вы уверены что хотите удалить товар
+        </h3>
+        <h4>{{itemValueProduct.name}}?</h4>
+    </div>
+    <div>
+        <div class="sumbit-buttons">
+            <button tuiButton appearance="primary"
+                class="submit-buttons__submit"
+                (click)="onSubmitDelete(itemValueProduct.id)"
+                type="submit">Подтвердить</button>
+            <button appearance="accent"
+                tuiButton
+                class="submit-buttons__cancel" type="button"
+                (click)="cancel(observer.complete())">Отменить</button>
+        </div>
     </div>
 </ng-template>

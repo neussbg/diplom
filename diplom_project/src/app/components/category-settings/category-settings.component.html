@@ -1,61 +1,158 @@
-<form [formGroup]="selectConditonersForm">
-    <div data-aos-easing="linear"
-        data-aos-duration="500" data-aos="fade-right"
-        class="charactects-conditioners-block">
-        <div class="type-block">
-            <label>Тип сплит систем</label>
-            <div class="type-conditioners" *ngFor="let item of types">
-                <button
-                    class="type-conditioners__item">{{item.name}}</button>
+<div class="contents-page">
+    <form [formGroup]="selectConditonersForm">
+        <div data-aos-easing="linear"
+            data-aos-duration="500" data-aos="fade-right"
+            class="charactects-conditioners-block">
+            <div class="type-block">
+                <label>Тип сплит систем</label>
+                <div [ngClass]="isAdmin ? 'isAdminView' : ''"
+                    class="type-conditioners" *ngFor="let item of types">
+                    <button
+                        class="type-conditioners__item"
+                        (click)="getItemValue(item)"
+                        [title]="item.name">{{item.name}}</button>
+                    <div class="type-conditioners-onclick">
+                        <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                            (click)="getItemToUpdate(item, isTypeEdit = true)"
+                            src="assets/img/product/edit.svg">
+                        </tui-svg>
+                        <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                            src="assets/img/products/deleteBasket.svg"
+                            (click)="getItemToDelete(item.id,isDeletedType = true)">
+                        </tui-svg>
+                    </div>
+                </div>
+                <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                    (click)="getItemToCreat(isTypeActive = true,addTypeForm.value)"
+                    src="assets/img/product/add.svg">
+                </tui-svg>
             </div>
-            <button style="background: green" *ngIf="isAdmin">Добавить
-                тип сплит системы</button>
-        </div>
-        <div class="inventors-conditioners">
-            <label>Инвентор</label>
-            <div class="inventorts-conditioners__items">
-                <button>Есть</button>
-                <button>Нет</button>
-            </div>
-        </div>
-        <div style="margin-bottom:22px" class="series-block">
-            <label>Мощность</label>
-            <div class="series-conditioners">
-                <div class="series-conditioners__items"
-                    *ngFor="let item of series">
-                    <button>{{item}}</button>
+            <div class="inventors-conditioners">
+                <label>Инвентор</label>
+                <div class="inventorts-conditioners__items">
+                    <button>Есть</button>
+                    <button>Нет</button>
                 </div>
             </div>
-            <button style="background: green" *ngIf="isAdmin">Добавить
-                мощность</button>
-        </div>
-        <div class="brands-conditioners" [formGroup]="addBrandForm">
-            <label>Бренд</label>
-            <div class="brands-block"
-                *ngFor="let item of brands,let i = index">
-                <span>{{item.name}}</span>
-                <input formControlName="brandCheckbox" type="checkbox" />
-            </div>
-            <div *ngIf="isAdmin" style="background: green">
-                <div
-                    (click)="isBrandActive = !isBrandActive">Добавить
-                    бренд</div>
-                <div [formGroup]="addBrandForm" *ngIf="isBrandActive">
-                    <input formControlName="brandName" type="text" />
-                    <button (click)="addBrand(itemValue)">Add</button>
+            <div style="margin-bottom:22px" class="series-block">
+                <label>Мощность</label>
+                <div class="series-conditioners">
+                    <div class="series-conditioners__items"
+                        *ngFor="let item of series">
+                        <button>{{item}}</button>
+                    </div>
                 </div>
             </div>
+            <div class="brands-conditioners" [formGroup]="addBrandForm">
+                <label>Бренд</label>
+                <div class="brands-block"
+                    *ngFor="let item of brands,let i = index">
+
+                    <span [title]="item.name"
+                        style="width: 58px;">{{item.name}}</span>
+
+                    <input type="checkbox" />
+
+                    <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                        (click)="getItemToUpdate(item, isEdit = true)"
+                        src="assets/img/product/edit.svg">
+                    </tui-svg>
+                    <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                        src="assets/img/products/deleteBasket.svg"
+                        (click)="getItemToDelete(item.id,isDeletedBrand = true)">
+                    </tui-svg>
+                </div>
+                <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                    (click)="getItemToCreat(isAddedBrand = true,addBrandForm.value)"
+                    src="assets/img/product/add.svg">
+                </tui-svg>
+            </div>
         </div>
+    </form>
+
+
+    <ng-template
+        #contentUpdate
+        let-observer>
+        <h3>{{isEdit ? 'Вы
+            уверены
+            что хотите изменить текущий Бренд ?' : 'Вы
+            уверены
+            что хотите изменить текущий Тип ?'}} </h3>
         <div>
-            <label>Обслуживаемая
-                площадь, кв.м</label>
-            <tui-input-range new
-                [min]="min"
-                [max]="max"
-                [quantum]="quantum"
-                [steps]="steps"
-                [formControl]="control">
-            </tui-input-range>
+            <form [formGroup]="isEdit ? addBrandForm : addTypeForm"
+                (ngSubmit)="onSumbit(itemValue)">
+                <div class="content">
+                    <div class="content__input">
+                        <input type="text"
+                            [readonly]="!isChangeType"
+                            formControlName="name"
+                            [(ngModel)]="itemValue.name">
+                        <tui-svg style="cursor: pointer;"
+                            (click)="isChangeType = !isChangeType"
+                            src="assets/img/product/edit.svg">
+                        </tui-svg>
+                    </div>
+                    <div class="sumbit-buttons">
+                        <button tuiButton appearance="primary"
+                            class="submit-buttons__submit"
+                            type="submit">Подтвердить</button>
+                        <button appearance="accent"
+                            tuiButton
+                            class="submit-buttons__cancel" type="button"
+                            (click)="cancel(observer.complete())">Отменить</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
-</form>
+    </ng-template>
+
+    <ng-template
+        #contentAdd
+        let-observer>
+        <h3>{{isAddedBrand ? 'Вы уверены что хотите добавить новый бренд ?' :
+            'Вы
+            уверены что хотите добавить новый тип ?' }} </h3>
+        <div>
+            <form [formGroup]="isAddedBrand ? addBrandForm : addTypeForm"
+                (ngSubmit)="onSumbit(isAddedBrand ? addBrandForm.value : addTypeForm.value)">
+                <div class="content">
+                    <div class="content__input">
+                        <input placeholder="Введите новое название" type="text"
+                            formControlName="name">
+                    </div>
+                    <div class="sumbit-buttons">
+                        <button
+                            [disabled]="!addBrandForm.get('name')?.value"
+                            tuiButton appearance="primary"
+                            class="submit-buttons__submit"
+                            type="submit">Подтвердить</button>
+                        <button appearance="accent"
+                            tuiButton
+                            class="submit-buttons__cancel" type="button"
+                            (click)="cancel(observer.complete())">Отменить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template
+        #contentDelete
+        let-observer>
+        <h3 style="margin-bottom: 20px;">Вы уверены что хотите удалить Бренд ?
+        </h3>
+        <div>
+            <div class="sumbit-buttons">
+                <button tuiButton appearance="primary"
+                    class="submit-buttons__submit"
+                    (click)="onSumbit(valueId)"
+                    type="submit">Подтвердить</button>
+                <button appearance="accent"
+                    tuiButton
+                    class="submit-buttons__cancel" type="button"
+                    (click)="cancel(observer.complete())">Отменить</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

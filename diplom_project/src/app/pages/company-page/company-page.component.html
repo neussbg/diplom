@@ -73,7 +73,8 @@
 
 
     <div class="container company-info-block">
-        <img src="assets/img/company/company-people.jpg" />
+        <img class="company-info-user"
+            src="assets/img/company/company-people.jpg" />
         <div class="company-info">
             <div class="block-title">
                 С нами надежно
@@ -109,7 +110,7 @@
                 <div class="producenci-info-item"
                     *ngFor="let mark of conditionersMarks">
                     <!-- <img src="{{mark.icon}}" /> -->
-                    <tui-svg style="width: 210px" src="{{mark.icon}}"></tui-svg>
+                    <tui-svg class="mark-icon" style="width: 210px" src="{{mark.icon}}"></tui-svg>
 
                 </div>
             </div>

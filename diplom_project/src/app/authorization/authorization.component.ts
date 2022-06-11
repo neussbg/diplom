@@ -54,8 +54,17 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     return `scale(${this.scale})`;
   }
 
-  onRegistrationUser() {
-    console.log(this.registrationUser);
+  onRegistrationUser(user: any) {
+    this.auth.registration(user).subscribe((data) => {
+      console.log(data);
+    });
+    // console.log(this.registrationUser);
+  }
+
+  onLoginUser(user: any) {
+    this.auth.loginUser(user).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   get width(): string {

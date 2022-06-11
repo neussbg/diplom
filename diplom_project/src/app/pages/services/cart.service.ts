@@ -46,9 +46,9 @@ export class CartService {
     return this.items;
   }
 
-  getProducts() {
-    return this.productList.asObservable();
-  }
+  // getProducts() {
+  //   return this.productList.asObservable();
+  // }
 
   loadCart(): void {
     this.items = JSON.parse(localStorage.getItem('cart_items') as string) ?? [];

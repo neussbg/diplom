@@ -36,4 +36,8 @@ export class BrandsService extends BaseApiService {
     const url = this.brandController;
     return this.http.delete(`${url}/${id}`);
   }
+
+  updateBrand(id: number, item: any): Observable<any> {
+    return this.http.put<any>(`${this.brandController}/${id}`, item);
+  }
 }

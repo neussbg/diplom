@@ -44,6 +44,10 @@
       transform: scale(1.1);
     }
   }
+
+  &__description {
+    height: 42px;
+  }
   .rating-stars {
     display: flex;
     align-items: center;
@@ -96,9 +100,9 @@
       cursor: pointer;
       color: white;
       background: linear-gradient(91.3deg, #0d0dff 21.07%, #2222b1 102.35%);
-      border-radius: 3.63636px;
+      border-radius: 20px;
       font-size: 14px;
-      height: 32px;
+      height: 36px;
       width: 170px;
       display: flex;
       justify-content: center;
@@ -106,6 +110,19 @@
 
       &:hover {
         background: #191988;
+      }
+    }
+
+    &__edit {
+      background: rgb(27, 155, 27);
+      border: none;
+      height: 36px;
+      border-radius: 20px;
+      width: 158px;
+
+      &:hover {
+        background: rgb(14, 236, 14);
+        color: white;
       }
     }
   }

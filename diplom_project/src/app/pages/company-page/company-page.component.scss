@@ -93,6 +93,12 @@
   }
 }
 
+::ng-deep .mark-icon {
+  .fill-color:hover {
+    fill: rgb(14, 24, 168);
+  }
+}
+
 .producenci-block {
   display: flex;
   flex-direction: column;
@@ -106,5 +112,39 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 1088px) {
+  .company-info-user,
+  .company-advertising-items {
+    display: none;
+  }
+
+  .categories-items {
+    justify-content: flex-start;
+  }
+
+  .services-info {
+    flex-direction: column;
+
+    .company-services {
+      margin-bottom: 20px;
+
+      &__description {
+        width: 370px;
+        padding: 10px 44px;
+      }
+    }
+  }
+
+  tui-svg {
+    width: 130px !important;
+    margin-right: 20px;
+  }
+
+  .company-block-text {
+    width: auto;
+    margin: auto;
   }
 }

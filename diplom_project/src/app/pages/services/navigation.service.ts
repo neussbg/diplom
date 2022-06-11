@@ -31,6 +31,10 @@ export class NavigationService implements OnDestroy {
     this.router.navigate([route, data]);
   }
 
+  redirectToClick(el: string) {
+    window.location.href = el;
+  }
+
   /** Освобождение ресурсов */
   ngOnDestroy(): void {
     this.destroy$.next();

@@ -22,9 +22,9 @@ export class BaseApiService {
 
   protected backEndTypeController = `${BaseApiService.controller}/${BackConrollers.type}`;
 
-  protected backEndRegistration = `${BaseApiService.controller}/registration`;
+  protected backEndRegistration = `${BaseApiService.controller}/user/registration`;
 
-  protected backEndLogin = `${BaseApiService.controller}/login`;
+  protected backEndLogin = `${BaseApiService.controller}/user/login`;
 
   constructor() {}
 }

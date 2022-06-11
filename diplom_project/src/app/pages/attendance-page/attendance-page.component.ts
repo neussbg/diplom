@@ -35,7 +35,7 @@ export enum SliderIndex {
   refueling,
 }
 export const DictionarySliderValues: Dictionary<string> = {
-  [SliderIndex.clear]: 'Чиста сплит систем',
+  [SliderIndex.clear]: 'Чистка сплит систем',
   [SliderIndex.mounting]: 'Монтаж сплит систем',
   [SliderIndex.refueling]: 'Заправка сплит систем',
 };

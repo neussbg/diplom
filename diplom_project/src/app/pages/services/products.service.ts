@@ -24,10 +24,11 @@ export interface Product {
   id: number;
   name: string;
   price: number;
+  oldprice: number;
   brandId: number;
   typeId: number;
-  rating?: number;
   img?: string;
+  // rating?: number;
 }
 
 export interface ItemsCount<T> {
@@ -73,6 +74,14 @@ export class ProductsService extends BaseApiService {
     );
   }
 
+  items$ = new BehaviorSubject([]);
+
+  updateDeviceItem(id: number, item: any) {
+    const url = this.deviceController;
+    // this.items$.next(item);
+    return this.http.put<any>(`${url}/${id}`, item);
+  }
+
   getAvailableDevice(id: any): Observable<any> {
     return this.http.get<any>(`${this.deviceController}/${id}`);
     // return this.http
@@ -89,14 +98,14 @@ export class ProductsService extends BaseApiService {
     return throwError(resp);
   }
 
-  deleteDevice(id: number) {
+  deleteDevice(id: number): Observable<number> {
     const url = this.deviceController;
-    return this.http.delete<ItemsCount<Product[]>>(`${url}/${id}`);
+    return this.http.delete<number>(`${url}/${id}`);
   }
 
-  addDevice(device: Product): Observable<ItemsCount<Product>> {
+  addDevice(device: any) {
     const url = this.deviceController;
-    return this.http.post<ItemsCount<Product>>(url, device, httpOptions);
+    return this.http.post(url, device);
   }
 
   createDevice(device: Product): Observable<ItemsCount<Product>> {
@@ -108,10 +117,10 @@ export class ProductsService extends BaseApiService {
     );
   }
 
-  updateDevice(item: number) {
-    const url = this.deviceController;
-    return this.http.put(url, item);
-  }
+  // updateDevice(item: number) {
+  //   const url = this.deviceController;
+  //   return this.http.put(url, item);
+  // }
 
   sendEmail(contact: any): Observable<any> {
     return this.http

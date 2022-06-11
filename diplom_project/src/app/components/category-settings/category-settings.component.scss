@@ -1,8 +1,22 @@
-.charactects-conditioners-block {
-  ::ng-deep tui-svg {
-    background: #ff8a00;
+.contents-page {
+  ::ng-deep tui-dialog {
+    .t-content {
+      background: white !important;
+      .t-heading {
+        font-size: medium !important;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    section {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
   }
+}
 
+.charactects-conditioners-block {
   button {
     color: #929eaf;
     border: 0;
@@ -32,6 +46,11 @@
         color: #ffffff;
       }
     }
+
+    .type-conditioners-onclick {
+      display: flex;
+      justify-content: space-evenly;
+    }
   }
 
   .brands-block,
@@ -57,4 +76,56 @@
       color: black !important;
     }
   }
+}
+
+// .sumbit-buttons {
+//   display: flex;
+//   justify-content: space-around;
+
+//   ::ng-deep button {
+//     tui-wrapper {
+//       .t-content {
+//         background: none !important;
+//       }
+//     }
+//   }
+// }
+
+.content {
+  &__input {
+    margin: 20px 0 56px 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    ::ng-deep tui-svg {
+      margin-left: 20px;
+      .src {
+        width: 34px;
+      }
+    }
+  }
+  input {
+    height: 56px;
+    min-width: 430px;
+    border-radius: 20px;
+
+    &:focus {
+      border: 1px solid #ff8a00;
+    }
+  }
+}
+// .test {
+//   ::ng-deep button {
+//     tui-wrapper {
+//       .t-content {
+//         background: none !important;
+//       }
+//     }
+//   }
+// }
+.isAdminView {
+  border: 1px solid;
+  margin-bottom: 8px;
 }

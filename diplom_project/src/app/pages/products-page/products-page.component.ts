@@ -122,7 +122,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   addToCart(item: Product) {
     if (!this.cartServer.itemInCart(item)) {
-      item.rating = 1;
+      // item.rating = 1;
       this.cartServer.addToCart(item); //add items in cart
       this.items = [...this.cartServer.getItems()];
     }

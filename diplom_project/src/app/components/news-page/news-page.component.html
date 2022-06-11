@@ -1,8 +1,28 @@
 <div [ngClass]="changerTheme === true ?  'night-color' : ''"
   class="side-nav-bar">
   <div class="nav-block">
-    <img style="cursor: pointer;" (click)="redirectTo('main')"
+    <div class="header__burger"></div>
+    <img class="logo" style="cursor: pointer;" (click)="redirectTo('main')"
       src="assets/img/navigation/logo.svg">
+
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
+
+      <ul class="menu__box">
+        <li><a class="menu__item" style="cursor: pointer;"
+            (click)="redirectTo('main')"><img
+              src="assets/img/navigation/logo.svg"></a></li>
+        <li><a class="menu__item" routerLink="/company">О компании</a></li>
+        <li><a class="menu__item" routerLink="/attendance">Услуги</a></li>
+        <li><a class="menu__item" routerLink="/products">Каталог</a></li>
+        <li><a class="menu__item" routerLink="/contacts">Контакты</a></li>
+        <li><a class="menu__item" routerLink="/basket">Корзина</a></li>
+        <li><a class="menu__item" routerLink="/user">Профиль</a></li>
+      </ul>
+    </div>
     <div class="nav-content"
       *ngFor="let route of routes;"
       (click)="redirectTo(route.path)">
@@ -22,13 +42,15 @@
     </div>
     <tui-svg
       (click)="redirectTo('user')"
-      class="nav-content__img icon"
+      class="nav-content__img icon user"
       src="assets/img/navigation/user.svg">
     </tui-svg>
     <div class="form-check form-switch">
-      <input (click)="onChangeTheme()" class="form-check-input" type="checkbox"
+      <input (click)="onChangeTheme()" class="form-check-input"
+        type="checkbox"
         role="switch" id="flexSwitchCheckDefault">
-      <span [ngClass]="changerTheme === true ?  'night-color' : ''">Ночной
+      <span class="text"
+        [ngClass]="changerTheme === true ?  'night-color' : ''">Ночной
         режим</span>
       <label class="form-check-label" for="flexSwitchCheckDefault"></label>
     </div>

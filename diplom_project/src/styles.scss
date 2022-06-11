@@ -64,3 +64,33 @@ tui-rating {
     color: #ffd600;
   }
 }
+
+.sumbit-buttons,
+.type-conditioners-onclick,
+.brands-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  tui-svg:hover {
+    .fill-color {
+      fill: red !important;
+    }
+  }
+
+  button {
+    tui-wrapper {
+      .t-content {
+        background: none !important;
+      }
+    }
+  }
+}
+
+.content-buttons {
+  tui-svg:hover {
+    .fill-color {
+      fill: red !important;
+    }
+  }
+}

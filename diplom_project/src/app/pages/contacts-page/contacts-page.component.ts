@@ -2,11 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { mapConfig } from 'src/app/app.module';
 import { GeoObjectConstructor } from 'src/assets/interfaces/map/GeoObjectConstructor';
 import { PlacemarkConstructor } from 'src/assets/interfaces/map/PlacemarkConstructor';
+import { NavigationService } from '../services/navigation.service';
 
+export const imgCollection = [
+  {
+    src: 'assets/img/contacts/vk.svg',
+    url: 'https://vk.com/public212664335',
+  },
+  {
+    src: 'assets/img/contacts/whats-up.svg',
+    url: 'https://vk.com/thebadplace',
+  },
+  {
+    src: 'assets/img/contacts/telegram.svg',
+    url: 'https://t.me/+GKAnaNhpPFFjZDgy',
+  },
+];
 export const AddresValue = [
   {
     title: 'Адрес',
-    value: 'г. Ростов-на-Дону, пр.Ленина 1',
+    value: 'г. Ростов-на-Дону, пер. Нефтяной 1',
   },
   {
     title: 'График работы',
@@ -27,13 +42,20 @@ export const AddresValue = [
   styleUrls: ['./contacts-page.component.scss'],
 })
 export class ContactsPageComponent implements OnInit {
-  constructor() {}
+  constructor(private navApi: NavigationService) {}
 
   geoObject?: GeoObjectConstructor;
+
+  imgCollection: any[] = imgCollection;
 
   addressValue = AddresValue;
 
   placementMarks: PlacemarkConstructor[] = [];
+
+  redirect(el: string) {
+    window.open(el, '_blank');
+    // this.navApi.redirectToClick(el);
+  }
 
   ngOnInit(): void {
     this.geoObject = {

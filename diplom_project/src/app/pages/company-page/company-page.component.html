@@ -92,25 +92,38 @@
         </div>
     </div>
     <app-categories></app-categories>
-    <div class="container services-block">
+    <div class="container company-services">
         <div class="block-title">Наши услуги</div>
-        <div class="services-info">
-            <div class="company-services #item" (mouseover)="showText()"
-                *ngFor="let cond of companyConditioners">
-                <img class="company-services__icon" src="{{cond.icon}}" />
-                <div class="company-services__description">{{cond.description}}
+        <section class="container service-block">
+            <div class="box-container" *ngFor="let cond of companyConditioners">
+                <div class="box">
+                    <img style=" width: 368px;" src="{{cond.icon}}">
+                    <div class="info">
+                        <button class="info__button"
+                            routerLink="/attendance">Подробнее
+                            <img style="margin-right: 30px"
+                                src="assets/img/company/conditioners/arrow-right.svg" /></button>
+                    </div>
                 </div>
+                <button
+                    class="box-container__description">
+                    {{cond.description}}
+                </button>
             </div>
-        </div>
+        </section>
+
+
     </div>
-    <div class="block" [ngStyle]="{'background' : '#f0f4fa'}">
+    <div class="block isVisibleBlock" [ngStyle]="{'background' : '#f0f4fa'}">
         <div class="container producenci-block">
-            <div class="categories-title">Производители кондиционеров</div>
+            <div class="categories-title">Производители кондиционеров
+            </div>
             <div class="producenci-info">
                 <div class="producenci-info-item"
                     *ngFor="let mark of conditionersMarks">
                     <!-- <img src="{{mark.icon}}" /> -->
-                    <tui-svg class="mark-icon" style="width: 210px" src="{{mark.icon}}"></tui-svg>
+                    <tui-svg class="mark-icon" style="width: 210px"
+                        src="{{mark.icon}}"></tui-svg>
 
                 </div>
             </div>

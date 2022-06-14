@@ -21,6 +21,7 @@ import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { Dictionary } from 'src/app/pages/attendance-page/attendance-page.component';
 import { NavigationService } from 'src/app/pages/services/navigation.service';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, filter, from, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-items',
@@ -73,13 +74,156 @@ export class ItemsComponent implements OnInit {
 
   isDeleted: boolean = false;
 
+  filter: any;
+
+  filterItemsValue: any[] = [];
+
+  itemAny = new BehaviorSubject([]);
+
+  itemsNumber: any;
+
+  itemsBrand: any;
+
   rateControl = new FormControl(this.star as number);
   ngOnInit(): void {
     this.getAllProducts();
     this.devicesArray.forEach((s) => {});
-
     this.cartServer.loadCart();
+
     this.allItemsValue = this.cartServer.getItems();
+
+    this.productsApi.filterBrandSubject.subscribe((data) => {
+      for (let item of data) {
+        // this.devicesArray.sort((filter)=> filter.brandId == item)
+        this.devicesArray = this.devicesArray.filter(
+          (filteritem) => filteritem.brandId == item
+        );
+        // console.log(newArr);
+        // const result = [...newArr];
+      }
+
+      // console.log(data);
+
+      // for (let item of data) {
+      // debugger;
+      // if (item != null || undefined) {
+      // console.log(
+      //   (this.devicesArray = this.devicesArray.filter(
+      //     (filterItem) => filterItem.brandId == item
+      //   ))
+      // let itemsSub = new Subject();
+      // );
+      // for (let item of data) {
+      //   itemsSub.next(item);
+      // }
+
+      // this.productsApi.getFilterDevices(data).subscribe((items) => {
+      //   items.rows.filter((fil) => fil.brandId === +data);
+      // });
+
+      // console.log(
+      //   this.productsApi.getFilterDevices(data).subscribe((items) => {
+      //     items.rows.filter((fil) => fil.brandId === +data);
+      //   })
+      // );
+
+      // this.productsApi.getDevices().subscribe((data) => {
+      //   data.rows.filter((value) => value.typeId === item);
+      // });
+      // }
+
+      // this.devicesArray = this.devicesArray.filter(
+      //   (filterItem) => filterItem.brandId == item
+      // );
+      // }
+
+      // return this.devicesArray;
+
+      let filterObject = {};
+      data.forEach((s) => {
+        filterObject = {
+          item: s,
+        };
+
+        this.itemsBrand = s;
+        // console.log(filterObject);
+      });
+      // console.log(this.itemsBrand);
+
+      // this.devicesArray.forEach((s) => {
+      //   console.log(s.some((el: any) => el === data));
+      // });
+      // let newArr = this.devicesArray.filter((obj) =>
+      //   obj.some((el: any) => el === data)
+      // );
+      // console.log(newArr);
+
+      // this.devicesArray = this.devicesArray.filter(
+      //   (value) => value.brandId === this.itemsBrand
+      // );
+    });
+
+    // this.productsApi.filterTypeSubject.subscribe((data) => {
+    //   // this.filter = Object.values(data);
+
+    //   let filterObject = {};
+    //   data.forEach((s) => {
+    //     filterObject = {
+    //       item: s,
+    //     };
+
+    //     console.log(filterObject);
+
+    //     this.itemsNumber = s;
+    //     console.log(this.itemsNumber);
+    //   });
+
+    //   this.filter = Object.values(data);
+    //   console.log(this.filter);
+
+    //   this.devicesArray = this.devicesArray.filter(
+    //     (value) => value.typeId === this.itemsNumber
+    //   );
+
+    //   // this.getAllProducts(items);
+
+    //   // this.devicesArray.forEach((data) => {
+    //   // this.devicesArray = [];
+    //   //   if (this.filter[0] == data.typeId) {
+    //   //     this.itemAny.next(data);
+    //   //   }
+    //   // });
+
+    //   // this.devicesArray.filter((value) => {
+    //   //   if (this.filter[0] == value.typeId) {
+    //   //     this.devicesArray = [];
+    //   //     this.devicesArray.push(value);
+    //   //     this.itemAny.next(value);
+    //   //     // this.devicesArray.concat(Array.from(value));
+    //   //     // this.productsApi.getDevices(value).subscribe(() => {
+    //   //     // const source = from(this.devicesArray);
+    //   //     // console.log(source);
+
+    //   //     // const ex = source.pipe(filter((item) => item.id == this.filter[0]));
+    //   //     // const subscribe = ex.subscribe((val) =>
+    //   //     //   console.log(`Under the age of 25: ${val}`)
+    //   //     // );
+
+    //   //     // this.devicesArray.push(value);
+    //   //     // console.log(value);
+    //   //     // const item = value;
+    //   //     return this.itemAny.subscribe((data) => {
+    //   //       console.log(data);
+
+    //   //       this.devicesArray.push(data);
+    //   //     });
+
+    //   //     // console.log(this.devicesArray);
+    //   //     // });
+    //   //     // this.filterItemsValue.push(value);
+    //   //   }
+    //   // });
+    // });
   }
 
   file = null;
@@ -93,26 +237,6 @@ export class ItemsComponent implements OnInit {
     }
     this.teeest = new FormData();
     this.teeest.append('file', file, file.name);
-    // debugger;
-    // const reader = new FileReader();
-
-    // if (event.target.files && event.target.files.length) {
-    //   const [file] = event.target.files;
-    //   reader.readAsDataURL(file);
-    //   reader.onload = () => {
-    //     this.deviceForm.patchValue({
-    //       img: reader.result,
-    //     });
-    //   };
-
-    //   // need to run CD since file load runs outside of zone
-    // }
-
-    // this.file = event.target.files[0];
-    // this.deviceForm.patchValue({
-    //   img: this.file,
-    // });
-    // this.deviceForm.get('img')?.updateValueAndValidity();
   }
 
   testValue = new FormControl();
@@ -144,7 +268,6 @@ export class ItemsComponent implements OnInit {
 
     this.itemId = item.id;
     if (item) {
-      // this.deviceForm =
       this.deviceForm.setValue({
         brandId: this.itemValueProduct.brandId,
         img: this.itemValueProduct.img,
@@ -188,13 +311,6 @@ export class ItemsComponent implements OnInit {
     }
     this.getAllProducts();
   }
-  // onSubmitForm() {
-  //   if (this.isEdit === true) {
-  //     this.updateProduct(this.itemValueProduct.id, this.itemValueProduct);
-  //   } else {
-  //     this.createNewDevice(this.itemValue, 'Ваш товар был успешно добавлен');
-  //   }
-  // }
 
   updateProduct(id: number, item: Product) {
     this.productsApi.updateDeviceItem(id, item).subscribe((data: Product) => {
@@ -205,7 +321,7 @@ export class ItemsComponent implements OnInit {
 
   cancel(value: any) {
     console.log(value);
-    this.deviceForm.reset()
+    this.deviceForm.reset();
     // this.addBrandForm.reset(value);
     // if (!this.isAdded || !this.isDeleted) {
     //   this.addBrandForm.reset();
@@ -216,20 +332,42 @@ export class ItemsComponent implements OnInit {
 
   deviceImg?: string;
 
-  getAllProducts() {
+  getAllProducts(filter?: any) {
     this.productsApi.getDevices().subscribe((items) => {
       this.devicesArray = items.rows;
       this.deviceCount = items.rows.length;
+      const itemss = [1, 2, 3];
+
+      console.log(this.devicesArray.filter((item) => item.typeId === itemss));
+
+      // console.log(this.devicesArray.filter((item) => item.typeId === test));
+
+      // if (filter !== undefined || []) {
+      //   this.devicesArray = [];
+      //   this.devicesArray.push(filter);
+      // }
+
+      // if (filter != undefined) {
+      //   debugger;
+      //   console.log(filter);
+
+      //   this.devicesArray.push(filter);
+      // }
       this.ultraTotal = Math.ceil(this.deviceCount / this.pageCount);
 
       this.devicesArray.forEach((s: Product) => {
         this.deviceId = s.id;
-
+        s.typeId;
         this.deviceImg = s.img;
         console.log(this.deviceImg);
 
         // this.star = s.rating;
       });
+      this.filterItemsValue.forEach((id: any) => {
+        console.log(id.value);
+      });
+
+      console.log(this.filter == []);
     });
   }
 
@@ -246,11 +384,15 @@ export class ItemsComponent implements OnInit {
    * @param item - товар
    */
   addToCart(item: Product) {
-    if (!this.cartServer.itemInCart(item)) {
-      // item.rating = 1;
-      this.cartServer.addToCart(item); //add items in cart
-      this.allItemsValue = [...this.cartServer.getItems()];
-    }
+    // if (localStorage.getItem('auth-token')) {
+    // if (!this.cartServer.itemInCart(item)) {
+    // item.rating = 1;
+    this.cartServer.addToCart(item); //add items in cart
+    this.allItemsValue = [...this.cartServer.getItems()];
+    // }
+    // } else {
+    // this.navigationService.navigateTo('/registration');
+    // }
   }
 
   itemValue: any;
@@ -351,6 +493,7 @@ export class ItemsComponent implements OnInit {
         label: this.isDeleted ? 'Удаление товара' : 'Добавление нового товара',
         size,
         closeable: false,
+        dismissible: false,
       })
       .subscribe();
   }
@@ -381,6 +524,7 @@ export class ItemsComponent implements OnInit {
 
   typesNames: Dictionary<string> = TypeDictionary;
 
+  sortBy: Dictionary<string> = sortByDictionary;
   // ratingStars(item: any) {
   //   this.devicesArray.find((p) => {
   //     this.id = p.id;
@@ -413,6 +557,11 @@ export const TypeDictionary: Dictionary<string> = {
   [TypesSplit.columnedSplit]: 'Колонные сплит-системы',
   [TypesSplit.FloorCeiling]: 'Напольно-потолочные сплит-системы',
   [TypesSplit.cassette]: 'Кассетные сплит-системы',
+};
+
+export const sortByDictionary: Dictionary<string> = {
+  [0]: 'Сначала дешевые',
+  [1]: 'Сначала дорогие',
 };
 
 export enum BrandsSplit {

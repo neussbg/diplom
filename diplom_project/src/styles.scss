@@ -94,3 +94,16 @@ tui-rating {
     }
   }
 }
+
+.max-text-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alert-message {
+  color: rgb(141, 12, 12);
+  display: flex;
+  margin-left: 20px;
+  font-size: 12px;
+}

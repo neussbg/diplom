@@ -12,15 +12,16 @@
                 </div>
             </div>
         </div>
-        <img class="img-person" src="assets/img/contacts/personaly.svg">
-        <!-- <tui-svg class="contacts-person"
-            src="assets/img/contacts/personaly.svg">
-        </tui-svg> -->
-    </div>
-    <div class="img-collection">
-        <tui-svg class="img-collection__icon" (click)="redirect(item.url)"
-            *ngFor="let item of imgCollection"
-            [src]="item.src"></tui-svg>
+        <div>
+            <img class="img-person" src="assets/img/contacts/personaly.svg">
+
+            <div class="img-collection">
+                <tui-svg class="img-collection__icon"
+                    (click)="redirect(item.url)"
+                    *ngFor="let item of imgCollection"
+                    [src]="item.src"></tui-svg>
+            </div>
+        </div>
     </div>
     <div class="containers">
         <ya-map [center]="[47.249715, 39.620330]" [zoom]="19">
@@ -31,7 +32,6 @@
             </ya-placemark>
         </ya-map>
     </div>
-    <!-- <div id="map" class="map"></div> -->
     <app-footer></app-footer>
 </div>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"

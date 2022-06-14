@@ -8,17 +8,12 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TUI_NUMBER_FORMAT, NumberFormatSettings } from '@taiga-ui/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { ProductCard } from 'src/assets/interfaces/products/product-card';
-import { ItemsCount, ProductsService } from '../services/products.service';
-import { environment } from 'src/environments/environment.prod';
+import {ProductsService } from '../services/products.service';
 import { brandsConditioners as brandsConditioners } from 'src/assets/const/products/brands';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
-import { TaskService } from '../services/task.service';
 import { Product } from '../services/products.service';
-import { ChangeDetectionStrategy } from '@angular/compiler';
 import { NavigationService } from '../services/navigation.service';
 import { Router } from '@angular/router';
-import { RouterEnum } from 'src/assets/enums/router.enum';
 import { CardService } from '../services/card.service';
 import { CartService } from '../services/cart.service';
 import { BrandsService } from '../services/brands.service';

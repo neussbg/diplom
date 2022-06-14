@@ -1,9 +1,28 @@
 <div
     class="product-block">
-    <div class="sort">
+    <header class="sort">
+        <span style="margin: 0 20px 0 20px">Сортировать по: </span>
+        <tui-select
+            [valueContent]="stringify(sortBy)"
+            placeholder="Новинка"
+            tuiTextfieldSize="s"
+            formControlName="typeId">
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let item of sortBy | keyvalue"
+                    [title]="item.value"
+                    tuiOption
+                    [value]="item.key">
+                    {{item.value}}
+                </button>
+            </tui-data-list>
+        </tui-select>
+
+        <button>Сортировать</button>
+        <button (click)="getAllProducts()">Сбросить фильтры</button>
+
         <button class="add-product" *ngIf="isAdmin"
             (click)="onClick(content,  'l')">+</button>
-    </div>
+    </header>
     <div class="product-block__items">
         <div class="content-block"
             *ngFor="let item of devicesArray | paginate : { itemsPerPage: pageCount, currentPage: currentPage, totalItems: deviceCount}; let i = index">
@@ -11,7 +30,8 @@
                 src="http://localhost:7000/{{item.img}}" />
             <div class="content-price">
                 <span
-                    class="content-price__newPrice">{{item.price}}</span>
+                    class="content-price__newPrice"
+                    [title]="item.price">{{item.price}}</span>
                 <span
                     class="content-price__oldPrice strikethrough">
                     {{item.oldprice }}
@@ -20,14 +40,14 @@
                     Хит продаж
                 </span>
             </div>
-            <div class="content-block__description">
+            <div [title]="item.name"
+                class="content-block__description max-text-content">
                 {{item.name}}
             </div>
 
             <div *ngIf="!isAdmin" class="content-buttons__add"
                 (click)="addToCart(item)">
-                В
-                корзину
+                В корзину
             </div>
             <div *ngIf="isAdmin" class="content-buttons">
                 <button (click)='getOneItem(item, isEdit)' type="button"

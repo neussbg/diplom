@@ -1,59 +1,68 @@
-<div class="footer-page">
+<footer class="footer-page">
     <div class="list container">
         <ul class="list-group">
-            <li class="list-group-item header">Меню</li>
-            <li class="list-group-item">О компании</li>
-            <li class="list-group-item">Услуги</li>
-            <li class="list-group-item">Каталог</li>
-            <li class="list-group-item">Контакты</li>
+            <li class="list-group-item header " routerLink="/products">Меню</li>
+            <li class="list-group-item content">О компании</li>
+            <li class="list-group-item content">Услуги</li>
+            <li class="list-group-item content">Каталог</li>
+            <li class="list-group-item content">Контакты</li>
         </ul>
         <ul class="list-group">
-            <li class="list-group-item header">Услуги</li>
-            <li class="list-group-item">Монтаж</li>
-            <li class="list-group-item">Чистка</li>
-            <li class="list-group-item">Заправка</li>
+            <li class="list-group-item header" routerLink="/attendance">Услуги
+            </li>
+            <li class="list-group-item content">Монтаж</li>
+            <li class="list-group-item content">Чистка</li>
+            <li class="list-group-item content">Заправка</li>
         </ul>
         <ul class="list-group">
-            <li class="list-group-item header">График работы</li>
-            <li class="list-group-item">Пн-Пт 09:00 - 18:00</li>
-            <li class="list-group-item"> Сб 10:00 - 14:00</li>
-            <li class="list-group-item">Вс выходной</li>
+            <li class="list-group-item header content">График работы</li>
+            <li class="list-group-item header resizeContent"
+                routerLink="/login">
+                Профиль</li>
+            <li class="list-group-item content">Пн-Пт 09:00 - 18:00</li>
+            <li class="list-group-item content"> Сб 10:00 - 14:00</li>
+            <li class="list-group-item content">Вс выходной</li>
             <li class="icons-block">
-                <tui-svg (click)="showWhatsUpPage()" class="icons-block__item"
+                <tui-svg (click)="showWhatsUpPage()"
+                    class="icons-block__item content"
                     src="assets/img/whatsUp.svg">
                 </tui-svg>
-                <tui-svg (click)="showTelegramPage()" class="icons-block__item"
+                <tui-svg (click)="showTelegramPage()"
+                    class="icons-block__item content"
                     src="assets/img/telegram.svg">
                 </tui-svg>
-                <tui-svg (click)="showVkPage()" class="icons-block__item"
+                <tui-svg (click)="showVkPage()"
+                    class="icons-block__item content"
                     src="assets/img/vk.svg">
                 </tui-svg>
             </li>
         </ul>
         <ul class="list-group">
-            <li class="list-group-item header">Контакты</li>
-            <li class="list-group-item" (click)="openContacts()">
+            <li class="list-group-item header" routerLink="/contacts">Контакты
+            </li>
+            <li class="list-group-item content" (click)="openContacts()">
                 <tui-svg
                     class="list-group-item__icon"
                     src="assets/img/phone.svg">
                 </tui-svg>
                 <span>8(912)221-31-91</span>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item content">
                 <tui-svg
                     class="list-group-item__icon"
                     src="assets/img/mail-icon.svg">
                 </tui-svg>
                 <span>asmeng@mail.ru</span>
             </li>
-            <li class="list-group-item" (click)="openContacts()">
+            <li class="list-group-item content" (click)="openContacts()">
                 <tui-svg
                     class="list-group-item__icon"
                     src="assets/img/location.svg">
                 </tui-svg>
-                <span>344023, г. Ростов-на-Дону, пр. Ленина 1</span>
+                <span>344023, г. Ростов-на-Дону, пр. Ленина
+                    1</span>
             </li>
         </ul>
     </div>
     <span class="list-advertising">© АСМ Инжиниринг, 2022</span>
-</div>
+</footer>

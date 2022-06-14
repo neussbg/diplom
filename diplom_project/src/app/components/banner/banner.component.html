@@ -1,8 +1,6 @@
-<div class="main-page "
-    [ngStyle]="{'background' : 'url(assets/img/main/background-main.svg)'}">
-
+<div class="main-page ">
     <div class="main-info-block container">
-        <div class="info-block">
+        <div class="info-block container">
             <div class="info-block__title">
                 Продажа и установка систем кондиционирования
             </div>
@@ -15,7 +13,7 @@
             <button class="info-block__application">Перейти в
                 каталог</button>
 
-            <div data-aos="fade-up" class="feedback-block ">
+            <div class="feedback-block ">
                 <div class="feedback-block__item">
                     <tui-svg src="assets/img/main/support.svg"></tui-svg>
                     <a href="company" class="text">Мы поможем вам с
@@ -29,12 +27,13 @@
             </div>
         </div>
         <div class="main-info-block-img">
-            <img src="assets/img/main/orange-background.svg">
-            <img class="application-img" src="assets/img/conditioner.svg" />
+            <img src="../../../assets/img/main/bc-or.jpg" alt="backgroun-logo">
+            <!-- <img src="assets/img/main/orange-background.svg"> -->
+            <!-- <img class="application-img" src="assets/img/conditioner.svg" /> -->
         </div>
     </div>
 
-    <div data-aos="fade-up" class="banner">
+    <div class="banner">
         <div class="header">
             <div class="header-price">
                 <span class="header-price__new">45 990 ₽</span>
@@ -50,24 +49,24 @@
                 Кондиционер Kentatsu KSGB53HZAN1/KSRB53HZAN1
             </div>
 
-            <div class="rating-stars">
+            <!-- <div class="rating-stars">
                 <tui-rating
                     class="rating"
                     [disabled]="!isAdmin"
                     [(ngModel)]="rating"></tui-rating>
-                <!-- <ng-container *ngTemplateOutlet="star"></ng-container> -->
-                <!-- </div> -->
                 <div class="info__previus">Отзывов {{15}}</div>
-            </div>
+            </div> -->
         </div>
         <div class="banner__footer">
             <button (click)="route('products')" class="footer__basket">В
                 корзину</button>
             <tui-svg (click)="isHeartActive = !isHeartActive"
                 [ngClass]="isHeartActive === true ?  '-heartActive' : 'import-button'"
-
-                src="assets/img/products/heart.svg">
+                [src]="'assets/img/products/heart.svg'">
             </tui-svg>
         </div>
     </div>
 </div>
+
+
+<!--   [src]="isHeartActive ? 'assets/img/products/heart.svg' : checkButton" -->

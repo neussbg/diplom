@@ -15,11 +15,9 @@ import {
   TuiDialogService,
   TuiDialogSize,
 } from '@taiga-ui/core';
-import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
 import { BrandsService } from 'src/app/pages/services/brands.service';
 import { ProductsService } from 'src/app/pages/services/products.service';
 import { IspitType, TypesService } from 'src/app/pages/services/types.service';
-import { brandsConditioners } from 'src/assets/const/products/brands';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
 import { Subject, takeUntil } from 'rxjs';
@@ -78,6 +76,8 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   brandName!: string;
 
+  isActiveType: Array<boolean> = [];
+
   isChangeType: boolean = false;
 
   isChangeBrand: boolean = false;
@@ -89,6 +89,8 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   @Input() isAdmin: boolean = false;
 
+  filterItemsValue: any[] = [];
+
   readonly min = 5;
   readonly max = 150;
   readonly sliderStep = 1;
@@ -99,6 +101,10 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getAllTypes();
     this.getAllBrands();
+
+    // this.deviceApi.filterSubject.subscribe((data) => {
+    //   this.filterItemsValue.push(data);
+    // });
   }
 
   onClick(
@@ -113,7 +119,8 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
           ? 'Изменение бренда сплит системы'
           : 'Удаление бренда сплит системы',
         size,
-        closeable: (this.isClose = true),
+        closeable: false,
+        dismissible: false,
       })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -121,8 +128,31 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
       });
   }
 
-  getItemValue(value: any) {
-    console.log(value);
+  filterTypeArray: any[] = [];
+
+  filterBrandArray: any[] = [];
+  filterBrandId!: number;
+  filterTypeId!: number;
+
+  test = new Object();
+  filterSetType = new Set();
+  filterSetBrand = new Set();
+  getItemTypeValue(value: any) {
+    this.isActiveType[value.id] = !this.isActiveType[value.id];
+    this.filterTypeId = value.id;
+    this.filterTypeArray.push(this.filterTypeId);
+    this.filterSetType = new Set(this.filterTypeArray);
+  }
+
+  getItemBrandValue(value: any) {
+    debugger;
+    this.filterBrandId = value.id;
+    this.filterBrandArray.push(this.filterBrandId);
+    this.filterSetBrand = new Set(this.filterBrandArray);
+    console.log(this.filterSetBrand, 'brands');
+
+    // this.filterArray.push(this.filterTypeId);
+    // console.log(this.filterArray);
   }
 
   onClickType(
@@ -138,6 +168,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
           : 'Удаление типа сплит системы',
         size,
         closeable: false,
+        dismissible: false,
       })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -233,6 +264,25 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     this.onClick(this.contentType, 'l');
   }
 
+  filterItems(filterType?: any, filterBrand?: any) {
+    if (filterType.size > 0) {
+      filterType = Array.from(this.filterSetType);
+      this.deviceApi.filterTypeSub(filterType);
+    } else if (filterBrand.size > 0) {
+      filterBrand = Array.from(this.filterSetBrand);
+      this.deviceApi.filterBrandSub(filterBrand);
+    }
+    // if (filterType) {
+    //   filterType = Array.from(this.filterSetType);
+    //   this.deviceApi.filterTypeSub(filterType);
+    // }
+    // const merget = new Array([...this.filterSetType, ...this.filterSetBrand]);
+
+    // this.deviceApi.filterSubject.subscribe((data) => {
+    //   data.map((s) => {});
+    // });
+    // console.log(filterType);
+  }
   getItemToUpdate(item: any, getValueEdit?: boolean) {
     debugger;
     this.itemValue = item;

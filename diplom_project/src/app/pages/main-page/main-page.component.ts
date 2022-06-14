@@ -38,6 +38,8 @@ export class MainPageComponent implements OnInit {
 
   isActive: boolean = false;
 
+  mediaWidth!: boolean;
+
   submitForm = new FormGroup({
     inputValue: new FormControl(null, [Validators.required, Validators.email]),
     checkbox: new FormControl(false, Validators.required),
@@ -55,6 +57,11 @@ export class MainPageComponent implements OnInit {
     this.submitForm.valueChanges.subscribe((s) => {
       this.isActive = s.checkbox;
       console.log(s);
+
+      const minContentStocksWidth = window.screen.width === 524
+
+      this.mediaWidth = minContentStocksWidth
+
     });
   }
 

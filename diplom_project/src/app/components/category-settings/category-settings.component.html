@@ -8,8 +8,9 @@
                 <div [ngClass]="isAdmin ? 'isAdminView' : ''"
                     class="type-conditioners" *ngFor="let item of types">
                     <button
+                        [ngClass]="isActiveType[item.id] ? '-isActive' : ''"
                         class="type-conditioners__item"
-                        (click)="getItemValue(item)"
+                        (click)="getItemTypeValue(item)"
                         [title]="item.name">{{item.name}}</button>
                     <div class="type-conditioners-onclick">
                         <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
@@ -51,7 +52,7 @@
                     <span [title]="item.name"
                         style="width: 58px;">{{item.name}}</span>
 
-                    <input type="checkbox" />
+                    <input type="checkbox" (change)="getItemBrandValue(item)" />
 
                     <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
                         (click)="getItemToUpdate(item, isEdit = true)"
@@ -68,6 +69,9 @@
                 </tui-svg>
             </div>
         </div>
+
+        <button
+            (click)="filterItems(filterSetType,filterSetBrand)">Применить</button>
     </form>
 
 
@@ -123,7 +127,7 @@
                     </div>
                     <div class="sumbit-buttons">
                         <button
-                            [disabled]="!addBrandForm.get('name')?.value"
+
                             tuiButton appearance="primary"
                             class="submit-buttons__submit"
                             type="submit">Подтвердить</button>

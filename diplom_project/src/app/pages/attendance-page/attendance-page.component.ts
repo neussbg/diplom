@@ -85,20 +85,6 @@ export const SLIDER_VALUE3 = [
   },
 ];
 
-// export const SLIDER_VALUE3 = [
-//   {
-//     name: 'Чистка настенной сплит-системы 7-18, без разбора блоков',
-//     price: 1500,
-//   },
-//   {
-//     name: 'Чистка настенной сплит-системы 24-36 , без разбора блоков',
-//     price: 1800,
-//   },
-//   {
-//     name: 'Чистка полупромышленной сплит-системы (любой тип)',
-//     price: 2000,
-//   },
-// ];
 @Component({
   selector: 'app-attendance-page',
   templateUrl: './attendance-page.component.html',
@@ -138,10 +124,10 @@ export class AttendancePageComponent implements OnInit {
       scrollbar: { draggable: true },
       slidesPerView: 1,
       allowTouchMove: true,
-      autoplay: {
-        delay: 4000,
-        disableOnInteraction: true,
-      },
+      // autoplay: {
+      //   delay: 4000,
+      //   disableOnInteraction: true,
+      // },
       // navigation: true,
       loop: true,
       // on: {

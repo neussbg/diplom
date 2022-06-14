@@ -22,5 +22,5 @@ export enum RouterEnum {
   contacts = 'contacts',
 
   /** Профиль */
-  accoutPage = 'user',
+  accoutPage = 'login',
 }

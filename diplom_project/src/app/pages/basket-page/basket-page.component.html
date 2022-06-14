@@ -37,14 +37,13 @@
                                     </div>
                                 </td>
                                 <td>
-
                                     <input
                                         class="item"
-                                        [(ngModel)]="item.rating"
+                                        [(ngModel)]="item.count"
                                         [ngModelOptions]="{ standalone: true }"
                                         min="1"
                                         type="number"
-                                        value="{{ item.rating }}"
+                                        value="{{item.count ? item.count : 1 }}"
                                         name=""
                                         (change)="totalPriceElement(item, i)" />
                                 </td>
@@ -69,7 +68,7 @@
                         <div>
                             <input placeholder="Введите промокод"
                                 class="items-promo__input" type="text" />
-                            <button (click)="isActive = !isActive"
+                            <button (click)="isActive = true"
                                 class="items-promo__price">Применить</button>
                         </div>
                         <span style="color: rgb(194, 13, 13)"
@@ -79,7 +78,8 @@
                     <div class="items-order">
                         <span class="items-order__price">Итого:
                             {{total}} ₽</span>
-                        <button class="items-order__buy">
+                        <button class="items-order__buy"
+                            (click)="onClick(content, header, 's')">
                             Оформить заказ
                         </button>
                     </div>
@@ -105,3 +105,73 @@
     </ng-container>
     <app-footer></app-footer>
 </div>
+
+<ng-template #header let-observer>
+    <div class="header">
+        <img
+            [src]="'assets/img/basket/delivery-box.svg' "
+            alt="Cool" />
+    </div>
+</ng-template>
+
+<ng-template #content let-observer>
+    <div>
+        <form class="confirm-form" [formGroup]="confirmBuyForm">
+            <div style="height: 80px">
+                <input style="margin-bottom: 0; width: 100%;" placeholder="
+                    Введите ваше имя" type="text" name="name"
+                    formControlName="name" required />
+                <div class="alert-message"
+                    *ngIf="confirmBuyForm.controls['name'].errors?.['required'] && confirmBuyForm.controls['name'].dirty">
+                    Поле невалидно
+                </div>
+                <!-- <div class="alert-message"
+                    *ngIf="confirmBuyForm.controls['name'].errors?.['minlength']">
+                    Наименование почты должно быть минимум 8
+                    символов
+                </div> -->
+            </div>
+            <div style="height:80px">
+                <input style="margin-bottom: 0; width: 100%"
+                    placeholder="+7 (928) 777 77 77" type="number" name="phone"
+                    formControlName="phone" />
+                <div class="alert-message"
+                    *ngIf="confirmBuyForm.controls['phone'].errors?.['required'] && confirmBuyForm.controls['phone'].dirty">
+                    Поле невалидное
+                </div>
+                <div class="alert-message"
+                    *ngIf="confirmBuyForm.controls['phone'].errors?.['minlength']">
+                    Введен некорректный номер телефона
+                </div>
+            </div>
+            <div class="submit-button">
+                <button tuiButton appearance="primary"
+                    [disabled]="confirmBuyForm.controls['name'].invalid || confirmBuyForm.controls['phone'].invalid"
+                    class="submit-button__send"
+                    (click)="showIfFormRequare(confirmBuyForm.value)"
+                    type="submit">Отправить
+                    заявку</button>
+                <button tuiButton appearance="secondary"
+                    class="submit-button__cancel"
+                    type="button"
+                    (click)="observer.complete()">Отменить</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #headerMessageRequest let-observer>
+    <div class="header">
+        <img
+            [src]="'assets/img/basket/delivery-box.svg' "
+            alt="Cool" />
+    </div>
+</ng-template>
+
+<ng-template #contentMessageRequest>
+    <div class="auth-container" style="padding: 20px;">
+        <h3>{{userName}}</h3>
+        <span>С вами свяжется наш оператор для уточнения деталей заказа.
+            Пожалуйста, оставайтесь на связи</span>
+    </div>
+</ng-template>

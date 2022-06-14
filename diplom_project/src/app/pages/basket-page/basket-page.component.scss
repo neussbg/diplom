@@ -1,3 +1,21 @@
+::ng-deep tui-dialog {
+  .t-header {
+    background: white;
+    display: block !important;
+    padding: 20px;
+  }
+  .t-heading {
+    margin-bottom: 6px !important;
+  }
+
+  .t-content {
+    // width: 370px;
+    background: #ffffff !important;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+}
+
 .container {
   margin-top: 40px;
   min-height: calc(100% - 388px);
@@ -93,5 +111,43 @@
     padding: 8px 18px;
     border: 0;
     margin: 30px 0px 30px 0px;
+  }
+}
+
+.confirm-form {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    padding: 20px;
+    height: 50px;
+    border-radius: 8px;
+    border: 0.5px solid;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.submit-button {
+  display: flex;
+  justify-content: space-between;
+
+  &__send {
+    border-radius: 12px;
+  }
+
+  &__cancel {
+    border-radius: 12px;
+    background: #bfc6d0;
+  }
+}
+
+::ng-deep button {
+  tui-wrapper {
+    padding: 14px !important;
+    .t-content {
+      background: none !important;
+    }
   }
 }

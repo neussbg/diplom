@@ -54,6 +54,10 @@ export class ProductsService extends BaseApiService {
 
   private _refreshNeeds$ = new Subject<void>();
 
+  items: any[] = [];
+  filterTypeSubject = new BehaviorSubject(this.items);
+  filterBrandSubject = new BehaviorSubject(this.items);
+
   get refreshNeeds() {
     return this._refreshNeeds$;
   }
@@ -62,10 +66,29 @@ export class ProductsService extends BaseApiService {
     super();
   }
 
-  getDevices(): Observable<ItemsCount<Product>> {
+  getDevices(filter?: any): Observable<ItemsCount<Product>> {
+    this.filterTypeSubject.next(this.items);
+    this.filterBrandSubject.next(this.items);
     return this.http.get(this.deviceController) as Observable<
       ItemsCount<Product>
     >;
+  }
+
+  getFilterDevices(filter?: any): Observable<ItemsCount<Product>> {
+    this.filterBrandSubject.next(filter);
+    return this.http.get(this.deviceController) as Observable<
+      ItemsCount<Product>
+    >;
+  }
+
+  filterTypeSub(item: any) {
+    this.items.push(item);
+    return this.filterTypeSubject.next(item);
+  }
+
+  filterBrandSub(item: any) {
+    this.items.push(item);
+    return this.filterBrandSubject.next(item);
   }
 
   getDevicesById(id: number) {

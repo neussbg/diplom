@@ -14,6 +14,14 @@
       flex-direction: column;
     }
   }
+
+  label {
+    margin-bottom: 10px;
+  }
+}
+
+.contents-page {
+  max-width: 192px;
 }
 
 .charactects-conditioners-block {
@@ -78,19 +86,6 @@
   }
 }
 
-// .sumbit-buttons {
-//   display: flex;
-//   justify-content: space-around;
-
-//   ::ng-deep button {
-//     tui-wrapper {
-//       .t-content {
-//         background: none !important;
-//       }
-//     }
-//   }
-// }
-
 .content {
   &__input {
     margin: 20px 0 56px 0;
@@ -116,16 +111,18 @@
     }
   }
 }
-// .test {
-//   ::ng-deep button {
-//     tui-wrapper {
-//       .t-content {
-//         background: none !important;
-//       }
-//     }
-//   }
-// }
+
 .isAdminView {
   border: 1px solid;
   margin-bottom: 8px;
+}
+
+.-isActive {
+  background: linear-gradient(
+    91.6deg,
+    #ff8a00 17.78%,
+    #ffd600 98.26%
+  ) !important;
+  border-radius: 5px !important;
+  color: #ffffff !important;
 }

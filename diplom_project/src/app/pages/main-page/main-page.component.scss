@@ -1,3 +1,7 @@
+.content-page {
+  overflow-x: hidden;
+}
+
 .main-page {
   font-family: "Montserrat";
   position: relative;
@@ -182,7 +186,7 @@
 .form-checkbox {
   cursor: pointer;
 
-  margin-top: 34px;
+  // margin-top: 34px;
   .form-check-input:focus {
     color: orange;
   }
@@ -252,9 +256,11 @@
   }
 }
 
+.date-media {
+  margin-bottom: 34px;
+}
+
 ::ng-deep tui-dialog {
-  header {
-  }
   .t-header {
     background: white;
     display: block !important;
@@ -269,4 +275,125 @@
     box-sizing: border-box;
     border-radius: 5px;
   }
+}
+
+@media (max-width: 1256px) {
+  .company-info {
+    &__img {
+      margin-right: 26px !important;
+      width: 936px;
+    }
+    &__description {
+      width: auto !important;
+    }
+  }
+}
+
+@media (max-width: 1192px) {
+  .company-info {
+    display: block !important;
+
+    &__img {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media (max-width: 1116px) {
+  .company-info {
+    display: block !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .company-info {
+    display: block !important;
+
+    &__img {
+      width: 696px;
+    }
+  }
+
+  .stocks-info {
+    &__img {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .company-info {
+    display: block !important;
+
+    &__img {
+      width: 516px;
+    }
+  }
+
+  .company-items {
+    display: block !important;
+
+    .item-block {
+      width: auto !important;
+
+      &:not(:last-child) {
+        margin-bottom: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: 534px) {
+  .info-content {
+    display: block !important;
+
+    .date-media {
+      margin-top: 20px;
+    }
+    &__description {
+      display: none;
+    }
+  }
+  .company-info {
+    display: block !important;
+
+    &__img {
+      width: 474px;
+    }
+  }
+  .submit-form {
+    &__date {
+      display: block !important;
+
+      .form-control {
+        height: 54px !important;
+        width: inherit !important;
+        margin-bottom: 10px 0 20px 0;
+      }
+    }
+  }
+
+  .info-content__description {
+    width: auto !important;
+  }
+}
+@media (max-width: 488px) {
+  .company-info {
+    display: block !important;
+    &__img {
+      width: 352px !important;
+    }
+  }
+
+  .info-content {
+    height: 356px !important;
+  }
+  .date-media {
+    display: block !important;
+
+    input {
+      margin-bottom: 10px;
+    }
+  }
+
 }

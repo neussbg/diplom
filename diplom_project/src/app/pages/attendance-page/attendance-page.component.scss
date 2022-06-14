@@ -17,10 +17,13 @@
   }
 }
 
+.content-page {
+  overflow-x: hidden;
+}
+
 .page-background {
   background: rgba(0, 0, 0, 0.45);
   border-radius: 0px;
-  // min-height: 370px;
   img {
     background: rgba(0, 0, 0, 0.45);
     border-radius: 0px;
@@ -36,8 +39,6 @@
 }
 
 .slider {
-  // background: #ffffff;
-  // box-shadow: 0px 0px 15px rgba(146, 158, 175, 0.76);
   border-radius: 10px 10px 0px 0px;
   padding: 20px 0px;
 
@@ -51,7 +52,6 @@
   font-size: 18px;
   background: #fff;
 
-  /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -130,7 +130,6 @@
 }
 
 .slider-services {
-  // height: 312px;
   width: 270px;
   box-sizing: border-box;
   border-radius: 5px 5px 0px 0px !important;
@@ -177,4 +176,37 @@
 }
 ::ng-deep .aos-animate {
   transition-delay: 0.7 !important;
+}
+@media (max-width: 1052px) {
+  .slider-content {
+    margin-left: 20px;
+    width: 860px !important;
+    display: block;
+    .slider-content-prices {
+      &__value {
+        justify-content: space-around;
+        padding: 20px 4px 20px 0;
+      }
+    }
+  }
+  ::ng-deep .swiper-pagination {
+    width: 66% !important;
+  }
+
+  .slider-services {
+    display: none;
+  }
+}
+
+@media (max-width: 875px) {
+  .slider-content {
+    width: 660px !important;
+    // width: 700px !important;
+  }
+}
+
+@media (max-width: 688px) {
+  .slider-content {
+    width: 300px !important;
+  }
 }

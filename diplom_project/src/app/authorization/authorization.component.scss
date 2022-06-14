@@ -84,6 +84,9 @@
   }
 
   .t-content {
+    .t-heading {
+      margin-bottom: 20px !important;
+    }
     // width: 370px;
     background: #ffffff !important;
     box-sizing: border-box;
@@ -101,8 +104,11 @@
     border: 1px solid rgba(146, 158, 175, 0.46);
     box-sizing: border-box;
     border-radius: 5px;
-    margin-bottom: 30px;
     padding: 20px;
+
+    &:not(:last-child) {
+      // margin-bottom: 30px;
+    }
   }
 
   button {
@@ -160,4 +166,23 @@
 img {
   height: 158px;
   width: 62px;
+}
+
+.showPassword {
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  &__content {
+    margin-right: 20px;
+    margin-bottom: 0 !important;
+  }
+}
+
+::ng-deep button {
+  tui-wrapper {
+    .t-content {
+      background: none !important;
+    }
+  }
 }

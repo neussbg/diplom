@@ -60,8 +60,8 @@
   .img-collection {
     position: absolute;
     z-index: 2;
-    left: 68%;
-    top: 34%;
+    left: 76%;
+    top: 73%;
     color: #ffffff;
     display: flex;
     width: 245px;
@@ -77,13 +77,28 @@
   }
 }
 
+@media (max-width: 1400px) {
+  .img-collection {
+    top: 64% !important;
+    width: 218px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .img-collection {
+    top: 55% !important;
+    width: 197px !important;
+  }
+}
+
 @media (max-width: 1088px) {
   .container {
     padding: 22px;
   }
 
-  .img-person {
-    display: none;
+  .img-person,
+  .img-collection {
+    display: none !important;
   }
 
   .contacts-person {

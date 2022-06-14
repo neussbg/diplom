@@ -41,9 +41,14 @@
       </div>
     </div>
     <tui-svg
-      (click)="redirectTo('user')"
+      (click)="redirectTo('login')"
       class="nav-content__img icon user"
       src="assets/img/navigation/user.svg">
+    </tui-svg>
+    <span class="max-text-content">{{isLoggin ? loginName : ''}}</span>
+    <tui-svg class="loggout" style="cursor: pointer; width:18px !important"
+      src="assets/img/navigation/logout.svg"
+      (click)="loggout()">
     </tui-svg>
     <div class="form-check form-switch">
       <input (click)="onChangeTheme()" class="form-check-input"

@@ -1,0 +1,113 @@
+<button
+    size="m"
+    class="tui-space_right-2 tui-space_bottom-2"
+    (click)="onClick(content, header, 'fullscreen')">
+    Show
+</button>
+
+<ng-template
+    #content
+    let-observer>
+    <div class="auth-container">
+        <form [formGroup]="authForm" (ngSubmit)="onSubmitRegistration()">
+
+            <div class="auth-container-data">
+                <div style="height: 80px">
+                    <input style="margin-bottom: 0; width: 100%"
+                        type="email"
+                        formControlName="email"
+                        name="email"
+                        placeholder="Электронная почта">
+
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['email'].errors?.['required'] && authForm.controls['email'].dirty">
+                        Поле невалидно
+                    </div>
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['email'].errors?.['minlength']">
+                        Наименование почты должно быть минимум 8
+                        символов
+                    </div>
+                </div>
+
+                <div style="height: 80px">
+                    <input style="margin-bottom: 0; width: 100%"
+                        formControlName="password" name="password"
+                        [type]="show ? 'text' : 'password'"
+                        value="FakePSW"
+                        id="myInput"
+                        placeholder="Пароль">
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['password'].errors?.['required'] && authForm.controls['password'].dirty">
+                        Поле невалидно
+                    </div>
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['password'].errors?.['minlength']">
+                        Пароль должен быть не менее 5 символов
+                    </div>
+                </div>
+                <div class="showPassword">
+                    <input class="showPassword__content" type="checkbox"
+                        (click)="showPassword()" />{{show ?
+                    'Скрыть' :
+                    'Показать пароль'}}
+                </div>
+                <!-- <button class="show" (click)="showPassword()">{{show ? 'Скрыть' :
+                'Показать пароль'}}</button> -->
+
+                <div style="display: flex; align-items:center;">
+                    <input style="margin-bottom: 42px"
+                        formControlName="checkbox" type="checkbox">
+                    <span class="confirm">Регистрируясь
+                        вы
+                        соглашаетесь
+                        с <a href="https://rf-link.ru/politics/"
+                            style="color:#ff8a00; cursor: pointer;">Политикой
+                            конфиденциальности</a>
+                    </span>
+                </div>
+
+                <div style="height: 100px">
+                    <button style=" width: 100%; margin-bottom: 6px;"
+                        type="submit"
+                        tuiButton
+                        (click)="showIfFormRequare()"
+                        [disabled]="authForm.controls['password'].invalid || authForm.controls['checkbox'].value === false || authForm.controls['email'].invalid">
+                        Зарегистрироваться
+                    </button>
+                    <label style=" font-size: 14px"
+                        class="alert-message">{{errorMessage}}</label>
+                </div>
+            </div>
+            <div class="auth-helper">
+                <button routerLink="/login">Войти</button>
+                <!-- <button>Не помню пароль</button> -->
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #header let-observer>
+    <div class="header">
+        <img
+            [src]="'assets/img/autorization/security.svg' "
+            alt="Cool" />
+    </div>
+</ng-template>
+
+
+<ng-template #headerMessageRequest let-observer>
+    <div class="header">
+        <img
+            [src]="'assets/img/main/action-submit.svg' "
+            alt="Cool" />
+    </div>
+</ng-template>
+
+<ng-template #contentMessageRequest>
+    <div class="auth-container" style="padding: 20px;">
+        <span>Пожалуйста перейдите на свою почту для подтверждение
+            аккаунта</span><br>
+        <span>Если соообщение не пришло, проверьте <b>"СПАМ"</b></span>
+    </div>
+</ng-template>

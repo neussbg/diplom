@@ -7,10 +7,11 @@ import { EmptyPageComponent } from 'src/app/pages/empty-page/empty-page.componen
 import { MainPageComponent } from 'src/app/pages/main-page/main-page.component';
 import { NewsPageComponent } from 'src/app/components/news-page/news-page.component';
 import { ProductsPageComponent } from 'src/app/pages/products-page/products-page.component';
-import { UserPageComponent } from 'src/app/pages/user-page/user-page.component';
 import { RouterEnum } from '../enums/router.enum';
 import { AuthorizationComponent } from 'src/app/authorization/authorization.component';
 import { ProductCardComponent } from 'src/app/pages/product-card/product-card.component';
+import { RegistrationPageComponent } from 'src/app/auth/registration-page/registration-page.component';
+import { AuthGuard } from 'src/app/classes/auth.guard';
 
 /** Маршрутизация */
 export const routes: Routes = [
@@ -43,17 +44,17 @@ export const routes: Routes = [
   },
   {
     path: RouterEnum.basketPage,
+    // canActivate: [AuthGuard],
     component: BasketPageComponent,
   },
   {
     path: RouterEnum.companyPage,
     component: CompanyPageComponent,
   },
-  {
-    path: RouterEnum.accoutPage,
-    component: AuthorizationComponent,
-  },
-
+  // {
+  //   path: RouterEnum.accoutPage,
+  //   component: AuthorizationComponent,
+  // },
   {
     path: RouterEnum.contacts,
     component: ContactsPageComponent,
@@ -62,8 +63,22 @@ export const routes: Routes = [
     path: RouterEnum.attendance,
     component: AttendancePageComponent,
   },
+  // {
+  //   path: '**',
+  //   component: RegistrationPageComponent,
+  // },
   {
-    path: '**',
-    component: EmptyPageComponent,
+    path: 'registration',
+    component: RegistrationPageComponent,
+  },
+
+  {
+    path: 'login',
+    component: AuthorizationComponent,
+  },
+  {
+    path: ' ',
+    redirectTo: 'registration',
+    pathMatch: 'full',
   },
 ];

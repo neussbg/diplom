@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { AuthService } from 'src/app/pages/services/auth.service';
 import { CardService } from 'src/app/pages/services/card.service';
 import { CartService } from 'src/app/pages/services/cart.service';
 import {
@@ -18,7 +20,9 @@ export class NewsPageComponent implements OnInit {
   constructor(
     private navigate: NavigationService,
     private cardApi: CardService,
-    private cartService: CartService
+    private cartService: CartService,
+    private tokenStorage: TokenStorageService,
+    private auth: AuthService
   ) {}
 
   /** Маршруты */
@@ -29,6 +33,9 @@ export class NewsPageComponent implements OnInit {
   items: any[] = [];
 
   test: any[] = [];
+
+  roles!: string[];
+  authority!: string;
 
   totalItems$ = new BehaviorSubject<number>(this.totalItems);
 
@@ -41,13 +48,51 @@ export class NewsPageComponent implements OnInit {
   @Output() eventChangeThemeToggle = new EventEmitter<boolean>();
 
   item: any;
+
+  loginName!: string;
+
+  isLoggin: boolean = false;
+  value: any;
   ngOnInit(): void {
+    if (localStorage.getItem('auth-login') !== null) {
+      this.isLoggin = true;
+      this.loginName = localStorage.getItem('auth-login') as string;
+    } else {
+      this.isLoggin = false;
+    }
+
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+      this.roles.every((role) => {
+        if (role === 'ADMIN') {
+          this.authority = 'admin';
+          return false;
+        } else if (role === 'USER') {
+          this.authority = 'user';
+          return false;
+        }
+        this.authority = 'user';
+        return true;
+      });
+    }
     // this.totalCont = JSON.parse(
     //   localStorage.getItem('cart_items') as string
     // ).length;
+    // console.log(
+    //   JSON.stringify(JSON.parse(localStorage.getItem('auth-login') as string))
+    // );
+
+    // this.value = JSON.parse(localStorage.getItem('auth-login') as string);
     this.cartService.itemsList$.subscribe((data) => {
       this.totalCount = data.length;
     });
+
+    this.auth.loginList.subscribe((data) => {
+      console.log(data, 'login');
+    });
+
+    this.loginName = localStorage.getItem('auth-login') as string;
+    console.log(this.loginName);
 
     // this.getProductList();
     const ss = this.cartService.loadCart();
@@ -59,6 +104,11 @@ export class NewsPageComponent implements OnInit {
     // this.cartService.item$.subscribe((s) => {
     //   console.log(s);
     // });
+  }
+
+  loggout() {
+    window.localStorage.clear();
+    window.location.reload();
   }
 
   getProductList() {

@@ -53,6 +53,12 @@ import { CategorySettingsComponent } from './components/category-settings/catego
 import { AuthService } from './pages/services/auth.service';
 import { BannerComponent } from './components/banner/banner.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RegistrationPageComponent } from './auth/registration-page/registration-page.component';
+import { LoginComponent } from './auth/login/login.component';
+import { UserComponent } from './pages/user/user.component';
+import { httpInterceptorProviders } from './auth/auth-interceptor';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 export const mapConfig: YaConfig = {
   apikey: 'b1484602-759f-463f-9f27-0d8191d4c5cb',
@@ -82,6 +88,11 @@ export function initApp(configurationService: TaskService) {
     ItemsComponent,
     CategorySettingsComponent,
     BannerComponent,
+    RegistrationPageComponent,
+    LoginComponent,
+    UserComponent,
+    HomePageComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +128,7 @@ export function initApp(configurationService: TaskService) {
   providers: [
     CurrencyPipe,
     AuthService,
+    { provide: httpInterceptorProviders, useValue: undefined },
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,

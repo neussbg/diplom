@@ -1,9 +1,9 @@
-<button
+<!-- <button
     size="m"
     class="tui-space_right-2 tui-space_bottom-2"
     (click)="onClick(content, header, 'm')">
     Show
-</button>
+</button> -->
 
 <ng-template
     #content
@@ -45,17 +45,66 @@
             </div>
         </form> -->
 
-        <form>
-
+        <form [formGroup]="authForm" (ngSubmit)="onSumbit()">
             <div class="auth-container-data">
-                <input
-                    type="email"
-                    [(ngModel)]="registrationUser.email"
-                    name="email "
-                    placeholder="Электронная почта">
-                <input [(ngModel)]="registrationUser.password" name="password"
-                    type="password"
-                    placeholder="Пароль">
+                <div style="height: 80px;">
+                    <input
+                        style="width: 100%;"
+                        type="email"
+                        formControlName="email"
+                        name="email"
+                        placeholder="Электронная почта">
+
+
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['email'].errors?.['required'] && authForm.controls['email'].dirty">
+                        Поле невалидно
+                    </div>
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['email'].errors?.['minlength']">
+                        Наименование почты должно быть минимум 8
+                        символов
+                    </div>
+                </div>
+                <div style="height: 80px;">
+                    <input style="margin-bottom: 0; width: 100%;"
+                        formControlName="password" name="password"
+                        [type]="show ? 'text' : 'password'"
+                        value="FakePSW"
+                        id="myInput"
+                        placeholder="Пароль"
+                        required>
+
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['password'].errors?.['required'] && authForm.controls['password'].dirty">
+                        Поле невалидно
+                    </div>
+                    <div class="alert-message"
+                        *ngIf="authForm.controls['password'].errors?.['minlength']">
+                        Пароль должен быть не менее 5 символов
+                    </div>
+                </div>
+                <!-- <div style="color: rgb(141, 12, 12);"
+                    *ngIf="authForm.controls['email'].invalid && (authForm.controls['email'].dirty  || authForm.controls['email'].touched)">
+                    <div
+                        *ngIf="authForm.controls['email'].errors?.['email']">
+                        Поле невалидно
+                    </div>
+                    <div
+                        *ngIf="authForm.controls['inputValue'].errors?.['minlength']">
+                        Наименование почты должно быть минимум 8
+                        символов
+                    </div>
+                </div> -->
+
+                <div class="showPassword">
+                    <input class="showPassword__content" type="checkbox"
+                        (click)="showPassword()" />{{show ?
+                    'Скрыть' :
+                    'Показать пароль'}}
+                </div>
+                <!-- <button class="show" (click)="showPassword()">{{show ? 'Скрыть' :
+                    'Показать пароль'}}</button> -->
                 <!-- <span class="confirm">Регистрируясь
                     вы
                     соглашаетесь
@@ -63,11 +112,16 @@
                         style="color:#ff8a00; cursor: pointer;">Политикой
                         конфиденциальности</a>
                 </span> -->
-                <button style="margin-bottom: 20px;"
-                    type="button"
-                    (click)="onRegistrationUser(registrationUser)">
-                    Зарегистрироваться
-                </button>
+                <div style="height: 80px">
+                    <button style=" width: 100%;"
+                        type="submit"
+                        tuiButton
+                        [disabled]="authForm.invalid || authForm.disabled">
+                        Войти
+                    </button>
+                    <label style="font-size: 14px"
+                        class="alert-message">{{errorMessage}}</label>
+                </div>
             </div>
             <!-- <div *ngIf="!isLoggedIn" class="auth-helper">
                 <button (click)="isLoggedIn = !isLoggedIn">Регистрация</button>
@@ -80,7 +134,7 @@
 <ng-template #header let-observer>
     <div class="header">
         <img
-            [src]="isLoggedIn ? 'assets/img/autorization/User.svg' : 'assets/img/autorization/security.svg' "
+            [src]="'assets/img/autorization/User.svg' "
             alt="Cool" />
     </div>
 </ng-template>

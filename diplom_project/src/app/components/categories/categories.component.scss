@@ -1,7 +1,7 @@
 .block-categories {
   display: flex;
   justify-content: center;
-  padding: 100px 0;
+  padding: 60px 0;
 
   .categories-title {
     margin-top: 25px;
@@ -28,7 +28,6 @@
       &:hover {
         transform: scale(1.1);
         transition: 0.3s ease-in-out;
-        // background: rgb(219, 219, 219);
       }
 
       &__name {
@@ -42,8 +41,24 @@
   }
 }
 
+
 @media (max-width: 1088px) {
   .categories-items {
     justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: 578px) {
+  .item-block {
+    margin-left: 20px;
+  }
+  .categories-title {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 416px) {
+  .item-block {
+    width: auto !important;
   }
 }

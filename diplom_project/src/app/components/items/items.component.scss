@@ -7,7 +7,7 @@
 
   .sort {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
 
     .add-product {
       background: linear-gradient(91.3deg, #0d0dff 21.07%, #2222b1 102.35%);
@@ -16,6 +16,21 @@
       border: none;
       font-size: 19px;
       width: 28px;
+    }
+
+    ::ng-deep tui-select {
+      tui-primitive-textfield {
+        tui-wrapper {
+          height: 33px;
+          width: 200px;
+          border: 1px solid #ff8a00;
+
+          .t-input {
+            color: black;
+            padding-top: 0 !important;
+          }
+        }
+      }
     }
   }
 }

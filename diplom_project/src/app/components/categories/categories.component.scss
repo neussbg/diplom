@@ -1,3 +1,16 @@
+// background: rgb(60 53 80);
+
+.-default {
+  background: #f0f4fa;
+}
+
+.-nigth {
+  background: rgb(60 53 80) !important;
+}
+
+.categories-page {
+  background: #f0f4fa;
+}
 .block-categories {
   display: flex;
   justify-content: center;
@@ -40,7 +53,6 @@
     }
   }
 }
-
 
 @media (max-width: 1088px) {
   .categories-items {

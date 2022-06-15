@@ -32,6 +32,7 @@
     "@tinkoff/ng-dompurify": "3.0.0",
     "@types/aos": "^3.0.4",
     "2gis-maps": "^3.7.1",
+    "angular-jwt": "^0.1.11",
     "angular8-yandex-maps": "^13.2.0",
     "aos": "^2.3.4",
     "bootstrap": "^5.1.3",

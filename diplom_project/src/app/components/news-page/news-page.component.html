@@ -1,6 +1,6 @@
-<div [ngClass]="changerTheme === true ?  'night-color' : ''"
+<header [ngClass]="changerTheme === true ?  'night-color' : ''"
   class="side-nav-bar">
-  <div class="nav-block">
+  <nav class="nav-block">
     <div class="header__burger"></div>
     <img class="logo" style="cursor: pointer;" (click)="redirectTo('main')"
       src="assets/img/navigation/logo.svg">
@@ -23,14 +23,14 @@
         <li><a class="menu__item" routerLink="/user">Профиль</a></li>
       </ul>
     </div>
-    <div class="nav-content"
+    <section class="nav-content"
       *ngFor="let route of routes;"
       (click)="redirectTo(route.path)">
       <div class="nav-content__title title">
         {{route.name}}
       </div>
-    </div>
-    <div class="basket">
+    </section>
+    <section class="basket">
       <tui-svg style="cursor: pointer"
         (click)="redirectTo('basket')"
         class="nav-content__img icon"
@@ -39,18 +39,27 @@
       <div class="basket__items" *ngIf="totalCount > 0">
         {{totalCount}}
       </div>
-    </div>
-    <tui-svg
-      (click)="redirectTo('login')"
-      class="nav-content__img icon user"
-      src="assets/img/navigation/user.svg">
-    </tui-svg>
-    <span class="max-text-content">{{isLoggin ? loginName : ''}}</span>
-    <tui-svg class="loggout" style="cursor: pointer; width:18px !important"
+    </section>
+    <section style="display: flex;" *ngIf="isLoggin">
+      <span class="max-text-content">{{isLoggin ? loginName : ''}}</span>
+      <tui-svg style="margin-left: 6px"
+        class="nav-content__img icon user"
+        src="assets/img/navigation/user.svg">
+      </tui-svg>
+    </section>
+
+    <tui-svg *ngIf="isLogginIn" [title]="'Выйти'" class="loggout"
+      style="cursor: pointer; width:18px !important"
       src="assets/img/navigation/logout.svg"
       (click)="loggout()">
     </tui-svg>
-    <div class="form-check form-switch">
+    <div class="auth-buttons" *ngIf="isLogginIn == false">
+      <button class="auth-buttons__login"
+        (click)="redirectTo('login')">Войти</button>/
+      <button class="auth-buttons__registration"
+        (click)="redirectTo('registration')">Зарегистрироваться</button>
+    </div>
+    <section class="form-check form-switch">
       <input (click)="onChangeTheme()" class="form-check-input"
         type="checkbox"
         role="switch" id="flexSwitchCheckDefault">
@@ -58,6 +67,6 @@
         [ngClass]="changerTheme === true ?  'night-color' : ''">Ночной
         режим</span>
       <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-    </div>
-  </div>
-</div>
+    </section>
+  </nav>
+</header>

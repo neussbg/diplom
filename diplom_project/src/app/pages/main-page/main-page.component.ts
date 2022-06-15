@@ -56,7 +56,6 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
     this.submitForm.valueChanges.subscribe((s) => {
       this.isActive = s.checkbox;
-      console.log(s);
 
       const minContentStocksWidth = window.screen.width === 524
 

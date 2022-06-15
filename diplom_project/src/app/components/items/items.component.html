@@ -1,27 +1,31 @@
-<div
+<main
     class="product-block">
-    <header class="sort">
-        <span style="margin: 0 20px 0 20px">Сортировать по: </span>
-        <tui-select
-            [valueContent]="stringify(sortBy)"
-            placeholder="Новинка"
-            tuiTextfieldSize="s"
-            formControlName="typeId">
-            <tui-data-list *tuiDataList>
-                <button *ngFor="let item of sortBy | keyvalue"
-                    [title]="item.value"
-                    tuiOption
-                    [value]="item.key">
-                    {{item.value}}
-                </button>
-            </tui-data-list>
-        </tui-select>
+    <header>
+        <form class="sort" [formGroup]="sortForm">
+            <span style="margin: 0 20px 0 20px">Сортировать по: </span>
+            <tui-select
+                [valueContent]="stringify(sortBy)"
+                placeholder="Новинка"
+                formControlName="name"
+                tuiTextfieldSize="s">
+                <tui-data-list *tuiDataList>
+                    <button *ngFor="let item of sortBy | keyvalue"
+                        [title]="item.value"
+                        tuiOption
+                        (click)="sort(item.key)"
+                        [value]="item.key">
+                        {{item.value}}
+                    </button>
+                </tui-data-list>
+            </tui-select>
+            <div class="sort-buttons">
+                <button class="sort-buttons__reset"
+                    (click)="getAllProducts()">Сбросить фильтры</button>
+            </div>
 
-        <button>Сортировать</button>
-        <button (click)="getAllProducts()">Сбросить фильтры</button>
-
-        <button class="add-product" *ngIf="isAdmin"
-            (click)="onClick(content,  'l')">+</button>
+            <button class="add-product" *ngIf="isAdmin"
+                (click)="onClick(content,  'l')">+</button>
+        </form>
     </header>
     <div class="product-block__items">
         <div class="content-block"
@@ -50,7 +54,7 @@
                 В корзину
             </div>
             <div *ngIf="isAdmin" class="content-buttons">
-                <button (click)='getOneItem(item, isEdit)' type="button"
+                <button (click)='getOneItem(item, isEdit = true)' type="button"
                     class="content-buttons__edit">Редактирова</button>
 
                 <tui-svg style="cursor:pointer"
@@ -66,7 +70,7 @@
         (indexChange)="showNextPage($event)">
     </tui-pagination>
 
-</div>
+</main>
 
 <ng-template #star>
     <tui-svg src="assets/img/products/star.svg"></tui-svg>
@@ -83,7 +87,7 @@
         style="border: 1px solid black;  display:flex; flex-direction:column"
         [formGroup]="deviceForm"
         (ngSubmit)="onSubmit(this.deviceForm.value, isEdit)">
-        <button type="button" (click)="isEdit = !isEdit">Edit</button>
+        <!-- <button type="button" (click)="isEdit = !isEdit">Edit</button> -->
         <div class="first">
             <div class="device-block">
                 <span>Наименование</span>
@@ -116,7 +120,8 @@
                 <input style="width: 170px" placeholder="Введите цену"
                     type="number"
                     formControlName="price" />
-                <input style="width: 170px" placeholder="Введите старую цену"
+                <input class="oldprice" style="width: 170px"
+                    placeholder="Введите старую цену"
                     type="number"
                     name="oldprice"
                     formControlName="oldprice" />
@@ -154,11 +159,10 @@
                     formControlName="img">
                 <button type="button" (click)="fileInput.click()">Загрузить
                     новое изображение</button>
-                <img
-                    src="http://localhost:7000/{{deviceForm.get('img')?.value}}" />
+
             </div>
         </div>
-        <div class="submit-form">
+        <div class="submit-form" style="padding-bottom: 20px">
             <button type="submit" tuiButton
                 size="m"
                 class="tui-space_right-3"

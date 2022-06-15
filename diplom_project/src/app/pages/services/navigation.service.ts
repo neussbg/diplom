@@ -12,10 +12,14 @@ export class NavigationService implements OnDestroy {
   /** Subject для очистки при уничтожения сервиса */
   private readonly destroy$ = new Subject<void>();
 
+  themeSubject = new Subject<boolean>();
+
   /** Список маршрутов */
   routeList: Array<RouteData> = Routes;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.themeSubject.asObservable;
+  }
 
   /** Переход по url */
   navigateTo(routeUrl: string): void {

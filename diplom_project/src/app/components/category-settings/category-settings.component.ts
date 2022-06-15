@@ -21,13 +21,17 @@ import { IspitType, TypesService } from 'src/app/pages/services/types.service';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
 import { Subject, takeUntil } from 'rxjs';
+import { IPower, PowerService } from 'src/app/pages/services/power.service';
+import { Router } from '@angular/router';
+import { SanitizeStyle } from '@tinkoff/ng-dompurify';
 
-export interface brand {
+export interface IBrand {
   id?: number;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
+
 @Component({
   selector: 'app-category-settings',
   templateUrl: './category-settings.component.html',
@@ -38,7 +42,9 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     private typeApi: TypesService,
     private brandApi: BrandsService,
     private deviceApi: ProductsService,
+    private powerApi: PowerService,
     private readonly alertService: TuiAlertService,
+    private router: Router,
     @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
   ) {}
 
@@ -55,7 +61,11 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     TuiDialogContext<void, undefined>
   >;
 
-  @ViewChild('contentDelete', { static: true }) contentDelete?: any;
+  @ViewChild('contentPowerDelete', { static: true }) contentPowerDelete?: any;
+
+  @ViewChild('contentPowerCreate', { static: true }) contentPowerCreate?: any;
+
+  @ViewChild('contentPowerUpdate', { static: true }) contentPowerUpdate?: any;
 
   /** Мок для типа кондиционеров */
   type = typeConditioners;
@@ -63,16 +73,15 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   /** Мок для бренда кондиционеров */
   // brands = brandsConditioners;
 
-  /** Мок серии */
-  series = [7, 9, 12, 18, 24, 30, 36];
+  powersArray: any[] = [];
 
   flag?: boolean;
 
   deviceId!: number;
 
-  types: any[] = [];
+  typesArray: any[] = [];
 
-  brands: any[] = [];
+  brandsArray: any[] = [];
 
   brandName!: string;
 
@@ -101,6 +110,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getAllTypes();
     this.getAllBrands();
+    this.getAllPowers();
 
     // this.deviceApi.filterSubject.subscribe((data) => {
     //   this.filterItemsValue.push(data);
@@ -115,7 +125,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
       .open(content, {
         label: this.isAddedBrand
           ? 'Добавление нового бренда сплит системы'
-          : this.isEdit
+          : this.isEditBrand
           ? 'Изменение бренда сплит системы'
           : 'Удаление бренда сплит системы',
         size,
@@ -128,16 +138,39 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
       });
   }
 
+  onClickPower(
+    content: PolymorpheusContent<TuiDialogContext>,
+    size: TuiDialogSize
+  ): void {
+    this.dialogService
+      .open(content, {
+        label: this.isUpdatePower
+          ? 'Изменение текущей мощности'
+          : this.isCreatePower
+          ? 'Добавление новой мощности'
+          : 'Удаление мощностит',
+        size,
+        closeable: false,
+        dismissible: false,
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        complete: () => {},
+      });
+  }
+
+  IsCloseWindow: boolean = false;
   filterTypeArray: any[] = [];
 
   filterBrandArray: any[] = [];
   filterBrandId!: number;
   filterTypeId!: number;
-
+  itemFilterActive: any;
   test = new Object();
   filterSetType = new Set();
-  filterSetBrand = new Set();
+   filterSetBrand = new Set();
   getItemTypeValue(value: any) {
+    this.itemFilterActive = value;
     this.isActiveType[value.id] = !this.isActiveType[value.id];
     this.filterTypeId = value.id;
     this.filterTypeArray.push(this.filterTypeId);
@@ -145,11 +178,11 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   }
 
   getItemBrandValue(value: any) {
-    debugger;
+    // debugger;
     this.filterBrandId = value.id;
     this.filterBrandArray.push(this.filterBrandId);
     this.filterSetBrand = new Set(this.filterBrandArray);
-    console.log(this.filterSetBrand, 'brands');
+    // console.log(this.filterSetBrand, 'brands');
 
     // this.filterArray.push(this.filterTypeId);
     // console.log(this.filterArray);
@@ -161,7 +194,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   ): void {
     this.dialogService
       .open(content, {
-        label: this.isTypeActive
+        label: this.isAddedType
           ? 'Добавление нового типа сплит системы'
           : this.isTypeEdit
           ? 'Изменение типа сплит системы'
@@ -179,7 +212,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   }
 
   isClose: boolean = false;
-  addTypeForm: FormGroup = new FormGroup({
+  TypeForm: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
   });
 
@@ -192,51 +225,106 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   isBrandActive: boolean = false;
 
-  isTypeActive: boolean = false;
+  isAddedType: boolean = false;
 
   isTypeEdit: boolean = false;
 
   oneItem: any;
 
-  addBrandForm: FormGroup = new FormGroup({
+  BrandForm: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
-    // brandCheckbox: new FormControl(false),
   });
 
-  onSumbit(item?: any) {
-    debugger;
-    if (this.isAddedBrand || this.isTypeActive) {
-      if (this.isAddedBrand) {
-        this.addBrand(item, 'Брен товара был успешно добавлен');
-        this.isClose = true;
-      } else {
-        this.addType(item, 'Тип товара был успешно добавлен');
-      }
-    } else if (this.isEdit || this.isTypeEdit) {
-      if (this.isEdit) {
-        this.updateBrand(item.id, item, 'Бренд товара был успешно изменен');
-      } else {
-        this.updateType(item.id, item, 'Тип товара был успешно изменен');
-      }
-    } else if (this.isDeletedBrand || this.isDeletedType) {
-      if (this.isDeletedBrand) {
-        this.deleteBrand(item, 'Бренд товара был успешно удален');
-      } else if (this.isDeletedType) {
-        this.deleteType(item, 'Тип товара был успешно удален');
-      }
+  powerForm: FormGroup = new FormGroup({
+    name: new FormControl(null, Validators.required),
+  });
+
+  // onSumbit(item?: any) {
+  //   if (this.isAddedBrand || this.isAddedType) {
+  //     if (this.isAddedBrand) {
+  //       this.addBrand(item, 'Брен товара был успешно добавлен');
+  //       this.isClose = true;
+  //     } else {
+  //       this.addType(item, 'Тип товара был успешно добавлен');
+  //     }
+  //   } else if (this.isEditBrand || this.isTypeEdit) {
+  //     if (this.isEditBrand) {
+  //       this.updateBrand(item.id, item, 'Бренд товара был успешно изменен');
+  //     } else {
+  //       this.updateType(item.id, item, 'Тип товара был успешно изменен');
+  //     }
+  //   } else if (this.isDeletedBrand || this.isDeletedType) {
+  //     if (this.isDeletedBrand) {
+  //       this.deleteBrand(item, 'Бренд товара был успешно удален');
+  //     } else if (this.isDeletedType) {
+  //       this.deleteType(item, 'Тип товара был успешно удален');
+  //     }
+  //   }
+  // }
+
+  onSubmitBrand(item: any) {
+    if (this.isAddedBrand) {
+      this.addBrand(item, 'Брен товара был успешно добавлен');
+      this.isClose = true;
+    }
+
+    if (this.isEditBrand) {
+      this.updateBrand(item.id, item, 'Бренд товара был успешно изменен');
+    }
+
+    if (this.isDeletedBrand) {
+      this.deleteBrand(item, 'Бренд товара был успешно удален');
+    }
+    this.BrandForm.disable();
+  }
+
+  onSubmitType(item: any) {
+    if (this.isAddedType) {
+      this.addType(item, 'Тип товара был успешно добавлен');
+    }
+
+    if (this.isTypeEdit) {
+      this.updateType(item.id, item, 'Тип товара был успешно изменен');
+    }
+
+    if (this.isDeletedType) {
+      this.deleteType(item, 'Тип товара был успешно удален');
     }
   }
 
-  getItemToCreat(getValueEdit: boolean, item?: any) {
-    debugger;
-    console.log(getValueEdit);
+  onSubmitPower(item: any, flag?: boolean) {
+    if (this.isCreatePower) {
+      this.addPower(item, 'Новая мощность была успешно добавлена');
+    }
+    if (this.isUpdatePower) {
+      this.updatePower(item.id, item, 'Текущая мощность была успешно изменена');
+    }
+
+    if (this.isDeletePower) {
+      this.deletePower(item, 'Данная мощность была успешно удалена');
+    }
+    window.location.reload();
+  }
+
+  disabledButtonType: boolean = false;
+  disabledButtonBrand: boolean = false;
+
+  getItemToCreate(getValueEdit: boolean, item?: any) {
+    // debugger;
+    // console.log(getValueEdit);
 
     if (getValueEdit === this.isAddedBrand) {
       this.onClick(this.contentAdd, 'l');
-      this.addBrandForm.reset();
-    } else if (getValueEdit === this.isTypeActive) {
+      this.BrandForm.reset();
+    }
+    if (getValueEdit === this.isAddedType) {
       this.onClickType(this.contentAdd, 'l');
-      this.addTypeForm.reset();
+      this.TypeForm.reset();
+    }
+
+    if (getValueEdit === this.isCreatePower) {
+      this.onClickPower(this.contentPowerCreate, 'l');
+      this.powerForm.reset();
     }
     // this.isAddedBrand = true;
   }
@@ -249,7 +337,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   isAddedBrand: boolean = false;
 
-  isEdit: boolean = false;
+  isEditBrand: boolean = false;
 
   isDeletedType: boolean = false;
 
@@ -272,6 +360,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
       filterBrand = Array.from(this.filterSetBrand);
       this.deviceApi.filterBrandSub(filterBrand);
     }
+    this.isActiveType[this.itemFilterActive.id] = false;
     // if (filterType) {
     //   filterType = Array.from(this.filterSetType);
     //   this.deviceApi.filterTypeSub(filterType);
@@ -283,25 +372,36 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     // });
     // console.log(filterType);
   }
+
+  checkInventorts() {}
+
   getItemToUpdate(item: any, getValueEdit?: boolean) {
     debugger;
     this.itemValue = item;
 
-    if (getValueEdit === this.isEdit) {
+    if (getValueEdit === this.isEditBrand) {
       this.onClick(this.contentBrand, 'l');
-      this.addBrandForm.setValue({
+      this.BrandForm.setValue({
         name: this.itemValue.name,
       });
-      // this.addBrandForm.reset();
-    } else if (getValueEdit === this.isTypeEdit) {
+    }
+
+    if (getValueEdit === this.isTypeEdit) {
       this.onClickType(this.contentBrand, 'l');
       // this.addTypeForm.reset();
-      this.addTypeForm.setValue({
+      this.TypeForm.setValue({
+        name: this.itemValue.name,
+      });
+    }
+    if (getValueEdit === this.isUpdatePower) {
+      this.onClickPower(this.contentPowerUpdate, 'l');
+      this.powerForm.setValue({
         name: this.itemValue.name,
       });
     } else {
-      this.addBrandForm.reset();
-      this.addTypeForm.reset();
+      this.powerForm.reset();
+      this.BrandForm.reset();
+      this.TypeForm.reset();
     }
     // this.isEdit = true;
     // this.addBrandForm.setValue({
@@ -313,32 +413,144 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   valueId!: number;
 
   getItemToDelete(item: any, getValueDelete?: boolean) {
-    debugger;
+    // debugger;
     this.valueId = item;
-    this.isEdit = false;
+    console.log(this.valueId);
+
+    // this.isEditBrand = false;
     if (getValueDelete === this.isDeletedBrand) {
-      this.onClick(this.contentDelete, 'l');
-    } else if (this.isDeletedType == getValueDelete) {
-      this.onClickType(this.contentDelete, 'l');
+      this.onClick(this.contentPowerDelete, 'l');
+    }
+    if (getValueDelete == this.isDeletedType) {
+      this.onClickType(this.contentPowerDelete, 'l');
+    }
+    if (getValueDelete == this.isDeletePower) {
+      this.onClickPower(this.contentPowerDelete, 'l');
     }
     // this.isDeleted = true;
+  }
+
+  /** Powers */
+
+  isUpdatePower: boolean = false;
+
+  isDeletePower: boolean = false;
+
+  isCreatePower: boolean = false;
+
+  getAllPowers() {
+    this.powerApi.getPowers().subscribe((data) => {
+      this.powersArray = data;
+    });
+  }
+
+  addPower(item: IPower, result?: string) {
+    this.powerApi.createPower(item).subscribe((value) => {
+      this.powersArray.push(value);
+      this.getAllPowers();
+    });
+    this.alertService.open(result as string).subscribe();
+  }
+
+  deletePower(id: number, result?: string) {
+    this.powerApi.deletePower(id).subscribe((data) => {
+      this.powersArray.splice(id, 1);
+      this.getAllPowers();
+    });
+    this.alertService.open(result as string).subscribe();
+  }
+
+  updatePower(id: number, item: IPower, result?: string) {
+    this.powerApi.updatePower(id, item).subscribe(() => {
+      this.getAllPowers();
+    });
+    this.alertService.open(result as string).subscribe();
+  }
+
+  // getPowerToCreate(getValueCreate: boolean, result?: string) {
+  //   console.log('data');
+
+  //   this.isCreatePower = getValueCreate;
+  //   if (this.isCreatePower == true) {
+  //     this.powerForm.reset();
+  //     this.onClickPower(this.contentPowerCreate, 'l');
+  //     this.alertService.open(result as string);
+  //   }
+  // }
+
+  // getPowerToUpdate(item: IPower, getValueEdit: boolean, result?: string) {
+  //   console.log(item);
+
+  //   this.isUpdatePower = getValueEdit;
+  //   this.powerId = item.id as number;
+  //   if (this.isUpdatePower == true) {
+  //     this.powerForm.setValue({
+  //       name: item.name,
+  //     });
+  //     this.onClickPower(this.contentPowerCreate, 'l');
+  //     this.alertService.open(result as string);
+  //   } else {
+  //     this.powerForm.reset();
+  //   }
+  // }
+
+  // powerId!: number;
+  // getPowerToDelete(id: number, getValueDelete: boolean, result?: string) {
+  //   this.powerId = id;
+
+  //   this.isDeletePower = getValueDelete;
+  //   if (this.isDeletePower == true) {
+  //     // this.powerApi.deletePower(id).subscribe(() => {
+  //     //   this.powersArray.splice(id, 1);
+  //     this.onClickPower(this.contentPowerCreate, 'l');
+  //     // });
+  //     this.alertService.open(result as string);
+  //   }
+  // }
+
+  // onSubmitPowers(value: any, isClose: boolean) {
+  //   // debugger;
+  //   if (this.isCreatePower == true) {
+  //     this.addPower(value, 'Новая мощность была успешно добавлена');
+  //     this.getAllPowers();
+  //   }
+  //   if (this.isUpdatePower == true) {
+  //     this.updatePower(
+  //       this.powerId,
+  //       value,
+  //       'Текущая мощность была успешно изменена'
+  //     );
+  //     this.getAllPowers();
+  //   }
+  //   if (this.isDeletePower == true) {
+  //     this.deletePower(this.powerId, 'Данная мощность была успешно удалена');
+  //     this.getAllPowers();
+  //   }
+  // }
+
+  cancelSumbtiPowers(flag: boolean) {
+    this.isCreatePower = false;
+    this.isUpdatePower = false;
+    this.isDeletePower = false;
+    // this.isClose = true;\
+    this.IsCloseWindow = true;
   }
 
   /** Brands */
   getAllBrands() {
     this.brandApi.getBrands().subscribe((item) => {
-      this.brands = item;
-      item.forEach((s: brand) => {
+      this.brandsArray = item;
+      item.forEach((s: IBrand) => {
         this.brandValue = s;
       });
-      console.log(this.brands);
+      // console.log(this.brands);
     });
   }
 
-  addBrand(item: brand, result?: string) {
+  addBrand(item: IBrand, result?: string) {
     // this.isAdded = true;
     this.brandApi.addBrand(item).subscribe((data) => {
-      this.brands.push(data);
+      this.brandsArray.push(data);
       this.getAllBrands();
     });
     this.alertService.open(result as string).subscribe();
@@ -346,7 +558,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   deleteBrand(id: number, result?: string) {
     this.brandApi.deleteBrand(id).subscribe(() => {
-      this.brands.splice(id, 1);
+      this.brandsArray.splice(id, 1);
       this.getAllBrands();
     });
     this.alertService.open(result as string).subscribe();
@@ -362,7 +574,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   /** Types */
   getAllTypes() {
     this.typeApi.getTypes().subscribe((item) => {
-      this.types = item;
+      this.typesArray = item;
       item.forEach((s) => {
         this.typeValue = s;
       });
@@ -371,7 +583,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   addType(item: IspitType, result?: string) {
     this.typeApi.createType(item).subscribe((data) => {
-      this.types.push(data);
+      this.typesArray.push(data);
       this.getAllTypes();
     });
     this.alertService.open(result as string).subscribe();
@@ -380,7 +592,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   deleteType(id: number, result?: string) {
     this.typeApi.deleteType(id).subscribe(() => {
       /**не работает */
-      this.types.splice(id, 1);
+      this.typesArray.splice(id, 1);
       this.getAllTypes();
     });
     this.alertService.open(result as string).subscribe();
@@ -395,9 +607,15 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
 
   cancel(value: any) {
     console.log(value);
-    this.isEdit = false;
+    this.isEditBrand = false;
     this.isAddedBrand = false;
     this.isDeletedBrand = false;
+    this.isAddedType = false;
+    this.isTypeEdit = false;
+    this.isDeletedType = false;
+    this.isCreatePower = false;
+    // this.BrandForm.reset();
+    // this.TypeForm.reset();
     // this.addBrandForm.reset(value);
     // if (!this.isAdded || !this.isDeleted) {
     //   this.addBrandForm.reset();

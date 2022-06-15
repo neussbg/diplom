@@ -28,5 +28,7 @@ export class BaseApiService {
 
   protected backEndUsers = `${BaseApiService.controller}/user/users`;
 
+  protected backEndPowers = `${BaseApiService.controller}/power`;
+
   constructor() {}
 }

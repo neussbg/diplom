@@ -93,8 +93,6 @@ export const SLIDER_VALUE3 = [
 @Injectable()
 export class AttendancePageComponent implements OnInit {
   constructor() {
-    console.log(this.tee);
-
     if (this.test === 1) {
       this.tee[0];
     } else if (this.test === 2) {
@@ -124,52 +122,17 @@ export class AttendancePageComponent implements OnInit {
       scrollbar: { draggable: true },
       slidesPerView: 1,
       allowTouchMove: true,
-      // autoplay: {
-      //   delay: 4000,
-      //   disableOnInteraction: true,
-      // },
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: true,
+      },
       // navigation: true,
       loop: true,
-      // on: {
-      //   slideChange(text: any) {
-      //     if (text.activeIndex === 1) {
-      //     }
-      //     if (text.activeIndex === 2) {
-      //       console.log('two');
-      //     }
-      //     if (text.activeIndex === 3) {
-      //       console.log('three');
-      //     } else if (text.activeIndex > 3) {
-      //       console.log('this.first');
-      //     }
-      //   },
-      // },
     };
   }
 
   test: number = 0;
-  onSwiper(swiper: any) {
-    console.log(swiper);
-  }
   onSlideChange(event: any) {
     this.test = event[0]?.activeIndex;
-
-    console.log(this.test);
   }
-
-  // onSwiper([swiper]) {
-  //   console.log(swiper);
-  // }
-
-  // onSlideChange(event: any): void {
-  //   // console.log(event[0].activeIndex);
-  //   event[0].activeIndex = SliderIndex;
-  //   // event[1].activeIndex = this.sliderTitles.mounting;
-  //   // event[2].activeIndex = this.sliderTitles.refueling;
-
-  //   if (event[0].activeIndex === 0) {
-  //     console.log(SliderIndex.clear);
-  //   }
-  //   console.log((event[0].activeIndex = SliderIndex.clear));
-  // }
 }

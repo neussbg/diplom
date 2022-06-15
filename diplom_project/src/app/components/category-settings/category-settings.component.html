@@ -6,10 +6,10 @@
             <div class="type-block">
                 <label>Тип сплит систем</label>
                 <div [ngClass]="isAdmin ? 'isAdminView' : ''"
-                    class="type-conditioners" *ngFor="let item of types">
+                    class="type-conditioners" *ngFor="let item of typesArray">
                     <button
                         [ngClass]="isActiveType[item.id] ? '-isActive' : ''"
-                        class="type-conditioners__item"
+                        class="type-conditioners__item "
                         (click)="getItemTypeValue(item)"
                         [title]="item.name">{{item.name}}</button>
                     <div class="type-conditioners-onclick">
@@ -24,14 +24,14 @@
                     </div>
                 </div>
                 <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
-                    (click)="getItemToCreat(isTypeActive = true,addTypeForm.value)"
+                    (click)="getItemToCreate(isAddedType = true,TypeForm.value)"
                     src="assets/img/product/add.svg">
                 </tui-svg>
             </div>
             <div class="inventors-conditioners">
                 <label>Инвентор</label>
                 <div class="inventorts-conditioners__items">
-                    <button>Есть</button>
+                    <button (click)="checkInventorts()">Есть</button>
                     <button>Нет</button>
                 </div>
             </div>
@@ -39,23 +39,36 @@
                 <label>Мощность</label>
                 <div class="series-conditioners">
                     <div class="series-conditioners__items"
-                        *ngFor="let item of series">
-                        <button>{{item}}</button>
+                        *ngFor="let item of powersArray">
+                        <button>{{item.name}}</button>
+                        <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                            (click)="getItemToUpdate(item, isUpdatePower = true)"
+                            src="assets/img/product/edit.svg">
+                        </tui-svg>
+                        <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                            src="assets/img/products/deleteBasket.svg"
+                            (click)="getItemToDelete(item.id,isDeletePower = true)">
+                        </tui-svg>
                     </div>
                 </div>
+                <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
+                    (click)="getItemToCreate( isCreatePower = true, powerForm.value)"
+                    src="assets/img/product/add.svg">
+                </tui-svg>
             </div>
-            <div class="brands-conditioners" [formGroup]="addBrandForm">
+            <div class="brands-conditioners" [formGroup]="BrandForm">
                 <label>Бренд</label>
                 <div class="brands-block"
-                    *ngFor="let item of brands,let i = index">
+                    *ngFor="let item of brandsArray,let i = index">
 
                     <span [title]="item.name"
-                        style="width: 58px;">{{item.name}}</span>
-
-                    <input type="checkbox" (change)="getItemBrandValue(item)" />
+                        style="width: 58px;"
+                        class="max-text-content">{{item.name}}</span>
+                    <input type="checkbox"
+                        (change)="getItemBrandValue(item)" />
 
                     <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
-                        (click)="getItemToUpdate(item, isEdit = true)"
+                        (click)="getItemToUpdate(item, isEditBrand = true)"
                         src="assets/img/product/edit.svg">
                     </tui-svg>
                     <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
@@ -64,13 +77,13 @@
                     </tui-svg>
                 </div>
                 <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
-                    (click)="getItemToCreat(isAddedBrand = true,addBrandForm.value)"
+                    (click)="getItemToCreate(isAddedBrand = true,BrandForm.value)"
                     src="assets/img/product/add.svg">
                 </tui-svg>
             </div>
         </div>
 
-        <button
+        <button class="filter-button"
             (click)="filterItems(filterSetType,filterSetBrand)">Применить</button>
     </form>
 
@@ -78,24 +91,27 @@
     <ng-template
         #contentUpdate
         let-observer>
-        <h3>{{isEdit ? 'Вы
+        <h3>{{isEditBrand ? 'Вы
             уверены
             что хотите изменить текущий Бренд ?' : 'Вы
             уверены
             что хотите изменить текущий Тип ?'}} </h3>
         <div>
-            <form [formGroup]="isEdit ? addBrandForm : addTypeForm"
-                (ngSubmit)="onSumbit(itemValue)">
+            <form [formGroup]="isEditBrand ? BrandForm : TypeForm"
+                (ngSubmit)="isEditBrand ? onSubmitBrand(itemValue) : onSubmitType(itemValue)">
                 <div class="content">
                     <div class="content__input">
-                        <input type="text"
-                            [readonly]="!isChangeType"
-                            formControlName="name"
-                            [(ngModel)]="itemValue.name">
-                        <tui-svg style="cursor: pointer;"
-                            (click)="isChangeType = !isChangeType"
-                            src="assets/img/product/edit.svg">
-                        </tui-svg>
+                        <div style="height: 80px" class="test">
+                            <input type="text"
+                                [placeholder]="itemValue.name"
+                                [disabled]="false"
+                                [(ngModel)]="itemValue.name"
+                                formControlName="name">
+                            <div class="alert-message"
+                                *ngIf="isEditBrand ? BrandForm.controls['name'].errors?.['required'] && BrandForm.controls['name'].dirty : TypeForm.controls['name'].errors?.['required'] && TypeForm.controls['name'].dirty">
+                                Поле невалидно
+                            </div>
+                        </div>
                     </div>
                     <div class="sumbit-buttons">
                         <button tuiButton appearance="primary"
@@ -114,21 +130,80 @@
     <ng-template
         #contentAdd
         let-observer>
-        <h3>{{isAddedBrand ? 'Вы уверены что хотите добавить новый бренд ?' :
-            'Вы
-            уверены что хотите добавить новый тип ?' }} </h3>
+        <h3>{{isAddedBrand ? 'Введите название нового бренд ?' :
+            'Введите название нового типа ?' }} </h3>
         <div>
-            <form [formGroup]="isAddedBrand ? addBrandForm : addTypeForm"
-                (ngSubmit)="onSumbit(isAddedBrand ? addBrandForm.value : addTypeForm.value)">
+            <form [formGroup]="isAddedBrand ? BrandForm : TypeForm"
+                (ngSubmit)="isAddedBrand ? onSubmitBrand(BrandForm.value) : onSubmitType(TypeForm.value)">
                 <div class="content">
                     <div class="content__input">
                         <input placeholder="Введите новое название" type="text"
-                            formControlName="name">
+                            formControlName="name" required>
+                        <div class="alert-message"
+                            *ngIf="isAddedBrand ? BrandForm.controls['name'].errors?.['required'] && BrandForm.controls['name'].dirty : TypeForm.controls['name'].errors?.['required'] && TypeForm.controls['name'].dirty">
+                            Поле невалидно
+                        </div>
                     </div>
                     <div class="sumbit-buttons">
                         <button
-
+                            [disabled]="isAddedBrand ? BrandForm.invalid : TypeForm.invalid"
                             tuiButton appearance="primary"
+                            class="submit-buttons__submit"
+                            type="submit">Подтвердить</button>
+                        <button appearance="accent"
+                            tuiButton
+
+                            class="submit-buttons__cancel" type="button"
+                            (click)="cancel(observer.complete())">Отменить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template
+        #contentDelete
+        let-observer>
+        <h3 style="margin-bottom: 20px;">{{isDeletedBrand ? 'Вы уверены что
+            хотите удалить этот бренд ?' :
+            'Вы уверены что хотите удалить этот тип ?' }}?
+        </h3>
+        <div>
+            <div class="sumbit-buttons">
+                <button tuiButton appearance="primary"
+                    class="submit-buttons__submit"
+                    (click)="isDeletedBrand ? onSubmitBrand(valueId) :  onSubmitType(valueId)"
+                    type="submit">Подтвердить</button>
+                <button appearance="accent"
+                    tuiButton
+                    class="submit-buttons__cancel" type="button"
+                    (click)="cancel(observer.complete())">Отменить</button>
+            </div>
+        </div>
+    </ng-template>
+
+
+    <ng-template
+        #contentPowerUpdate
+        let-observer>
+        <h3>{{ 'Вы уверены что хотите изменить текущую мощность'
+            }}</h3>
+        <div>
+            <form [formGroup]="powerForm"
+                (ngSubmit)="onSubmitPower(itemValue, observer.complete())">
+                <div class="content">
+                    <div class="content__input">
+                        <input type="number"
+                            [placeholder]="itemValue.name"
+                            formControlName="name" required>
+                        <div class="alert-message"
+                            *ngIf="powerForm.controls['name'].errors?.['required'] && powerForm.controls['name'].dirty">
+                            Поле невалидно
+                        </div>
+                    </div>
+                    <div class="sumbit-buttons">
+                        <button tuiButton appearance="primary"
+                            [disabled]="powerForm.invalid"
                             class="submit-buttons__submit"
                             type="submit">Подтвердить</button>
                         <button appearance="accent"
@@ -142,15 +217,49 @@
     </ng-template>
 
     <ng-template
-        #contentDelete
+        #contentPowerCreate
         let-observer>
-        <h3 style="margin-bottom: 20px;">Вы уверены что хотите удалить Бренд ?
+        <h3>{{ 'Вы уверены что хотите добавить новую мощность'
+            }}</h3>
+        <div>
+            <form [formGroup]="powerForm"
+                (ngSubmit)="onSubmitPower(powerForm.value, observer.complete())">
+                <div class="content">
+                    <div class="content__input">
+                        <input type="number"
+                            formControlName="name">
+                    </div>
+                    <div class="alert-message"
+                        *ngIf="powerForm.controls['name'].errors?.['required'] && powerForm.controls['name'].dirty">
+                        Поле невалидно
+                    </div>
+                    <div class="sumbit-buttons">
+                        <button tuiButton appearance="primary"
+                            [disabled]="powerForm.invalid"
+                            class="submit-buttons__submit"
+                            type="submit">Подтвердить</button>
+                        <button appearance="accent"
+                            tuiButton
+                            class="submit-buttons__cancel" type="button"
+                            (click)="cancel(observer.complete())">Отменить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+
+    <ng-template
+        #contentPowerDelete
+        let-observer>
+        <h3 style="margin-bottom: 20px;">{{
+            'Вы уверены что хотите удалить эту мощность ?' }}?
         </h3>
         <div>
             <div class="sumbit-buttons">
                 <button tuiButton appearance="primary"
                     class="submit-buttons__submit"
-                    (click)="onSumbit(valueId)"
+                    (click)="onSubmitPower(valueId, observer.complete())"
                     type="submit">Подтвердить</button>
                 <button appearance="accent"
                     tuiButton
@@ -159,4 +268,8 @@
             </div>
         </div>
     </ng-template>
+
+
+
+
 </div>

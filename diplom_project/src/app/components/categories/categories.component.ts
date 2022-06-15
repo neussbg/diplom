@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from 'src/app/pages/services/navigation.service';
 import { CATEGORIES_ITEMS } from 'src/assets/const/categories-items';
 
 @Component({
@@ -7,10 +8,15 @@ import { CATEGORIES_ITEMS } from 'src/assets/const/categories-items';
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
-  constructor() {}
+  constructor(private nav: NavigationService) {}
 
+  isNightTheme: boolean = false;
   /** Мок для категорий кондиционеров */
   categoriesItems = CATEGORIES_ITEMS;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.nav.themeSubject.subscribe((data) => {
+      this.isNightTheme = data;
+    });
+  }
 }

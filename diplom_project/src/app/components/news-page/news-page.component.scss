@@ -58,6 +58,18 @@
   }
 }
 
+.auth-buttons {
+  &__login {
+    border: none;
+    background: none;
+  }
+
+  &__registration {
+    border: none;
+    background: none;
+  }
+}
+
 .menu__box,
 .hamburger-menu {
   display: none;
@@ -70,6 +82,12 @@
   .basket,
   .user {
     margin-right: 20px;
+  }
+}
+
+@media (max-width: 1236px) {
+  .auth-buttons {
+    display: none !important;
   }
 }
 
@@ -190,4 +208,3 @@
     background-color: #cfd8dc;
   }
 }
-

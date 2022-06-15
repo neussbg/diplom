@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { TokenInterceptor } from 'src/app/auth/token-interceptor';
 import { BaseApiService } from './base-api.service';
 
 export class User {
@@ -8,6 +9,20 @@ export class User {
   email?: string;
   isActivated?: boolean;
   password?: string;
+}
+
+export enum ROLE {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}
+
+export const TOKEN_KEY = 'AuthToken';
+
+export interface UserInfo {
+  email?: string;
+  isActivated?: boolean;
+  password?: string;
+  role: ROLE;
 }
 @Injectable({
   providedIn: 'root',
@@ -27,6 +42,8 @@ export class AuthService extends BaseApiService {
 
   private token: any = null;
 
+  private role: any = null;
+
   public loginList = new BehaviorSubject<any>([]);
 
   items: any[] = [];
@@ -35,13 +52,19 @@ export class AuthService extends BaseApiService {
     return this.http.post<User>(this.backUrlRegist, user);
   }
 
-  loginUser(user: any): Observable<{ accessToken: string }> {
+  loginUser(user: any): Observable<{ refreshToken: string }> {
+    const httpHeaders = new HttpHeaders({
+      'content-type': 'application/json',
+      Authorization: '',
+    });
     return this.http
-      .post<{ accessToken: string }>(this.backUrlLogin, user)
+      .post<{ refreshToken: string }>(this.backUrlLogin, user)
       .pipe(
-        tap(({ accessToken }) => {
-          localStorage.setItem('auth-token', accessToken);
-          this.setToken(accessToken);
+        tap(({ refreshToken }) => {
+          localStorage.setItem(TOKEN_KEY, refreshToken);
+          // localStorage.setItem('auth-role', refreshToken.role);
+          this.setToken(refreshToken);
+          // this.setRole(user.role);
           this.setCurrentUser();
         })
       );
@@ -60,13 +83,21 @@ export class AuthService extends BaseApiService {
     this.token = token;
   }
 
+  // getToken(): string {
+  //   this.loginList.next(this.items);
+  //   return this.token;
+  // }
+
+  //   public isAuthenticated():boolean {
+  // return this.getToken();
+  //   }
+
   getToken(): string {
-    this.loginList.next(this.items);
-    return this.token;
+    return localStorage.getItem(TOKEN_KEY) as string;
   }
 
-  isAuthenticated(): boolean {
-    return !!this.token;
+  setRole(role: string | null) {
+    this.role = role;
   }
 
   logout() {

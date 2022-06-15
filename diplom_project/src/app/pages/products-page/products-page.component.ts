@@ -8,7 +8,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TUI_NUMBER_FORMAT, NumberFormatSettings } from '@taiga-ui/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import {ProductsService } from '../services/products.service';
+import { ProductsService } from '../services/products.service';
 import { brandsConditioners as brandsConditioners } from 'src/assets/const/products/brands';
 import { typeConditioners } from 'src/assets/const/products/types-conditioners';
 import { Product } from '../services/products.service';
@@ -96,10 +96,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   brandIdToProducts!: number;
   ngOnInit(): void {
-    console.log(this.brandIdToProducts, 'brandToProducts');
-    this.brandApi.brandId.subscribe((s) => {
-      console.log(s, 'dsds');
-    });
+    // console.log(this.brandIdToProducts, 'brandToProducts');
+    // this.brandApi.brandId.subscribe((s) => {});
 
     // this.getAllDevices();
     // this.getAll();
@@ -158,8 +156,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   // }
 
   testAdmin(): boolean {
-    console.log(this.brandIdToProducts);
-
     return (this.isAdminUser = !this.isAdminUser);
   }
 

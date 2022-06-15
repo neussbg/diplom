@@ -1,12 +1,12 @@
-<div class="content-page">
+<main class="content-page">
     <div class="block-company-info"
         [ngStyle]="{'background' : 'url(assets/img/company/background.jpg)'}">
         <div class="container">
-            <div class="company-block">
+            <section class="company-block">
                 <div class="company-block-title">
                     <div class="categories-title">О компании</div>
                 </div>
-                <div class="company-block-text">
+                <section class="company-block-text">
                     <span>
                         <a>«АСМ Инжиниринг» — российский интернет-магазин,
                             специализирующийся на продаже сплит-систем
@@ -53,7 +53,7 @@
                             помещений.
                         </a>
                     </span>
-                </div>
+                </section>
                 <div class="company-advertising">
                     <div data-aos="fade-up"
                         data-aos-duration="1000"
@@ -65,20 +65,20 @@
                             class="company-advertising-items__value">{{item.value}}</span>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 
 
 
 
-    <div class="container company-info-block">
+    <section class="container company-info-block">
         <img class="company-info-user"
             src="assets/img/company/company-people.jpg" />
         <div class="company-info">
-            <div class="block-title">
+            <header class="block-title">
                 С нами надежно
-            </div>
+            </header>
             <span class="company-info__text">На сегодняшний день нами продано
                 более 25 000+ товаров и этот
                 показатель постоянно увеличивается благодаря нашим клиентам,
@@ -90,10 +90,10 @@
                 сможете купить кондиционер в Ростове-на-Дону недорого напрямую
                 от производителя. </span>
         </div>
-    </div>
+    </section>
     <app-categories></app-categories>
-    <div class="container company-services">
-        <div class="block-title">Наши услуги</div>
+    <section class="container company-services">
+        <header class="block-title">Наши услуги</header>
         <section class="container service-block">
             <div class="box-container" *ngFor="let cond of companyConditioners">
                 <div class="box">
@@ -113,11 +113,11 @@
         </section>
 
 
-    </div>
+    </section>
     <div class="block isVisibleBlock" [ngStyle]="{'background' : '#f0f4fa'}">
         <div class="container producenci-block">
-            <div class="categories-title">Производители кондиционеров
-            </div>
+            <header class="categories-title">Производители кондиционеров
+            </header>
             <div class="producenci-info">
                 <div class="producenci-info-item"
                     *ngFor="let mark of conditionersMarks">
@@ -131,4 +131,4 @@
     </div>
 
     <app-footer></app-footer>
-</div>
+</main>

@@ -1,51 +1,11 @@
-<!-- <button
-    size="m"
-    class="tui-space_right-2 tui-space_bottom-2"
-    (click)="onClick(content, header, 'm')">
-    Show
-</button> -->
-
 <ng-template
     #content
+    let-close="close"
     let-observer>
     <div class="auth-container">
-        <!-- <form [formGroup]="autorizationForm">
 
-            <div class="auth-container-data">
-                <input formControlName="email"
-                    type="email"
-                    placeholder="Электронная почта">
-                <input formControlName="password" type="password"
-                    placeholder="Пароль">
-                <input *ngIf="isLoggedIn" formControlName="password"
-                    type="password"
-                    placeholder="Пароль еще раз">
-                <span *ngIf="isLoggedIn === true" class="confirm">Регистрируясь
-                    вы
-                    соглашаетесь
-                    с <a href="company"
-                        style="color:#ff8a00; cursor: pointer;">Политикой
-                        конфиденциальности</a>
-                </span>
-                <button style="margin-bottom: 20px;" *ngIf="isLoggedIn"
-                    type="submit"
-                    (click)="observer.complete()">
-                    Зарегестрироваться
-                </button>
-                <button [ngClass]="isLoggedIn ? 'isLogginContext' : '' "
-                    type="submit"
-                    [disabled]="this.autorizationForm.invalid || this.autorizationForm.disabled"
-                    (click)="observer.complete()">
-                    Войти
-                </button>
-            </div>
-            <div *ngIf="!isLoggedIn" class="auth-helper">
-                <button (click)="isLoggedIn = !isLoggedIn">Регистрация</button>
-                <button>Не помню пароль</button>
-            </div>
-        </form> -->
-
-        <form [formGroup]="authForm" (ngSubmit)="onSumbit()">
+        <form [formGroup]="authForm"
+            (ngSubmit)="onSumbit(isErrorValue == true ? observer.completed() : '')">
             <div class="auth-container-data">
                 <div style="height: 80px;">
                     <input
@@ -84,41 +44,25 @@
                         Пароль должен быть не менее 5 символов
                     </div>
                 </div>
-                <!-- <div style="color: rgb(141, 12, 12);"
-                    *ngIf="authForm.controls['email'].invalid && (authForm.controls['email'].dirty  || authForm.controls['email'].touched)">
-                    <div
-                        *ngIf="authForm.controls['email'].errors?.['email']">
-                        Поле невалидно
-                    </div>
-                    <div
-                        *ngIf="authForm.controls['inputValue'].errors?.['minlength']">
-                        Наименование почты должно быть минимум 8
-                        символов
-                    </div>
-                </div> -->
-
                 <div class="showPassword">
                     <input class="showPassword__content" type="checkbox"
                         (click)="showPassword()" />{{show ?
                     'Скрыть' :
                     'Показать пароль'}}
                 </div>
-                <!-- <button class="show" (click)="showPassword()">{{show ? 'Скрыть' :
-                    'Показать пароль'}}</button> -->
-                <!-- <span class="confirm">Регистрируясь
-                    вы
-                    соглашаетесь
-                    с <a href="company"
-                        style="color:#ff8a00; cursor: pointer;">Политикой
-                        конфиденциальности</a>
-                </span> -->
                 <div style="height: 80px">
-                    <button style=" width: 100%;"
-                        type="submit"
-                        tuiButton
-                        [disabled]="authForm.invalid || authForm.disabled">
-                        Войти
-                    </button>
+                    <div class="buttons"
+                        style="display: flex; justify-content:space-between">
+                        <button
+                            type="submit"
+                            tuiButton
+                            [disabled]="authForm.invalid || authForm.disabled">
+                            Войти
+                        </button>
+                        <button tuiButton
+                            (click)="closeForm()">Вернуться
+                            обратно</button>
+                    </div>
                     <label style="font-size: 14px"
                         class="alert-message">{{errorMessage}}</label>
                 </div>
@@ -131,7 +75,8 @@
     </div>
 </ng-template>
 
-<ng-template #header let-observer>
+<ng-template #header let-observer
+    let-close="close">
     <div class="header">
         <img
             [src]="'assets/img/autorization/User.svg' "

@@ -11,7 +11,7 @@ import { RouterEnum } from '../enums/router.enum';
 import { AuthorizationComponent } from 'src/app/authorization/authorization.component';
 import { ProductCardComponent } from 'src/app/pages/product-card/product-card.component';
 import { RegistrationPageComponent } from 'src/app/auth/registration-page/registration-page.component';
-import { AuthGuard } from 'src/app/classes/auth.guard';
+// import { AuthGuard } from 'src/app/classes/auth.guard';
 
 /** Маршрутизация */
 export const routes: Routes = [
@@ -63,10 +63,10 @@ export const routes: Routes = [
     path: RouterEnum.attendance,
     component: AttendancePageComponent,
   },
-  // {
-  //   path: '**',
-  //   component: RegistrationPageComponent,
-  // },
+  {
+    path: 'empty',
+    component: EmptyPageComponent,
+  },
   {
     path: 'registration',
     component: RegistrationPageComponent,
@@ -78,7 +78,13 @@ export const routes: Routes = [
   },
   {
     path: ' ',
-    redirectTo: 'registration',
+    redirectTo: 'products',
+    pathMatch: 'full',
+  },
+
+  {
+    path: '**',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 ];

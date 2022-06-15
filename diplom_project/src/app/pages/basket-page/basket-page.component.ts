@@ -17,7 +17,6 @@ import {
   TuiDialogService,
   TuiDialogSize,
 } from '@taiga-ui/core';
-import { RouterEnum } from 'src/assets/enums/router.enum';
 import { CardService } from '../services/card.service';
 import { CartService } from '../services/cart.service';
 import { NavigationService } from '../services/navigation.service';
@@ -25,7 +24,8 @@ import { Product, ProductsService } from '../services/products.service';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { BehaviorSubject, map, Subject } from 'rxjs';
+import { TOKEN_KEY } from '../services/auth.service';
 
 @Component({
   selector: 'app-basket-page',
@@ -92,6 +92,13 @@ export class BasketPageComponent implements OnInit {
   ngOnInit(): void {
     this.cartService.loadCart();
     this.items = this.cartService.getItems();
+    this.testSub.subscribe((data) => {
+      console.log(data);
+    });
+
+    this.testSub.subscribe((data) => {
+      console.log(data);
+    });
 
     this.cartService.itemsList$.subscribe((data) => {
       this.totalCount = data.length;
@@ -101,7 +108,7 @@ export class BasketPageComponent implements OnInit {
 
     this.email = localStorage.getItem('auth-login');
     for (let item of obj) {
-      item = `${item.name} - ${item.price}руб.`;
+      item = `Наименование товара :${item.name} - ${item.price}руб. : кол-во товара ${this.qty}`;
 
       this.requestData.push(item);
     }
@@ -120,11 +127,13 @@ export class BasketPageComponent implements OnInit {
   objValue = {};
 
   showIfFormRequare(item: any) {
-    this.objValue = {
-      email: this.email,
-      data: this.requestData,
-      phone: item.phone,
-    };
+    // this.objValue = {
+    //   email: this.email,
+    //   data: this.requestData,
+    //   phone: item.phone,
+    // };
+
+    console.log(item);
 
     this.userName = item.name;
 
@@ -152,7 +161,6 @@ export class BasketPageComponent implements OnInit {
   }
 
   public sendMail() {
-    console.log('send');
     return this.http
       .post('https://formspree.io/f/mnqwwand', {
         name: this.userName,
@@ -167,12 +175,17 @@ export class BasketPageComponent implements OnInit {
     return true;
   }
   qty: number = 1;
+
+  totals!: number;
+
+  testSub = new BehaviorSubject(this.totals);
+
   totalPriceElement(item: any, index: number) {
-    debugger;
-    this.qty = item.count;
+    this.testSub.next(item.count);
     const amt = item.price;
-    const subTotal = amt * this.qty;
+    const subTotal = amt * item.count;
     this.totalElementCount.toArray()[index].nativeElement.innerHTML = subTotal;
+
     this.cartService.saveCart();
   }
 
@@ -213,6 +226,14 @@ export class BasketPageComponent implements OnInit {
         dismissible: false,
       })
       .subscribe();
+  }
+
+  requestToBuy() {
+    if (localStorage.getItem(TOKEN_KEY)) {
+      this.onClick(this.content, this.header, 's');
+    } else {
+      this.navApi.navigateTo('login');
+    }
   }
 }
 

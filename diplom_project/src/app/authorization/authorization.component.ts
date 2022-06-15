@@ -35,9 +35,13 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
   @ViewChild('header', { static: true }) header!: TemplateRef<any>;
 
+  @ViewChild('close', { static: true }) close!: any;
+
   ngOnInit(): void {
     this.getUser();
     this.onClick(this.content, this.header, 'l');
+
+    console.log(localStorage.getItem('auth-role'));
 
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registration']) {
@@ -97,11 +101,8 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
   loginUser: any = {};
 
+  isErrorValue: boolean = false;
   // authForm!: FormGroup;
-
-  get transform(): string {
-    return `scale(${this.scale})`;
-  }
 
   // onRegistrationUser(user: any): any {
   //   this.auth.registration(user).subscribe((data) => {
@@ -112,31 +113,39 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
   onLoginUser(user: any) {
     this.auth.loginUser(user).subscribe((data: any) => {
-      console.log(data);
+      debugger;
+      console.log(data, 'data');
       localStorage.setItem('auth', data.accessToken);
       localStorage.setItem('auth-login', data.user.email);
+      localStorage.setItem('auth-role', data.user.role);
     });
   }
 
-  isClose: boolean = false;
-  onSumbit() {
-    this.authForm.disable();
-    this.aSub = this.auth.loginUser(this.authForm.value).subscribe(
-      () => {
-        this.auth.loginUser;
-        localStorage.setItem('auth-login', this.authForm.get('email')?.value);
-        this.router.navigate(['/products']);
-        this.isClose = true;
-      },
-
-      (error) => {
-        console.warn(error);
-        this.errorMessage = error.error.message;
-        this.authForm.enable();
-      }
-    );
+  onSumbit(value?: any) {
+    setTimeout(() => {
+      this.authForm.disable();
+      this.aSub = this.auth.loginUser(this.authForm.value).subscribe(
+        () => {
+          this.isErrorValue = true;
+          this.isWindowDismissible = true;
+          this.auth.loginUser;
+          localStorage.setItem('auth-login', this.authForm.get('email')?.value);
+          this.router.navigate(['/products']);
+        },
+        (error) => {
+          console.warn(error, 'test');
+          this.errorMessage = error.error.message;
+          this.authForm.enable();
+          // this.isErrorValue = true;
+        }
+      );
+    }, 200);
   }
 
+  closeForm() {
+    this.IsCloseWindow = true;
+    this.router.navigate(['/products']);
+  }
   // onSubmitRegistration() {
   //   this.authForm.disabled;
   //   this.auth.registration(this.authForm.value).subscribe(
@@ -223,9 +232,12 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
         label: logginLabels.login,
         header,
         size: 's',
-        dismissible: false,
         closeable: true,
+        dismissible: this.isWindowDismissible == true ? true : false,
       })
       .subscribe();
   }
+  IsCloseWindow: boolean = false;
+
+  isWindowDismissible: boolean = false;
 }

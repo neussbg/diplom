@@ -1,9 +1,9 @@
-<div style="position: relative" class="content-page">
+<main style="position: relative" class="content-page">
     <div style="min-height:418px; position: relative;" class="container">
         <div class="contacts-block" data-aos="zoom-out-right"
             data-aos-duration="1500">
             <div class="contacts-block-address">
-                <div class="categories-title">Контакты</div>
+                <header class="categories-title">Контакты</header>
                 <div class="contacts-content"
                     *ngFor="let item of addressValue">
                     <span class="contacts-content__title">{{item.title}}:
@@ -15,15 +15,15 @@
         <div>
             <img class="img-person" src="assets/img/contacts/personaly.svg">
 
-            <div class="img-collection">
+            <section class="img-collection">
                 <tui-svg class="img-collection__icon"
                     (click)="redirect(item.url)"
                     *ngFor="let item of imgCollection"
                     [src]="item.src"></tui-svg>
-            </div>
+            </section>
         </div>
     </div>
-    <div class="containers">
+    <section class="containers">
         <ya-map [center]="[47.249715, 39.620330]" [zoom]="19">
             <ya-placemark *ngFor="let placemark of placementMarks"
                 [geometry]="placemark.geometry"
@@ -31,8 +31,8 @@
                 [options]="placemark.options">
             </ya-placemark>
         </ya-map>
-    </div>
+    </section>
     <app-footer></app-footer>
-</div>
+</main>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"
     type="text/javascript"></script>

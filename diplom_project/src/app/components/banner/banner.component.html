@@ -1,19 +1,20 @@
-<div class="main-page ">
-    <div class="main-info-block container">
+<main class="main-page ">
+    <header class="main-info-block container">
         <div class="info-block container">
-            <div class="info-block__title">
+            <aside class="info-block__title">
                 Продажа и установка систем кондиционирования
-            </div>
-            <div class="info-block__description">
+            </aside>
+            <section class="info-block__description">
                 “АСМ Инжиниринг” поможет создать
                 Вам комфортный микроклимат в помещении любого назначения в
                 г.
                 Ростове-на-Дону
-            </div>
+            </section>
             <button class="info-block__application">Перейти в
                 каталог</button>
 
-            <div class="feedback-block ">
+            <section class="feedback-block" data-aos="fade-up"
+                data-aos-duration="1000">
                 <div class="feedback-block__item">
                     <tui-svg src="assets/img/main/support.svg"></tui-svg>
                     <a href="company" class="text">Мы поможем вам с
@@ -24,19 +25,19 @@
                     <a href="attendance" class="text">Установим вашу
                         сплит-систему</a>
                 </div>
-            </div>
+            </section>
         </div>
         <div class="main-info-block-img">
             <img src="../../../assets/img/main/bc-or.jpg" alt="backgroun-logo">
             <!-- <img src="assets/img/main/orange-background.svg"> -->
             <!-- <img class="application-img" src="assets/img/conditioner.svg" /> -->
         </div>
-    </div>
+    </header>
 
-    <div class="banner">
+    <section class="banner">
         <div class="header">
             <div class="header-price">
-                <span class="header-price__new">45 990 ₽</span>
+                <article class="header-price__new">45 990 ₽</article>
                 <span class="header-price__old strikethrough">56 990
                     ₽</span>
             </div>
@@ -48,14 +49,6 @@
             <div style="margin-bottom: 6px" class="info__description">
                 Кондиционер Kentatsu KSGB53HZAN1/KSRB53HZAN1
             </div>
-
-            <!-- <div class="rating-stars">
-                <tui-rating
-                    class="rating"
-                    [disabled]="!isAdmin"
-                    [(ngModel)]="rating"></tui-rating>
-                <div class="info__previus">Отзывов {{15}}</div>
-            </div> -->
         </div>
         <div class="banner__footer">
             <button (click)="route('products')" class="footer__basket">В
@@ -65,8 +58,5 @@
                 [src]="'assets/img/products/heart.svg'">
             </tui-svg>
         </div>
-    </div>
-</div>
-
-
-<!--   [src]="isHeartActive ? 'assets/img/products/heart.svg' : checkButton" -->
+    </section>
+</main>

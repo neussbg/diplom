@@ -1,12 +1,12 @@
-<div class="content-page">
+<main class="content-page">
     <app-banner></app-banner>
 
     <div class="block-about container">
         <div class="info-block-company">
-            <div class="block-title">
+            <header class="block-title">
                 О компании
-            </div>
-            <div class="company-info">
+            </header>
+            <section class="company-info">
                 <img class="company-info__img" src="assets/img/ingener.svg">
                 <div class="company-info__description">
                     Наш ассортимент - инженерные системы. Широкий выбор
@@ -27,11 +27,11 @@
                             (click)="route('company')">Подробнее</button>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
 
     </div>
-    <div class="block-company-info"
+    <section class="block-company-info"
         [ngStyle]="{'background' : 'url(assets/img/footer.svg)'}">
         <div class="company container">
             <div class="block-title">
@@ -52,14 +52,14 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="block-stocks">
+    <section class="block-stocks">
         <div class="stocks-info">
             <img class="stocks-info__img" src="assets/img/letter.svg" />
             <div class="info-content">
-                <span class="info-content__title">Будьте в курсе всех
-                    акций!</span>
+                <header class="info-content__title">Будьте в курсе всех
+                    акций!</header>
                 <br *ngIf="mediaWidth">
                 <span class="info-content__description">
                     Оставьте адрес своей электронной почты и получайте
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <ng-template
         #content
         let-observer>
@@ -135,4 +135,4 @@
     </ng-template>
     <app-categories></app-categories>
     <app-footer></app-footer>
-</div>
+</main>

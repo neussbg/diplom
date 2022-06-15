@@ -46,6 +46,8 @@ export class RegistrationPageComponent implements OnInit {
 
   errorMessage: string = '';
 
+  IsCloseWindow: boolean = false;
+
   @ViewChild('content', { static: true }) content!: PolymorpheusContent<
     TuiDialogContext<void, undefined>
   >;
@@ -69,15 +71,19 @@ export class RegistrationPageComponent implements OnInit {
     private readonly portalService: TuiPortalService
   ) {}
 
-  onSubmitRegistration() {
+  test: boolean = false;
+  onSubmitRegistration(value: any) {
     this.authForm.disable();
     this.aSub = this.auth.registration(this.authForm.value).subscribe(
       () => {
-        this.router.navigate(['/login'], {
-          queryParams: {
-            registered: true,
-          },
-        });
+        // this.auth.registration
+        this.test = true;
+        this.router.navigate(['/products']);
+        // this.router.navigate(['/login'], {
+        //   queryParams: {
+        //     registered: true,
+        //   },
+        // });
       },
       (error) => {
         this.hasErrors = true;
@@ -88,12 +94,17 @@ export class RegistrationPageComponent implements OnInit {
     );
   }
 
+  closeForm() {
+    this.IsCloseWindow = true;
+    this.router.navigate(['/products']);
+  }
+
   showPassword() {
     this.show = !this.show;
   }
 
   ngOnInit(): void {
-    this.onClick(this.content, this.header, 'fullscreen');
+    this.onClick(this.content, this.header, 'l');
 
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registration']) {
@@ -108,15 +119,22 @@ export class RegistrationPageComponent implements OnInit {
     }
   }
 
+  isErrorValue: boolean = false;
+
   showIfFormRequare() {
     setTimeout(() => {
-      if (this.errorMessage == '') {
+      this.isErrorValue = true;
+      // if (this.errorMessage == '') {
+
+      if (this.isErrorValue === true) {
         this.onSubmitMessage(
           this.contentMessageRequest,
           this.headerMessageRequest,
           's'
         );
       }
+      // }
+      this.router.navigate(['/products']);
     }, 500);
   }
   onSubmitMessage(
@@ -131,7 +149,13 @@ export class RegistrationPageComponent implements OnInit {
         size: 's',
         closeable: true,
       })
-      .subscribe();
+      .subscribe(() => {
+        this.router.navigate(['/login'], {
+          queryParams: {
+            registered: true,
+          },
+        });
+      });
   }
 
   onClick(
@@ -144,8 +168,8 @@ export class RegistrationPageComponent implements OnInit {
         label: logginLabels.registration,
         header,
         size: 's',
-        closeable: true,
         dismissible: false,
+        closeable: this.IsCloseWindow,
       })
       .subscribe();
   }

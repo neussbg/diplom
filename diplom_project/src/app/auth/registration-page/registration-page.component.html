@@ -1,15 +1,9 @@
-<button
-    size="m"
-    class="tui-space_right-2 tui-space_bottom-2"
-    (click)="onClick(content, header, 'fullscreen')">
-    Show
-</button>
-
 <ng-template
     #content
     let-observer>
     <div class="auth-container">
-        <form [formGroup]="authForm" (ngSubmit)="onSubmitRegistration()">
+        <form [formGroup]="authForm"
+            (ngSubmit)="onSubmitRegistration(isErrorValue == true ? observer.complete() : '')">
 
             <div class="auth-container-data">
                 <div style="height: 80px">
@@ -52,8 +46,6 @@
                     'Скрыть' :
                     'Показать пароль'}}
                 </div>
-                <!-- <button class="show" (click)="showPassword()">{{show ? 'Скрыть' :
-                'Показать пароль'}}</button> -->
 
                 <div style="display: flex; align-items:center;">
                     <input style="margin-bottom: 42px"
@@ -81,7 +73,9 @@
             </div>
             <div class="auth-helper">
                 <button routerLink="/login">Войти</button>
-                <!-- <button>Не помню пароль</button> -->
+                <button
+                    (click)="closeForm()">Вернуться
+                    обратно</button>
             </div>
         </form>
     </div>

@@ -23,7 +23,7 @@ import { CompanyPageComponent } from './pages/company-page/company-page.componen
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { EmptyPageComponent } from './pages/empty-page/empty-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { AttendancePageComponent } from './pages/attendance-page/attendance-page.component';
@@ -59,6 +59,7 @@ import { UserComponent } from './pages/user/user.component';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { TokenInterceptor } from './auth/token-interceptor';
 
 export const mapConfig: YaConfig = {
   apikey: 'b1484602-759f-463f-9f27-0d8191d4c5cb',
@@ -129,6 +130,7 @@ export function initApp(configurationService: TaskService) {
     CurrencyPipe,
     AuthService,
     { provide: httpInterceptorProviders, useValue: undefined },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     {
       provide: APP_INITIALIZER,
       useFactory: initApp,

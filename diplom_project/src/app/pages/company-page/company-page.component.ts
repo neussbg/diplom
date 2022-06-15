@@ -60,31 +60,9 @@ export class CompanyPageComponent implements OnInit {
 
   conditionersMarks = CONDITIONERS_MARKS;
 
-  constructor() {
-    // let swiper = new Swiper(".mySwiper",{
-    //         slidesPerView: 1,
-    //         spaceBetween: 30,
-    //         pagination:{
-    //             el:"swiper-pagination",
-    //             clickable: true,
-    //         },
-    //         breakpoint:{
-    //             640: {
-    //                 slidesPerView: 1,
-    //             },
-    //             768: {
-    //                 slidesPerView: 2,
-    //             },
-    //             1024: {
-    //                 slidesPerView: 3,
-    //             }
-    //         }
-    //     });
-  }
+  constructor() {}
 
-  showText() {
-    console.log('!!!');
-  }
+  showText() {}
 
   ngOnInit(): void {}
 

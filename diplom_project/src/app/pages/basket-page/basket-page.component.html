@@ -1,8 +1,8 @@
-<div class="content-page">
+<main class="content-page">
     <ng-container *ngIf="totalCount > 0">
-        <div class=" container basket-items-block">
+        <div style="overflow-x: auto" class=" container basket-items-block">
             <div class="categories-title">Корзина</div>
-            <div class="cart-table">
+            <section class="cart-table">
                 <div class="cart-product">
                     <table class="table ">
                         <thead>
@@ -49,9 +49,16 @@
                                 </td>
 
                                 <td>
-                                    <div #totalElementCount class="item">{{
-                                        item.price }}
-                                    </div>
+                                    <input style="border: none;
+                                    background: no-repeat;
+                                    font-size: 18px;"
+                                        class="item"
+                                        [(ngModel)]="item.count * item.price"
+                                        [ngModelOptions]="{ standalone: true }"
+                                        min="1"
+                                        type="button"
+                                        value="{{item.count * item.price}}" />
+
                                 </td>
                                 <td>
                                     <img style="cursor:pointer;"
@@ -62,7 +69,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="total-items-block">
+                <section class="total-items-block">
                     <div class="items-promo">
                         <span class="text">Есть промокод ? Введите!</span>
                         <div>
@@ -79,32 +86,32 @@
                         <span class="items-order__price">Итого:
                             {{total}} ₽</span>
                         <button class="items-order__buy"
-                            (click)="onClick(content, header, 's')">
+                            (click)="requestToBuy()">
                             Оформить заказ
                         </button>
                     </div>
-                </div>
-            </div>
+                </section>
+            </section>
         </div>
     </ng-container>
 
     <ng-container *ngIf="totalCount === 0">
 
-        <div class="empty-basket-block container">
+        <section class="empty-basket-block container">
             <tui-svg
                 style="height: 200px; width:500px; margin: 30px 0px 30px 0px;"
                 src="assets/img/basket/empty-basket.svg"></tui-svg>
-            <h2>Ваша корзина пуста</h2>
+            <header>Ваша корзина пуста</header>
             <span>На нашем сайте представлено более 200
                 товаров,отправляйтесь
                 в каталог, выберите интересующий товар и нажмите кнопку
                 «В корзину»</span>
             <button class="empty-basket-block__add" routerLink="/products">В
                 каталог</button>
-        </div>
+        </section>
     </ng-container>
     <app-footer></app-footer>
-</div>
+</main>
 
 <ng-template #header let-observer>
     <div class="header">

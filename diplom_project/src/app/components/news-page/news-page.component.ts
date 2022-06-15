@@ -1,13 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-import { AuthService } from 'src/app/pages/services/auth.service';
+import { AuthService, TOKEN_KEY } from 'src/app/pages/services/auth.service';
 import { CardService } from 'src/app/pages/services/card.service';
 import { CartService } from 'src/app/pages/services/cart.service';
-import {
-  Product,
-  ProductsService,
-} from 'src/app/pages/services/products.service';
 import { Routes } from 'src/assets/const/route.data';
 import { NavigationService } from '../../pages/services/navigation.service';
 
@@ -41,6 +37,8 @@ export class NewsPageComponent implements OnInit {
 
   totalCount!: number;
 
+  isLogginIn: boolean = false;
+
   /** Флаг переключения темы */
   @Input() changerTheme: boolean = false;
 
@@ -54,6 +52,9 @@ export class NewsPageComponent implements OnInit {
   isLoggin: boolean = false;
   value: any;
   ngOnInit(): void {
+    if (localStorage.getItem(TOKEN_KEY)) {
+      this.isLogginIn = true;
+    }
     if (localStorage.getItem('auth-login') !== null) {
       this.isLoggin = true;
       this.loginName = localStorage.getItem('auth-login') as string;
@@ -87,12 +88,9 @@ export class NewsPageComponent implements OnInit {
       this.totalCount = data.length;
     });
 
-    this.auth.loginList.subscribe((data) => {
-      console.log(data, 'login');
-    });
+    this.auth.loginList.subscribe((data) => {});
 
     this.loginName = localStorage.getItem('auth-login') as string;
-    console.log(this.loginName);
 
     // this.getProductList();
     const ss = this.cartService.loadCart();
@@ -128,6 +126,7 @@ export class NewsPageComponent implements OnInit {
   /** Пеерключает тему приложения */
   onChangeTheme() {
     console.log(this.changerTheme);
+    this.navigate.themeSubject.next(this.changerTheme);
 
     this.changerTheme = !this.changerTheme;
     this.eventChangeThemeToggle.emit(this.changerTheme);

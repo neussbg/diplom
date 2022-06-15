@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { brand } from 'src/app/components/category-settings/category-settings.component';
+import { IBrand } from 'src/app/components/category-settings/category-settings.component';
 import { BaseApiService } from './base-api.service';
 
 const httpOptions = {
@@ -23,13 +23,13 @@ export class BrandsService extends BaseApiService {
 
   private brandController = this.backEndBrandsController;
 
-  getBrands(): Observable<brand[]> {
-    return this.http.get<brand[]>(this.brandController);
+  getBrands(): Observable<IBrand[]> {
+    return this.http.get<IBrand[]>(this.brandController);
   }
 
-  addBrand(item: any): Observable<brand> {
+  addBrand(item: any): Observable<IBrand> {
     const url = this.brandController;
-    return this.http.post<brand>(url, item, httpOptions);
+    return this.http.post<IBrand>(url, item, httpOptions);
   }
 
   deleteBrand(id: number) {

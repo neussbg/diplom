@@ -84,6 +84,10 @@ export class ItemsComponent implements OnInit {
 
   itemsBrand: any;
 
+  sortForm: FormGroup = new FormGroup({
+    name: new FormControl(null, Validators.required),
+  });
+
   rateControl = new FormControl(this.star as number);
   ngOnInit(): void {
     this.getAllProducts();
@@ -92,52 +96,19 @@ export class ItemsComponent implements OnInit {
 
     this.allItemsValue = this.cartServer.getItems();
 
+    this.productsApi.filterTypeSubject.subscribe((data) => {
+      for (let item of data) {
+        this.devicesArray = this.devicesArray.filter(
+          (filterItem) => filterItem.typeId == item
+        );
+      }
+    });
     this.productsApi.filterBrandSubject.subscribe((data) => {
       for (let item of data) {
-        // this.devicesArray.sort((filter)=> filter.brandId == item)
         this.devicesArray = this.devicesArray.filter(
           (filteritem) => filteritem.brandId == item
         );
-        // console.log(newArr);
-        // const result = [...newArr];
       }
-
-      // console.log(data);
-
-      // for (let item of data) {
-      // debugger;
-      // if (item != null || undefined) {
-      // console.log(
-      //   (this.devicesArray = this.devicesArray.filter(
-      //     (filterItem) => filterItem.brandId == item
-      //   ))
-      // let itemsSub = new Subject();
-      // );
-      // for (let item of data) {
-      //   itemsSub.next(item);
-      // }
-
-      // this.productsApi.getFilterDevices(data).subscribe((items) => {
-      //   items.rows.filter((fil) => fil.brandId === +data);
-      // });
-
-      // console.log(
-      //   this.productsApi.getFilterDevices(data).subscribe((items) => {
-      //     items.rows.filter((fil) => fil.brandId === +data);
-      //   })
-      // );
-
-      // this.productsApi.getDevices().subscribe((data) => {
-      //   data.rows.filter((value) => value.typeId === item);
-      // });
-      // }
-
-      // this.devicesArray = this.devicesArray.filter(
-      //   (filterItem) => filterItem.brandId == item
-      // );
-      // }
-
-      // return this.devicesArray;
 
       let filterObject = {};
       data.forEach((s) => {
@@ -146,84 +117,8 @@ export class ItemsComponent implements OnInit {
         };
 
         this.itemsBrand = s;
-        // console.log(filterObject);
       });
-      // console.log(this.itemsBrand);
-
-      // this.devicesArray.forEach((s) => {
-      //   console.log(s.some((el: any) => el === data));
-      // });
-      // let newArr = this.devicesArray.filter((obj) =>
-      //   obj.some((el: any) => el === data)
-      // );
-      // console.log(newArr);
-
-      // this.devicesArray = this.devicesArray.filter(
-      //   (value) => value.brandId === this.itemsBrand
-      // );
     });
-
-    // this.productsApi.filterTypeSubject.subscribe((data) => {
-    //   // this.filter = Object.values(data);
-
-    //   let filterObject = {};
-    //   data.forEach((s) => {
-    //     filterObject = {
-    //       item: s,
-    //     };
-
-    //     console.log(filterObject);
-
-    //     this.itemsNumber = s;
-    //     console.log(this.itemsNumber);
-    //   });
-
-    //   this.filter = Object.values(data);
-    //   console.log(this.filter);
-
-    //   this.devicesArray = this.devicesArray.filter(
-    //     (value) => value.typeId === this.itemsNumber
-    //   );
-
-    //   // this.getAllProducts(items);
-
-    //   // this.devicesArray.forEach((data) => {
-    //   // this.devicesArray = [];
-    //   //   if (this.filter[0] == data.typeId) {
-    //   //     this.itemAny.next(data);
-    //   //   }
-    //   // });
-
-    //   // this.devicesArray.filter((value) => {
-    //   //   if (this.filter[0] == value.typeId) {
-    //   //     this.devicesArray = [];
-    //   //     this.devicesArray.push(value);
-    //   //     this.itemAny.next(value);
-    //   //     // this.devicesArray.concat(Array.from(value));
-    //   //     // this.productsApi.getDevices(value).subscribe(() => {
-    //   //     // const source = from(this.devicesArray);
-    //   //     // console.log(source);
-
-    //   //     // const ex = source.pipe(filter((item) => item.id == this.filter[0]));
-    //   //     // const subscribe = ex.subscribe((val) =>
-    //   //     //   console.log(`Under the age of 25: ${val}`)
-    //   //     // );
-
-    //   //     // this.devicesArray.push(value);
-    //   //     // console.log(value);
-    //   //     // const item = value;
-    //   //     return this.itemAny.subscribe((data) => {
-    //   //       console.log(data);
-
-    //   //       this.devicesArray.push(data);
-    //   //     });
-
-    //   //     // console.log(this.devicesArray);
-    //   //     // });
-    //   //     // this.filterItemsValue.push(value);
-    //   //   }
-    //   // });
-    // });
   }
 
   file = null;
@@ -247,6 +142,16 @@ export class ItemsComponent implements OnInit {
     this.currentPage = page + 1;
   }
 
+  sort(value: any) {
+    console.log(value);
+
+    if (value == 0) {
+      this.devicesArray.sort((a, b) => +a.price - +b.price);
+    } else if (value == 1) {
+      this.devicesArray.sort((a, b) => +b.price - +a.price);
+    }
+  }
+
   data: any;
 
   openProductCard(data: any): void {
@@ -262,7 +167,6 @@ export class ItemsComponent implements OnInit {
   itemValueProduct!: Product;
   itemId!: number;
   getOneItem(item: Product, flag?: boolean) {
-    console.log(item);
     this.itemValueProduct = item;
     this.isEdit = flag;
 
@@ -302,7 +206,6 @@ export class ItemsComponent implements OnInit {
   onSubmit(item?: any, isEditable?: boolean) {
     this.isEdit = isEditable;
     item = this.itemValueProduct;
-    console.log(this.itemValueProduct);
 
     if (this.isEdit == true) {
       this.updateDeviceValue(item.id, item);
@@ -313,14 +216,12 @@ export class ItemsComponent implements OnInit {
   }
 
   updateProduct(id: number, item: Product) {
-    this.productsApi.updateDeviceItem(id, item).subscribe((data: Product) => {
-      console.log(item);
-      console.log(data);
-    });
+    this.productsApi
+      .updateDeviceItem(id, item)
+      .subscribe((data: Product) => {});
   }
 
   cancel(value: any) {
-    console.log(value);
     this.deviceForm.reset();
     // this.addBrandForm.reset(value);
     // if (!this.isAdded || !this.isDeleted) {
@@ -336,9 +237,8 @@ export class ItemsComponent implements OnInit {
     this.productsApi.getDevices().subscribe((items) => {
       this.devicesArray = items.rows;
       this.deviceCount = items.rows.length;
-      const itemss = [1, 2, 3];
 
-      console.log(this.devicesArray.filter((item) => item.typeId === itemss));
+      // console.log(this.devicesArray.filter((item) => item.typeId === itemss));
 
       // console.log(this.devicesArray.filter((item) => item.typeId === test));
 
@@ -359,23 +259,18 @@ export class ItemsComponent implements OnInit {
         this.deviceId = s.id;
         s.typeId;
         this.deviceImg = s.img;
-        console.log(this.deviceImg);
 
         // this.star = s.rating;
       });
-      this.filterItemsValue.forEach((id: any) => {
-        console.log(id.value);
-      });
-
-      console.log(this.filter == []);
+      this.filterItemsValue.forEach((id: any) => {});
     });
   }
 
   deviceForm: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
+    brandId: new FormControl(null, Validators.required),
     oldprice: new FormControl(null),
     price: new FormControl(null, Validators.required),
-    brandId: new FormControl(null, Validators.required),
     typeId: new FormControl(null, Validators.required),
     img: new FormControl(null, Validators.required),
   });
@@ -414,7 +309,6 @@ export class ItemsComponent implements OnInit {
     formData.append('img', this.deviceForm.get('img')?.value);
 
     this.productsApi.addDevice(formData).subscribe((res) => {
-      console.log(res);
       alert('Uploaded Successfully.');
       this.devicesArray.push(formData);
       this.getAllProducts();
@@ -428,13 +322,10 @@ export class ItemsComponent implements OnInit {
     //   img: this.fileEvent.name,
     // };
     this.devicesArray.push(formData);
-
-    console.log(this.value);
   }
 
   updateDeviceValue(id: number, value: any) {
     value = new FormData();
-    console.log(this.itemValueProduct);
 
     value.append('id', this.itemValueProduct.id.toString());
     value.append('name', this.deviceForm.get('name')?.value);
@@ -443,9 +334,7 @@ export class ItemsComponent implements OnInit {
     value.append('brandId', this.deviceForm.get('brandId')?.value);
     value.append('typeId', this.deviceForm.get('typeId')?.value);
     value.append('img', this.deviceForm.get('img')?.value);
-    this.productsApi.updateDeviceItem(id, value).subscribe((data) => {
-      console.log(data, 'update');
-    });
+    this.productsApi.updateDeviceItem(id, value).subscribe((data) => {});
   }
 
   /** Удаляет девайс по ИД
@@ -461,7 +350,6 @@ export class ItemsComponent implements OnInit {
   selectedFile!: File;
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0].name;
-    console.log(this.selectedFile);
   }
   blob = new Blob([], { type: 'jpg' });
 

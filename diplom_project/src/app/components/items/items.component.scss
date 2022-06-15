@@ -1,3 +1,6 @@
+.oldprice {
+  margin-top: 20px;
+}
 .product-block {
   &__items {
     display: flex;
@@ -10,12 +13,18 @@
     justify-content: flex-start;
 
     .add-product {
+      margin-left: 12px;
       background: linear-gradient(91.3deg, #0d0dff 21.07%, #2222b1 102.35%);
       border-radius: 2px;
       color: white;
       border: none;
       font-size: 19px;
       width: 28px;
+      height: 28px;
+      display: flex;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
     }
 
     ::ng-deep tui-select {
@@ -29,6 +38,26 @@
             color: black;
             padding-top: 0 !important;
           }
+        }
+      }
+    }
+
+    .sort-buttons {
+      &__find {
+        margin: 0 10px 0 10px;
+        border: none;
+        background: none;
+
+        &:hover {
+          color: #ff8a00;
+        }
+      }
+      &__reset {
+        border: none;
+        background: none;
+
+        &:hover {
+          color: #ff8a00;
         }
       }
     }
@@ -226,6 +255,7 @@ span {
 
   ::ng-deep button {
     tui-wrapper {
+      border-radius: 20px;
       .t-content {
         background: none !important;
       }

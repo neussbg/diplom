@@ -28,13 +28,13 @@
                     src="assets/img/product/add.svg">
                 </tui-svg>
             </div>
-            <div class="inventors-conditioners">
+            <!-- <div class="inventors-conditioners">
                 <label>Инвентор</label>
                 <div class="inventorts-conditioners__items">
                     <button (click)="checkInventorts()">Есть</button>
                     <button>Нет</button>
                 </div>
-            </div>
+            </div> -->
             <div style="margin-bottom:22px" class="series-block">
                 <label>Мощность</label>
                 <div class="series-conditioners">
@@ -62,9 +62,9 @@
                     *ngFor="let item of brandsArray,let i = index">
 
                     <span [title]="item.name"
-                        style="width: 58px;"
+                        style="width: 74px;"
                         class="max-text-content">{{item.name}}</span>
-                    <input type="checkbox"
+                <input type="checkbox"
                         (change)="getItemBrandValue(item)" />
 
                     <tui-svg *ngIf="isAdmin" style="cursor: pointer;"
@@ -190,7 +190,7 @@
             }}</h3>
         <div>
             <form [formGroup]="powerForm"
-                (ngSubmit)="onSubmitPower(itemValue, observer.complete())">
+                (ngSubmit)="onSubmitPower(itemValue, isUpdatePower=true)">
                 <div class="content">
                     <div class="content__input">
                         <input type="number"
@@ -223,7 +223,7 @@
             }}</h3>
         <div>
             <form [formGroup]="powerForm"
-                (ngSubmit)="onSubmitPower(powerForm.value, observer.complete())">
+                (ngSubmit)="onSubmitPower(powerForm.value, isCreatePower == true)">
                 <div class="content">
                     <div class="content__input">
                         <input type="number"
@@ -259,7 +259,7 @@
             <div class="sumbit-buttons">
                 <button tuiButton appearance="primary"
                     class="submit-buttons__submit"
-                    (click)="onSubmitPower(valueId, observer.complete())"
+                    (click)="onSubmitPower(valueId)"
                     type="submit">Подтвердить</button>
                 <button appearance="accent"
                     tuiButton

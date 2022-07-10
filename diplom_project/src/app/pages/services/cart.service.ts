@@ -74,7 +74,6 @@ export class CartService {
   }
 
   removeItem(item: any) {
-    debugger;
     const index = this.items.findIndex((i) => i.id === item.id);
 
     if (index > -1) {

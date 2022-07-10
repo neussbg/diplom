@@ -55,7 +55,7 @@
             </div>
             <div *ngIf="isAdmin" class="content-buttons">
                 <button (click)='getOneItem(item, isEdit = true)' type="button"
-                    class="content-buttons__edit">Редактирова</button>
+                    class="content-buttons__edit">Редактировать</button>
 
                 <tui-svg style="cursor:pointer"
                     (click)='getOneItemToDelete(item)'
@@ -180,7 +180,7 @@
 <ng-template
     #contentDelete
     let-observer>
-    <div style="display:flex;margin-bottom: 20px" class="header">
+    <div style="margin-bottom: 20px" class="header">
         <h3>Вы уверены что хотите удалить товар
         </h3>
         <h4>{{itemValueProduct.name}}?</h4>

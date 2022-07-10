@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { CardService } from '../services/card.service';
 import { CartService } from '../services/cart.service';
 import { BrandsService } from '../services/brands.service';
+import { TOKEN_KEY } from '../services/auth.service';
 
 @Component({
   selector: 'app-products-page',
@@ -96,6 +97,9 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   brandIdToProducts!: number;
   ngOnInit(): void {
+    if (localStorage.getItem(TOKEN_KEY)) {
+      this.isAdminUser = true;
+    }
     // console.log(this.brandIdToProducts, 'brandToProducts');
     // this.brandApi.brandId.subscribe((s) => {});
 

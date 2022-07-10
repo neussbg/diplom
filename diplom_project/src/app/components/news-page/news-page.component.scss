@@ -91,6 +91,12 @@
   }
 }
 
+@media (max-width: 600px) {
+  .hide-button {
+    display: none !important;
+  }
+}
+
 @media (max-width: 1088px) {
   .nav-block {
     justify-content: space-between;

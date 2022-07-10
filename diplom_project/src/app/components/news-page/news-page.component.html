@@ -15,12 +15,26 @@
         <li><a class="menu__item" style="cursor: pointer;"
             (click)="redirectTo('main')"><img
               src="assets/img/navigation/logo.svg"></a></li>
+        <li>
+          <section style="display: flex;
+                align-content: center;
+                align-items: center;" *ngIf="isLoggin">
+            <span class="max-text-content menu__item ">{{isLoggin ?
+              loginName :
+              ''}}</span>
+            <tui-svg style="margin-left: 6px"
+              class="nav-content__img icon user"
+              src="assets/img/navigation/user.svg">
+            </tui-svg>
+          </section>
+        </li>
         <li><a class="menu__item" routerLink="/company">О компании</a></li>
         <li><a class="menu__item" routerLink="/attendance">Услуги</a></li>
         <li><a class="menu__item" routerLink="/products">Каталог</a></li>
         <li><a class="menu__item" routerLink="/contacts">Контакты</a></li>
         <li><a class="menu__item" routerLink="/basket">Корзина</a></li>
-        <li><a class="menu__item" routerLink="/user">Профиль</a></li>
+        <li><a class="menu__item" (click)="loggout()">Выйти</a>
+        </li>
       </ul>
     </div>
     <section class="nav-content"
@@ -30,7 +44,7 @@
         {{route.name}}
       </div>
     </section>
-    <section class="basket">
+    <section class="basket hide-button ">
       <tui-svg style="cursor: pointer"
         (click)="redirectTo('basket')"
         class="nav-content__img icon"
@@ -48,7 +62,7 @@
       </tui-svg>
     </section>
 
-    <tui-svg *ngIf="isLogginIn" [title]="'Выйти'" class="loggout"
+    <tui-svg *ngIf="isLogginIn" [title]="'Выйти'" class="loggout hide-button "
       style="cursor: pointer; width:18px !important"
       src="assets/img/navigation/logout.svg"
       (click)="loggout()">

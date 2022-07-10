@@ -61,6 +61,8 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     TuiDialogContext<void, undefined>
   >;
 
+  @ViewChild('contentDelete', { static: true }) contentDelete?: any;
+
   @ViewChild('contentPowerDelete', { static: true }) contentPowerDelete?: any;
 
   @ViewChild('contentPowerCreate', { static: true }) contentPowerCreate?: any;
@@ -70,8 +72,6 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   /** Мок для типа кондиционеров */
   type = typeConditioners;
 
-  /** Мок для бренда кондиционеров */
-  // brands = brandsConditioners;
 
   powersArray: any[] = [];
 
@@ -168,7 +168,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   itemFilterActive: any;
   test = new Object();
   filterSetType = new Set();
-   filterSetBrand = new Set();
+  filterSetBrand = new Set();
   getItemTypeValue(value: any) {
     this.itemFilterActive = value;
     this.isActiveType[value.id] = !this.isActiveType[value.id];
@@ -178,14 +178,9 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   }
 
   getItemBrandValue(value: any) {
-    // debugger;
     this.filterBrandId = value.id;
     this.filterBrandArray.push(this.filterBrandId);
     this.filterSetBrand = new Set(this.filterBrandArray);
-    // console.log(this.filterSetBrand, 'brands');
-
-    // this.filterArray.push(this.filterTypeId);
-    // console.log(this.filterArray);
   }
 
   onClickType(
@@ -303,7 +298,7 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     if (this.isDeletePower) {
       this.deletePower(item, 'Данная мощность была успешно удалена');
     }
-    window.location.reload();
+    // window.location.reload();
   }
 
   disabledButtonType: boolean = false;
@@ -376,7 +371,6 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   checkInventorts() {}
 
   getItemToUpdate(item: any, getValueEdit?: boolean) {
-    debugger;
     this.itemValue = item;
 
     if (getValueEdit === this.isEditBrand) {
@@ -413,16 +407,15 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
   valueId!: number;
 
   getItemToDelete(item: any, getValueDelete?: boolean) {
-    // debugger;
     this.valueId = item;
     console.log(this.valueId);
 
     // this.isEditBrand = false;
     if (getValueDelete === this.isDeletedBrand) {
-      this.onClick(this.contentPowerDelete, 'l');
+      this.onClick(this.contentDelete, 'l');
     }
     if (getValueDelete == this.isDeletedType) {
-      this.onClickType(this.contentPowerDelete, 'l');
+      this.onClickType(this.contentDelete, 'l');
     }
     if (getValueDelete == this.isDeletePower) {
       this.onClickPower(this.contentPowerDelete, 'l');
@@ -614,6 +607,8 @@ export class CategorySettingsComponent implements OnInit, OnDestroy {
     this.isTypeEdit = false;
     this.isDeletedType = false;
     this.isCreatePower = false;
+    this.isUpdatePower = false;
+    this.isDeletePower = false;
     // this.BrandForm.reset();
     // this.TypeForm.reset();
     // this.addBrandForm.reset(value);

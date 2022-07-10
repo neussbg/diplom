@@ -155,8 +155,12 @@ export class ItemsComponent implements OnInit {
   data: any;
 
   openProductCard(data: any): void {
+    console.log(data);
+
     this.productsApi.getAvailableDevice(data).subscribe((item: Product[]) => {
       this.data = item;
+      console.log(this.data);
+
       item.map((s) => {
         this.data = s;
       });

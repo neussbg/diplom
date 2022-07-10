@@ -113,7 +113,6 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
   onLoginUser(user: any) {
     this.auth.loginUser(user).subscribe((data: any) => {
-      debugger;
       console.log(data, 'data');
       localStorage.setItem('auth', data.accessToken);
       localStorage.setItem('auth-login', data.user.email);
